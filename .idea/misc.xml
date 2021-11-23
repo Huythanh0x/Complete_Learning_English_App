@@ -3,19 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/corner_blue_bg.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/corner_radius_5_bg.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/corner_yellow_bg.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/edit_profile_bg.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_edit_black_24.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/primary_color_gradient.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/profile_ic.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/fragment_choosing_mode.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_learning.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.3333333333333333" />
       </map>
     </option>
