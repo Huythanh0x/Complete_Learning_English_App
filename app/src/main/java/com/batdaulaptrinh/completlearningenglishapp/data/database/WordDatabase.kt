@@ -9,6 +9,7 @@ import com.batdaulaptrinh.completlearningenglishapp.model.Word
 @Database(entities = [Word::class], version = 2)
 abstract class WordDatabase : RoomDatabase() {
     abstract val wordDao: WordDAO
+    abstract val learnedDateDAO: LearnedDateDAO
 
     companion object {
         @Volatile

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CompletLearningEnglishApp">
         <activity
-            android:name=".ui.Login.MainLoginActivity"
+            android:name=".ui.login.MainLoginActivity"
             android:exported="true" />
         <activity
             android:name=".ui.introduction.IntroductionActivity"
