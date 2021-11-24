@@ -12,7 +12,7 @@ interface LearnedDateDAO {
     fun getAllLearnedDate(): LiveData<List<LearnedDate>>
 
     @Insert
-    fun insertLearnedDate()
+    fun insertLearnedDate(newLearnedDate: LearnedDate)
 
     @Query("DELETE FROM learned_date")
     fun deleteAllDate()

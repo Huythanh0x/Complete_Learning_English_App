@@ -26,13 +26,11 @@ class LearningFragment : Fragment() {
         "2019-01-09", "2019-01-10", "2019-01-11",
         "2019-01-24", "2019-01-25", "2019-01-26", "2019-01-27", "2019-01-28", "2019-01-29"
     )
-
     private val DATE_FORMAT = "yyyy-MM-dd"
-
     private var pink = 0
     private var gray = 1
-
     lateinit var calendarView: MaterialCalendarView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
