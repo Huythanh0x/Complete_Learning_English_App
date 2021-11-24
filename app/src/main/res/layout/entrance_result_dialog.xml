@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageView5" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView7"
+        android:id="@+id/result_level_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/level_advanced_img"
@@ -58,7 +58,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView7" />
+        app:layout_constraintTop_toBottomOf="@+id/result_level_txt" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/try_again_btn"
