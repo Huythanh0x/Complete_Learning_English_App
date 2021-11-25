@@ -10,6 +10,7 @@ import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentLearningBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.HomePagerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.LearningPagerAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayoutMediator
 
 class LearningFragment : Fragment() {
@@ -30,7 +31,7 @@ class LearningFragment : Fragment() {
                 else -> tab.text = "All words"
             }
         }.attach()
-        // Inflate the layout for this fragment
+
         return binding.root
     }
 

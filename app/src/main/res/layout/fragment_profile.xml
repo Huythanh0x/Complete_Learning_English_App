@@ -60,8 +60,8 @@
                 android:layout_height="150dp"
                 android:layout_marginTop="20dp"
                 app:cardCornerRadius="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias=".2"
+                app:layout_constraintEnd_toStartOf="@id/name_txt"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -97,10 +97,12 @@
                 android:id="@+id/name_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
                 android:text="Dinh Dat Vi"
                 android:textColor="@color/black"
                 android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/avatar_cv"
                 app:layout_constraintTop_toTopOf="@+id/avatar_cv" />
 
