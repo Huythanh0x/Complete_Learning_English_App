@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.TestTabFragment
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.WordDayTabFragment
 
-class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+class HomePagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int = 2
 

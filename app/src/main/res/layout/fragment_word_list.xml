@@ -75,7 +75,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vocabulary_today_tx"
             tools:itemCount="10"
-            tools:listitem="@layout/word_row_in_wordlist" />
+            tools:listitem="@layout/word_row_in_wordset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
