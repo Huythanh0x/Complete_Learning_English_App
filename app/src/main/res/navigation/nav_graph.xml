@@ -24,57 +24,15 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/choosingMode"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment"
-        android:label="ChoosingMode" />
-    <fragment
-        android:id="@+id/setGoalFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.SetGoalFragment"
-        android:label="SetGoalFragment" />
-    <fragment
-        android:id="@+id/completeIntroductionFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.CompleteIntroductionFragment"
-        android:label="fragment_complete_introduction"
-        tools:layout="@layout/fragment_complete_introduction" />
-    <fragment
-        android:id="@+id/findLevelFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.FindLevelFragment"
-        android:label="fragment_find_level"
-        tools:layout="@layout/fragment_find_level" />
-    <fragment
-        android:id="@+id/mainLoginFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginFragment"
-        android:label="fragment_main_login"
-        tools:layout="@layout/fragment_main_login" />
-    <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.SignInFragment"
-        android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
-    <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
-    <fragment
         android:id="@+id/wordDayTabFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.WordDayTabFragment"
         android:label="fragment_word_day_tab"
         tools:layout="@layout/fragment_word_day_tab" />
     <activity
-        android:id="@+id/introductionActivity"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.IntroductionActivity"
-        android:label="activity_introduction"
-        tools:layout="@layout/activity_introduction" />
-    <activity
         android:id="@+id/mainLoginActivity"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity"
         android:label="activity_main_login"
         tools:layout="@layout/activity_main_login" />
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.MainActivity"
-        android:label="MainActivity" />
     <fragment
         android:id="@+id/wordListFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordListFragment"
@@ -91,5 +49,4 @@
         android:id="@+id/flashCardFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.FlashCardFragment"
         android:label="FlashCardFragment" />
-    <fragment android:id="@+id/placeholder" />
 </navigation>

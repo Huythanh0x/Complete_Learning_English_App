@@ -28,9 +28,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_tool_bar"
-                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:text="WORD SET NUMBER 2"
                 android:textColor="@color/white" />
 
@@ -56,20 +56,19 @@
             android:id="@+id/flash_card_cv"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="100dp"
             app:cardCornerRadius="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".2"
-            app:layout_constraintWidth_percent=".5">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintWidth_percent=".7">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/flash_card_example_img"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -78,15 +77,38 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="20dp"
                 android:text="A person just starting to learn a skill or take part in an activity.\nA beginner's guide"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
+
         </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/next_card_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/next_card_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/flash_card_cv"
+            app:layout_constraintStart_toEndOf="@+id/flash_card_cv"
+            app:layout_constraintTop_toTopOf="@+id/flash_card_cv" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/previous_card_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/previous_card_ic"
+            app:layout_constraintBottom_toBottomOf="@+id/flash_card_cv"
+            app:layout_constraintEnd_toStartOf="@id/flash_card_cv"
+            app:layout_constraintTop_toTopOf="@+id/flash_card_cv" />
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/progress_sb"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTintMode="add"
             android:indeterminate="false"
             android:indeterminateOnly="false"
@@ -94,20 +116,66 @@
             android:progress="12"
             android:progressDrawable="@drawable/color_scrubber_progress"
             android:thumb="@drawable/color_scrubber_control"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/progress_txt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flash_card_cv" />
+            app:layout_constraintStart_toEndOf="@id/auto_play_state_img" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/progress_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="20dp"
             android:text="12/20"
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/progress_sb"
             app:layout_constraintTop_toTopOf="@+id/progress_sb" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/auto_play_state_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/play_flash_card"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
+            app:layout_constraintEnd_toStartOf="@+id/progress_sb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/progress_sb" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/en_word_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="5dp"
+            android:text="Beginner"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@id/speaker_flash_card_img"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/flash_card_cv"
+            app:layout_constraintTop_toBottomOf="@+id/flash_card_cv" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/speaker_flash_card_img"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/uk_speaker_ic"
+            app:layout_constraintBottom_toBottomOf="@+id/en_word_txt"
+            app:layout_constraintEnd_toEndOf="@+id/flash_card_cv"
+            app:layout_constraintStart_toEndOf="@+id/en_word_txt"
+            app:layout_constraintTop_toTopOf="@+id/en_word_txt" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/api_flash_card_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="/biginer/"
+            app:layout_constraintEnd_toEndOf="@+id/speaker_flash_card_img"
+            app:layout_constraintStart_toStartOf="@+id/en_word_txt"
+            app:layout_constraintTop_toBottomOf="@+id/en_word_txt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
