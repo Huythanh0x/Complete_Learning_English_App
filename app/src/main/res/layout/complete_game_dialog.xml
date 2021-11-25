@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_background_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:src="@drawable/main_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/complete_content_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="You are excellent"
+            android:textColor="@color/primaryColor"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/complete_txt"
+            app:layout_constraintStart_toStartOf="@+id/complete_txt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/complete_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="COMPLETE"
+            android:textColor="@color/lightPrimaryColor"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/complete_content_txt" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/correct_answer_cv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintDimensionRatio="H,8:5"
+            app:layout_constraintEnd_toStartOf="@id/wrong_answer_cv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/complete_txt"
+            app:layout_constraintWidth_percent=".4">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/statistics_learning_card_view_bg">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/correct_answer_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/montserrat_extra_bold"
+                    android:text="12"
+                    android:textColor="@color/lightPrimaryColor"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="@id/correct_answer_title_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/correct_answer_title_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Experience points"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/correct_answer_txt" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/wrong_answer_cv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/correct_answer_cv"
+            app:layout_constraintDimensionRatio="H,8:5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/correct_answer_cv"
+            app:layout_constraintTop_toTopOf="@+id/correct_answer_cv"
+            app:layout_constraintWidth_percent=".4">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/statistics_learning_card_view_bg">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/wrong_answer_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/montserrat_extra_bold"
+                    android:text="8"
+                    android:textColor="@color/red"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="@id/wrong_answer_title_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/wrong_answer_title_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Wrong answer"
+                    android:textColor="@color/red"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wrong_answer_txt" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_wrong_answer_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/try_again_game_card_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/correct_answer_cv"
+            tools:listitem="@layout/wrong_answer_row" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/try_again_game_card_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/outline_button_bg"
+            android:text="TRY AGAIN"
+            app:layout_constraintBottom_toTopOf="@+id/back_to_menu_flash_card_btn"
+            app:layout_constraintEnd_toStartOf="@id/add_to_next_set_btn"
+            app:layout_constraintStart_toStartOf="@+id/back_to_menu_flash_card_btn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_to_next_set_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/outline_button_bg"
+            android:text="ADD TO NEXT SET"
+            android:textColor="@color/lightPrimaryColor"
+            app:layout_constraintBottom_toTopOf="@+id/back_to_menu_flash_card_btn"
+            app:layout_constraintEnd_toEndOf="@+id/back_to_menu_flash_card_btn"
+            app:layout_constraintStart_toEndOf="@id/try_again_game_card_btn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/back_to_menu_flash_card_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/solid_button_bg"
+            android:text="BACK TO MENU"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
