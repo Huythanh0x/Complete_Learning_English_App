@@ -16,4 +16,6 @@
     <color name="light_green">#DEFFDF</color>
     <color name="red">#E91E63</color>
     <color name="super_light_red">#FAEBEB</color>
+    <color name="light_gray">#E8E4E4</color>
+    <color name="green">#09C811</color>
 </resources>
