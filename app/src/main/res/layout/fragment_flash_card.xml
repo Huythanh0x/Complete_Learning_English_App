@@ -67,7 +67,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/flash_card_example_img"
+                android:src="@drawable/clean_thumbnail_example"
                 android:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatTextView
