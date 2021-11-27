@@ -9,12 +9,23 @@
         android:id="@+id/mainLoginFragment"
         tools:layout="@layout/fragment_main_login"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginFragment"
-        android:label="MainLoginFragment" />
+        android:label="MainLoginFragment" >
+        <action
+            android:id="@+id/action_mainLoginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_mainLoginFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signInFragment"
         tools:layout="@layout/fragment_sign_in"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.SignInFragment"
-        android:label="SignInFragment" />
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         tools:layout="@layout/fragment_sign_up"

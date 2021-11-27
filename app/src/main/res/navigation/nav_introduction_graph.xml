@@ -9,12 +9,20 @@
         android:id="@+id/findLevelFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.FindLevelFragment"
         android:label="FindLevelFragment"
-        tools:layout="@layout/fragment_find_level" />
+        tools:layout="@layout/fragment_find_level" >
+        <action
+            android:id="@+id/action_findLevelFragment_to_setGoalFragment"
+            app:destination="@id/setGoalFragment" />
+    </fragment>
     <fragment
         android:id="@+id/setGoalFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.SetGoalFragment"
         android:label="SetGoalFragment"
-        tools:layout="@layout/fragment_set_goal" />
+        tools:layout="@layout/fragment_set_goal" >
+        <action
+            android:id="@+id/action_setGoalFragment_to_completeIntroductionFragment"
+            app:destination="@id/completeIntroductionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/completeIntroductionFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.CompleteIntroductionFragment"

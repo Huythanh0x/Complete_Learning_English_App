@@ -8,12 +8,20 @@
         android:id="@+id/navigation_home"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_navigation_home_to_choosingModeFragment"
+            app:destination="@id/choosingModeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_chat"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_navigation_chat_to_DMChatFragment"
+            app:destination="@id/DMChatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_learning"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.LearningFragment"
@@ -33,7 +41,11 @@
         android:id="@+id/wordListFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordListFragment"
         tools:layout="@layout/fragment_word_list"
-        android:label="WordListFragment" />
+        android:label="WordListFragment" >
+        <action
+            android:id="@+id/action_wordListFragment_to_wordDetailFragment"
+            app:destination="@id/wordDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/wordDetailFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment"
@@ -58,7 +70,20 @@
         android:id="@+id/choosingModeFragment"
         tools:layout="@layout/fragment_choosing_mode"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment"
-        android:label="ChoosingModeFragment" />
+        android:label="ChoosingModeFragment" >
+        <action
+            android:id="@+id/action_choosingModeFragment_to_wordListFragment"
+            app:destination="@id/wordListFragment" />
+        <action
+            android:id="@+id/action_choosingModeFragment_to_flashCardFragment"
+            app:destination="@id/flashCardFragment" />
+        <action
+            android:id="@+id/action_choosingModeFragment_to_connectWordFragment"
+            app:destination="@id/connectWordFragment" />
+        <action
+            android:id="@+id/action_choosingModeFragment_to_multipleChoiceFragment"
+            app:destination="@id/multipleChoiceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/connectWordFragment"
         tools:layout="@layout/fragment_connect_word"
