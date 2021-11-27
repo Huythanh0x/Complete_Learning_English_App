@@ -25,7 +25,7 @@
                 android:id="@+id/title_tool_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ENTRANCE TEST"
+                android:text="BEGIN"
                 android:textColor="@color/white" />
         </androidx.appcompat.widget.Toolbar>
 

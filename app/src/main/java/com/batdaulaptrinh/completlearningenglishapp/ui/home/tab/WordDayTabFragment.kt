@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home.tab
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,16 @@ class WordDayTabFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_day_tab, container, false)
+
+        binding.experiencePointCv.setOnClickListener{
+            val dialog = AlertDialog.Builder(requireContext()).setView(R.layout.statistic_experience_dialog).create()
+            dialog.show()
+        }
+
+        binding.learningDayCv.setOnClickListener{
+            val dialog = AlertDialog.Builder(requireContext()).setView(R.layout.statistic_streak_dialog).create()
+            dialog.show()
+        }
         return binding.root
 
     }

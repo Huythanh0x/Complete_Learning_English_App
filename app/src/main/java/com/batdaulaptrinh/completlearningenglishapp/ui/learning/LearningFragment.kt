@@ -31,7 +31,7 @@ class LearningFragment : Fragment() {
                 else -> tab.text = "All words"
             }
         }.attach()
-
+        binding.includedLayout.root.visibility = View.GONE
         return binding.root
     }
 

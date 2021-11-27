@@ -39,6 +39,9 @@ class HomeFragment : Fragment() {
         }.attach()
 
         initCalendar()
+        binding.includedLayout.root.visibility = View.GONE
+
+
         return binding.root
     }
 

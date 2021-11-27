@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/avatar_bg"
-            app:layout_constraintVertical_bias=".2" />
+            app:layout_constraintVertical_bias=".1" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/result_level_txt"
@@ -118,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
