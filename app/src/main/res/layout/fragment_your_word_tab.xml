@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardBackgroundColor="@android:color/transparent"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout

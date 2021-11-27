@@ -55,7 +55,7 @@
             android:id="@+id/standardBottomSheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardBackgroundColor="@android:color/transparent"
             android:orientation="vertical"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
