@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_introduct_graph"
+    app:startDestination="@id/findLevelFragment">
+
+    <fragment
+        android:id="@+id/findLevelFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.FindLevelFragment"
+        android:label="FindLevelFragment"
+        tools:layout="@layout/fragment_find_level" />
+    <fragment
+        android:id="@+id/setGoalFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.SetGoalFragment"
+        android:label="SetGoalFragment"
+        tools:layout="@layout/fragment_set_goal" />
+    <fragment
+        android:id="@+id/completeIntroductionFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.CompleteIntroductionFragment"
+        tools:layout="@layout/fragment_complete_introduction"
+        android:label="CompleteIntroductionFragment" />
+</navigation>

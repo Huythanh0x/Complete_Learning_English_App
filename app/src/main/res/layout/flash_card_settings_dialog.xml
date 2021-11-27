@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/delay_before_moving_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delay before moving" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/turn_of_after_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Turn off after" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/flash_card_mode"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

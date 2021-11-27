@@ -7,6 +7,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home"
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/navigation_chat"
@@ -28,25 +29,54 @@
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.WordDayTabFragment"
         android:label="fragment_word_day_tab"
         tools:layout="@layout/fragment_word_day_tab" />
-    <activity
-        android:id="@+id/mainLoginActivity"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity"
-        android:label="activity_main_login"
-        tools:layout="@layout/activity_main_login" />
     <fragment
         android:id="@+id/wordListFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordListFragment"
+        tools:layout="@layout/fragment_word_list"
         android:label="WordListFragment" />
     <fragment
         android:id="@+id/wordDetailFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment"
+        tools:layout="@layout/fragment_word_detail"
         android:label="WordDetailFragment" />
     <fragment
         android:id="@+id/testTabFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.TestTabFragment"
+        tools:layout="@layout/fragment_test_tab"
         android:label="TestTabFragment" />
     <fragment
         android:id="@+id/flashCardFragment"
+        tools:layout="@layout/fragment_flash_card"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.FlashCardFragment"
         android:label="FlashCardFragment" />
+    <fragment
+        android:id="@+id/allWordTabFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab.AllWordTabFragment"
+        tools:layout="@layout/fragment_all_word_tab"
+        android:label="AllWordTabFragment" />
+    <fragment
+        android:id="@+id/choosingModeFragment"
+        tools:layout="@layout/fragment_choosing_mode"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment"
+        android:label="ChoosingModeFragment" />
+    <fragment
+        android:id="@+id/connectWordFragment"
+        tools:layout="@layout/fragment_connect_word"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.game.ConnectWordFragment"
+        android:label="ConnectWordFragment" />
+    <fragment
+        android:id="@+id/DMChatFragment"
+        tools:layout="@layout/fragment_d_m_chat"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.chat.DMChatFragment"
+        android:label="DMChatFragment" />
+    <fragment
+        android:id="@+id/multipleChoiceFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.game.MultipleChoiceFragment"
+        tools:layout="@layout/fragment_multiple_choice"
+        android:label="MultipleChoiceFragment" />
+    <fragment
+        android:id="@+id/yourWordTabFragment"
+        tools:layout="@layout/fragment_your_word_tab"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab.YourWordTabFragment"
+        android:label="YourWordTabFragment" />
 </navigation>

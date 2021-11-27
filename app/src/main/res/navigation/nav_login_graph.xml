@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_login_graph"
+    app:startDestination="@id/mainLoginFragment">
+
+    <fragment
+        android:id="@+id/mainLoginFragment"
+        tools:layout="@layout/fragment_main_login"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginFragment"
+        android:label="MainLoginFragment" />
+    <fragment
+        android:id="@+id/signInFragment"
+        tools:layout="@layout/fragment_sign_in"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.SignInFragment"
+        android:label="SignInFragment" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        tools:layout="@layout/fragment_sign_up"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.SignUpFragment"
+        android:label="SignUpFragment" />
+</navigation>
