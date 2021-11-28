@@ -39,6 +39,7 @@ class ChatFragment : Fragment() {
                         DMChatFragment.KEY_CHAT_HEADER to chatRoom))
             }
 
+
         return binding.root
     }
 }

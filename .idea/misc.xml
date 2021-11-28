@@ -59,7 +59,7 @@
         <entry key="app/src/main/res/drawable/ul_speaker_ic.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/font/super_bold_font.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/layout/activity_introduction.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3182291666666667" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main_login.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/chat_room_row.xml" value="0.3333333333333333" />
@@ -84,7 +84,7 @@
         <entry key="app/src/main/res/layout/fragment_multiple_choice.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_set_goal.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.36261040235525027" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_starting_find_level.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_test_tab.xml" value="0.33" />
