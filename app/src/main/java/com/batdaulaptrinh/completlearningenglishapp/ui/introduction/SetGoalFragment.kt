@@ -14,13 +14,12 @@ class SetGoalFragment : Fragment() {
     lateinit var binding: FragmentSetGoalBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_set_goal, container, false)
-        binding.continueBtn.setOnClickListener{
-            findNavController().navigate(R.id.action_setGoalFragment_to_completeIntroductionFragment)
-        }
+        binding.continueBtn.setOnClickListener { findNavController().navigate(R.id.action_setGoalFragment_to_completeIntroductionFragment) }
+        binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
 
 
 

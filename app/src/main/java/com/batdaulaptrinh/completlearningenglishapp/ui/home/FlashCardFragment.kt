@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentFlashCardBinding
 
@@ -23,11 +24,9 @@ class FlashCardFragment : Fragment() {
             dialog.show()
         }
 
-
-
-
-
-
+        binding.backwardImg.setOnClickListener {
+            findNavController().popBackStack()
+        }
         return binding.root
 
     }

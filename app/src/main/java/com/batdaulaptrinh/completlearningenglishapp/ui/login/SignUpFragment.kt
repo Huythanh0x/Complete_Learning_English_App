@@ -20,13 +20,10 @@ class SignUpFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
-        binding.signUpTxt.setOnClickListener {
-            createSignUpSuccessfullyDialog()
-        }
-
+        binding.signUpTxt.setOnClickListener { createSignUpSuccessfullyDialog() }
+        binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
 
         return binding.root
-
     }
 
     private fun createSignUpSuccessfullyDialog() {
@@ -36,11 +33,10 @@ class SignUpFragment : Fragment() {
             false)
 
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
-        dialogBinding.signInBtn.setOnClickListener{
+        dialogBinding.signInBtn.setOnClickListener {
             findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
             dialog.dismiss()
         }
-
         dialog.show()
     }
 

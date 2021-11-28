@@ -10,11 +10,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentConnectWordBinding
+import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.EmptyLetterRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.MissingLetterRecyclerAdapter
-import java.lang.StringBuilder
+import com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment
 import java.util.*
 import java.util.function.Consumer
 import java.util.stream.Collectors
@@ -28,6 +30,7 @@ class ConnectWordFragment : Fragment() {
     lateinit var secondaryListMissingLetterRecyclerAdapter: MissingLetterRecyclerAdapter
     lateinit var emptyLetterRecyclerAdapter: EmptyLetterRecyclerAdapter
     var originWord: String = ""
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +40,16 @@ class ConnectWordFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_connect_word, container, false)
 
+        binding.backwardImg.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        arguments?.let {
+            val setWord = it.get(ChoosingModeFragment.KEY_ARGS_SET)
+            if (setWord is WordSet) {
+                binding.titleToolBar.text = "WORD SET NUMBER ${setWord.setNth}"
+            }
+        }
 
         //TODO FAKING HERE
         originWord = "BEAUTIFUL"
@@ -57,7 +70,7 @@ class ConnectWordFragment : Fragment() {
                 secondaryListMissingLetter) { clickedLetter, position ->
 //                Toast.makeText(context, "EMPTY LIST STRING IS $listEmptyLetter", Toast.LENGTH_SHORT)
 //                    .show()
-                if(clickedLetter == " " || clickedLetter == ""){
+                if (clickedLetter == " " || clickedLetter == "") {
                     return@EmptyLetterRecyclerAdapter
                 }
                 listEmptyLetter[position] = ""
@@ -116,6 +129,7 @@ class ConnectWordFragment : Fragment() {
 
         return binding.root
     }
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun shuffleString(string: String): String? {
         val list: List<Char?> = string.chars().mapToObj { c: Int -> c.toChar() }

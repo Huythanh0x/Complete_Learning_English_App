@@ -30,7 +30,7 @@ class ChoosingModeFragment : Fragment() {
         arguments?.let {
             val setWord = it.get(WordDayTabFragment.KEY_AGRS_SET)
             if (setWord is WordSet) {
-                binding.titleToolBar.text = "SET NUMBER ${setWord.setNth}"
+                binding.titleToolBar.text = "WORD SET NUMBER ${setWord.setNth}"
             }
 
             binding.testCv.setOnClickListener {
@@ -49,10 +49,15 @@ class ChoosingModeFragment : Fragment() {
                 findNavController().navigate(R.id.action_choosingModeFragment_to_flashCardFragment,
                     bundleOf(KEY_ARGS_SET to setWord))
             }
+            binding.backwardImg.setOnClickListener{
+                findNavController().popBackStack()
+            }
 
         }
 
         return binding.root
 
     }
+
+
 }

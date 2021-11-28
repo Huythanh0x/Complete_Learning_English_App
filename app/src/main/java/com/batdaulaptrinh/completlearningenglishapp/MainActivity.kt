@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
         supportActionBar?.hide()
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.navigation_home || destination.id == R.id.navigation_learning || destination.id == R.id.navigation_chat || destination.id == R.id.navigation_profile) {
+            if (destination.id == R.id.navigation_home || destination.id == R.id.navigation_learning || destination.id == R.id.navigation_chat || destination.id == R.id.navigation_profile) {
 
                 binding.bottomNavigationView.visibility = View.VISIBLE
             } else {
@@ -40,8 +41,8 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationView.visibility = View.GONE
             }
         }
-
     }
+
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }

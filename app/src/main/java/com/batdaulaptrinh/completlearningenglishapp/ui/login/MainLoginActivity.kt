@@ -1,6 +1,7 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.login
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -21,7 +22,7 @@ class MainLoginActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navControler = navHostFragment.navController
 
-//        navControler = findNavController(R.id.fragmentContainerView)
+//        navController = findNavController(R.id.fragmentContainerView)
         setupActionBarWithNavController(navControler)
     }
 

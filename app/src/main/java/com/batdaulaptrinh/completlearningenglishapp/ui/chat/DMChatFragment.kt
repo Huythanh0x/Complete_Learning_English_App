@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentDMChatBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom
@@ -31,6 +32,9 @@ class DMChatFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_d_m_chat, container, false)
 
+        binding.backwardImg.setOnClickListener {
+            findNavController().popBackStack()
+        }
         arguments?.let {
             val chatRoom = it.get(KEY_CHAT_HEADER)
             if (chatRoom is ChatRoom) {
@@ -45,14 +49,12 @@ class DMChatFragment : Fragment() {
         }
 
         //TODO FAKING HERE
-        binding.sendPictureImg.setOnClickListener{
+        binding.sendPictureImg.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_PICK
             intent.type = "image/*"
-            startActivityForResult(intent,REQUEST_CODE)
+            startActivityForResult(intent, REQUEST_CODE)
         }
-
-
 
 
         val listMessage = Utils.getListMessage()
@@ -63,7 +65,7 @@ class DMChatFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == REQUEST_CODE){
+        if (requestCode == REQUEST_CODE) {
             if (data != null) {
                 Log.d("TAG IMAGE", data.data.toString())
             }
@@ -71,5 +73,6 @@ class DMChatFragment : Fragment() {
 
         super.onActivityResult(requestCode, resultCode, data)
     }
+
     val REQUEST_CODE = 19343
 }

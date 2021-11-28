@@ -33,6 +33,9 @@ class WordListFragment : Fragment() {
 
         })
 
+        binding.backwardImg.setOnClickListener{
+            findNavController().popBackStack()
+        }
 
 
 

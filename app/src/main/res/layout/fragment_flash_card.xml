@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:id="@+id/backward_img"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView

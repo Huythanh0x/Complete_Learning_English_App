@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeFragment : Fragment() {
-
     lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(

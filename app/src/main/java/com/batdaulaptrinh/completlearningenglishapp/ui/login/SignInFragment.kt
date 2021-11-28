@@ -2,6 +2,7 @@ package com.batdaulaptrinh.completlearningenglishapp.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,10 +26,17 @@ class SignInFragment : Fragment() {
             activity?.finish()
         }
 
-        binding.signUpTxt.setOnClickListener{
+        binding.signUpTxt.setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
-
+        try {
+            findNavController().popBackStack(R.id.signUpFragment, true)
+        } catch (e: Exception) {
+            Log.e("TAG ERROR", e.toString())
+        }
+        binding.backwardImg.setOnClickListener {
+            findNavController().popBackStack()
+        }
         return binding.root
 
     }
