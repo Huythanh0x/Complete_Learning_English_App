@@ -19,6 +19,4 @@ data class Message(
     var timestamp: Any? = null,
     var readTimestamp: Any? = null,
     var audioDownloaded: Boolean = false
-) {
-
-}
+)

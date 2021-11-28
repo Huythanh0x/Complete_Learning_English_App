@@ -54,7 +54,6 @@
             android:gravity="center_horizontal"
             android:maxLength="10"
             android:maxLines="1"
-            android:text="Frank Martin"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/message_content_txt"
@@ -66,10 +65,13 @@
             android:id="@+id/message_content_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Hello from blog batdaulaptrinh"
+            android:layout_marginEnd="30dp"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@+id/cardView4"
+            app:layout_constraintEnd_toStartOf="@+id/sent_message_state_img"
             app:layout_constraintStart_toStartOf="@+id/user_name_txt"
-            app:layout_constraintTop_toBottomOf="@+id/user_name_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/user_name_txt"
+            tools:text="@tools:sample/full_names" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sent_message_time_txt"
@@ -89,6 +91,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/message_content_txt"
             app:layout_constraintEnd_toEndOf="@+id/sent_message_time_txt"
             app:layout_constraintStart_toStartOf="@+id/sent_message_time_txt"
-            app:layout_constraintTop_toBottomOf="@+id/sent_message_time_txt" />
+            app:layout_constraintTop_toTopOf="@+id/message_content_txt" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

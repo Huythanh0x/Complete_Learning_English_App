@@ -33,14 +33,15 @@ class HomeFragment : Fragment() {
         binding.viewPager2.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             when (position) {
-                0 -> tab.text = "Test"
-                else -> tab.text = "Everyday Word"
+                0 -> tab.text = "Everyday word"
+                else -> tab.text = "Test"
             }
         }.attach()
 
         initCalendar()
         binding.includedLayout.root.visibility = View.GONE
 
+        //faking here
 
         return binding.root
     }
@@ -59,7 +60,12 @@ class HomeFragment : Fragment() {
     lateinit var calendarView: MaterialCalendarView
 
     fun initCalendar() {
-        val dialogBinding = DataBindingUtil.inflate<StatisticStreakDialogBinding>(layoutInflater,R.layout.statistic_streak_dialog,null,false)
+        val dialogBinding = DataBindingUtil.inflate<StatisticStreakDialogBinding>(
+            layoutInflater,
+            R.layout.statistic_streak_dialog,
+            null,
+            false
+        )
 
         calendarView = dialogBinding.calendarView
         calendarView.showOtherDates = MaterialCalendarView.SHOW_ALL

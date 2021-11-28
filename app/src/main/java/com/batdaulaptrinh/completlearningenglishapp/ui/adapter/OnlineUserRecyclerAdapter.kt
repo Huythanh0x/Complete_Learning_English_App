@@ -6,22 +6,39 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.OnlineUserRowBinding
-import com.batdaulaptrinh.completlearningenglishapp.model.User
+import com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
+import kotlin.random.Random
 
-class OnlineUserRecyclerAdapter(val listOnlineUsers: ArrayList<User>) :
+class OnlineUserRecyclerAdapter(
+    private val listOnlineUserChatRooms: ArrayList<ChatRoom>,
+    private val clickOnlineUserChatRoomListener: (chatRoom: ChatRoom) -> Unit,
+) :
     RecyclerView.Adapter<OnlineUserRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(val binding: OnlineUserRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
-
+        fun bind(
+            onlineUserChatRoom: ChatRoom,
+            clickOnlineUserChatRoomListener: (chatRoom: ChatRoom) -> Unit,
+        ) {
+            binding.avatarImg.setImageResource(R.drawable.avatar_example)
+            if (Random.nextBoolean()) {
+                binding.isOnlineImg.setImageResource(R.color.green)
+            } else {
+                binding.isOnlineImg.setImageResource(R.color.grey)
+            }
+            binding.nameTxt.text = Utils.getRandomString(7)
+            binding.root.setOnClickListener {
+                clickOnlineUserChatRoomListener(onlineUserChatRoom)
+            }
         }
 
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
-    ): OnlineUserRecyclerAdapter.MyViewHolder {
+        viewType: Int,
+    ): MyViewHolder {
         val binding = DataBindingUtil.inflate<OnlineUserRowBinding>(
             LayoutInflater.from(parent.context),
             R.layout.online_user_row, parent, false
@@ -29,9 +46,9 @@ class OnlineUserRecyclerAdapter(val listOnlineUsers: ArrayList<User>) :
         return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: OnlineUserRecyclerAdapter.MyViewHolder, position: Int) {
-        holder.bind(listOnlineUsers[position])
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.bind(listOnlineUserChatRooms[position], clickOnlineUserChatRoomListener)
     }
 
-    override fun getItemCount() = listOnlineUsers.size
+    override fun getItemCount() = listOnlineUserChatRooms.size
 }

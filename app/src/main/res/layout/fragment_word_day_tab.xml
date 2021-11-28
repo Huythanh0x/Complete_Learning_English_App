@@ -27,7 +27,7 @@
             android:id="@+id/experience_point_cv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintDimensionRatio="H,8:5"
             app:layout_constraintEnd_toStartOf="@id/learning_day_cv"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:text="SET WORD"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -126,6 +126,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"

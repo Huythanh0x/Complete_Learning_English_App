@@ -21,12 +21,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backward_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/backward_ic" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_tool_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="YOUR PROFILE"
-                android:textColor="@color/white" />
+                android:layout_gravity="center"
+                android:text="YOUR FRIEND NAME"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/settings_img"
@@ -44,6 +53,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/text_input_layout_write_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,17 +69,18 @@
             android:layout_marginBottom="8dp"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/send_like_img"
+            app:layout_constraintEnd_toStartOf="@+id/send_message_img"
             app:layout_constraintStart_toEndOf="@+id/send_picture_img">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/message_input_edt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Start typing..." />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/send_auto_img"
+            android:id="@+id/send_audio_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -84,12 +95,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_baseline_image_24"
-            app:layout_constraintBottom_toBottomOf="@+id/send_auto_img"
-            app:layout_constraintStart_toEndOf="@+id/send_auto_img"
-            app:layout_constraintTop_toTopOf="@+id/send_auto_img" />
+            app:layout_constraintBottom_toBottomOf="@+id/send_audio_img"
+            app:layout_constraintStart_toEndOf="@+id/send_audio_img"
+            app:layout_constraintTop_toTopOf="@+id/send_audio_img" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/send_like_img"
+            android:id="@+id/send_message_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"

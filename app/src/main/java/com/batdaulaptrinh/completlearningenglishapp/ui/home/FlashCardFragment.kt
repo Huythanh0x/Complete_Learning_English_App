@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,16 @@ class FlashCardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_flash_card, container, false)
+        binding.settingsBtn.setOnClickListener{
+            val dialog = AlertDialog.Builder(context).setView(R.layout.flash_card_settings_dialog).create()
+            dialog.show()
+        }
+
+
+
+
+
+
         return binding.root
 
     }

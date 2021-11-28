@@ -10,4 +10,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_up"><u>Sign up!</u></string>
     <string name="wrong_email_or_password">Wrong email or password!</string>
+
+    <string-array name="prefer_accent_spinner">
+        <item name="us">US</item>
+        <item name="uk">UK</item>
+    </string-array>
 </resources>

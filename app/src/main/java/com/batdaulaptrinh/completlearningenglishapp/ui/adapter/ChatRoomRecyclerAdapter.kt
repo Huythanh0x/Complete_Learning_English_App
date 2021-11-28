@@ -7,12 +7,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ChatRoomRowBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
+import kotlin.random.Random
 
-class ChatRoomRecyclerAdapter(private val listChatRoom: ArrayList<ChatRoom>) :
-    RecyclerView.Adapter<ChatRoomRecyclerAdapter.MyViewHolder>() {
+class ChatRoomRecyclerAdapter(
+    private val listChatRoom: ArrayList<ChatRoom>,
+    val roomChatClickListener: (chatRoom: ChatRoom) -> Unit
+) :
+    RecyclerView.
+    Adapter<ChatRoomRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(val binding: ChatRoomRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun binding(chatRoom: ChatRoom) {
+        fun binding(chatRoom: ChatRoom, roomChatClickListener: (chatRoom: ChatRoom) -> Unit) {
+            binding.root.setOnClickListener {
+                roomChatClickListener(chatRoom)
+            }
+            if (Random.nextBoolean()) {
+                binding.isOnlineStateImg.setImageResource(R.color.grey)
+            } else {
+                binding.isOnlineStateImg.setImageResource(R.color.green)
+            }
+            if (Random.nextBoolean()) {
+                binding.sentMessageStateImg.setImageResource(R.drawable.sent_message_state_img)
+            } else {
+                binding.sentMessageStateImg.setImageResource(R.color.white)
+            }
+
+            binding.avatarUserImg.setImageResource(R.drawable.avatar_example)
+
+            binding.userNameTxt.text = Utils.getRandomString(10)
+            binding.messageContentTxt.text = Utils.getRandomString(20)
         }
 
     }
@@ -31,7 +55,7 @@ class ChatRoomRecyclerAdapter(private val listChatRoom: ArrayList<ChatRoom>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.binding(listChatRoom[position])
+        holder.binding(listChatRoom[position], roomChatClickListener)
     }
 
     override fun getItemCount() = listChatRoom.size

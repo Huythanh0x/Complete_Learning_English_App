@@ -7,26 +7,39 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_choosingModeFragment"
             app:destination="@id/choosingModeFragment" />
+        <argument
+            android:name="wordSet"
+            app:argType="com.batdaulaptrinh.completlearningenglishapp.model.WordSet" />
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" >
+        tools:layout="@layout/fragment_chat">
         <action
             android:id="@+id/action_navigation_chat_to_DMChatFragment"
             app:destination="@id/DMChatFragment" />
+        <argument
+            android:name="chatRoom"
+            app:argType="com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom" />
     </fragment>
     <fragment
         android:id="@+id/navigation_learning"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.LearningFragment"
         android:label="fragment_learning"
-        tools:layout="@layout/fragment_learning" />
+        tools:layout="@layout/fragment_learning" >
+        <action
+            android:id="@+id/action_navigation_learning_to_wordDetailFragment"
+            app:destination="@id/wordDetailFragment" />
+        <argument
+            android:name="word"
+            app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.profile.ProfileFragment"
@@ -40,37 +53,40 @@
     <fragment
         android:id="@+id/wordListFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordListFragment"
-        tools:layout="@layout/fragment_word_list"
-        android:label="WordListFragment" >
+        android:label="WordListFragment"
+        tools:layout="@layout/fragment_word_list">
         <action
             android:id="@+id/action_wordListFragment_to_wordDetailFragment"
             app:destination="@id/wordDetailFragment" />
+        <argument
+            android:name="word"
+            app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
     </fragment>
     <fragment
         android:id="@+id/wordDetailFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment"
-        tools:layout="@layout/fragment_word_detail"
-        android:label="WordDetailFragment" />
+        android:label="WordDetailFragment"
+        tools:layout="@layout/fragment_word_detail" />
     <fragment
         android:id="@+id/testTabFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.TestTabFragment"
-        tools:layout="@layout/fragment_test_tab"
-        android:label="TestTabFragment" />
+        android:label="TestTabFragment"
+        tools:layout="@layout/fragment_test_tab" />
     <fragment
         android:id="@+id/flashCardFragment"
-        tools:layout="@layout/fragment_flash_card"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.FlashCardFragment"
-        android:label="FlashCardFragment" />
+        android:label="FlashCardFragment"
+        tools:layout="@layout/fragment_flash_card" />
     <fragment
         android:id="@+id/allWordTabFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab.AllWordTabFragment"
-        tools:layout="@layout/fragment_all_word_tab"
-        android:label="AllWordTabFragment" />
+        android:label="AllWordTabFragment"
+        tools:layout="@layout/fragment_all_word_tab" />
     <fragment
         android:id="@+id/choosingModeFragment"
-        tools:layout="@layout/fragment_choosing_mode"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment"
-        android:label="ChoosingModeFragment" >
+        android:label="ChoosingModeFragment"
+        tools:layout="@layout/fragment_choosing_mode">
         <action
             android:id="@+id/action_choosingModeFragment_to_wordListFragment"
             app:destination="@id/wordListFragment" />
@@ -83,25 +99,28 @@
         <action
             android:id="@+id/action_choosingModeFragment_to_multipleChoiceFragment"
             app:destination="@id/multipleChoiceFragment" />
+        <argument
+            android:name="setWord"
+            app:argType="com.batdaulaptrinh.completlearningenglishapp.model.WordSet" />
     </fragment>
     <fragment
         android:id="@+id/connectWordFragment"
-        tools:layout="@layout/fragment_connect_word"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.game.ConnectWordFragment"
-        android:label="ConnectWordFragment" />
+        android:label="ConnectWordFragment"
+        tools:layout="@layout/fragment_connect_word" />
     <fragment
         android:id="@+id/DMChatFragment"
-        tools:layout="@layout/fragment_d_m_chat"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.chat.DMChatFragment"
-        android:label="DMChatFragment" />
+        android:label="DMChatFragment"
+        tools:layout="@layout/fragment_d_m_chat" />
     <fragment
         android:id="@+id/multipleChoiceFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.game.MultipleChoiceFragment"
-        tools:layout="@layout/fragment_multiple_choice"
-        android:label="MultipleChoiceFragment" />
+        android:label="MultipleChoiceFragment"
+        tools:layout="@layout/fragment_multiple_choice" />
     <fragment
         android:id="@+id/yourWordTabFragment"
-        tools:layout="@layout/fragment_your_word_tab"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab.YourWordTabFragment"
-        android:label="YourWordTabFragment" />
+        android:label="YourWordTabFragment"
+        tools:layout="@layout/fragment_your_word_tab" />
 </navigation>

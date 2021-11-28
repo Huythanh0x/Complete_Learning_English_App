@@ -1,22 +1,40 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home
 
+import android.R
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.batdaulaptrinh.completlearningenglishapp.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordListBinding
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
+
 
 class WordListFragment : Fragment() {
-    lateinit var binding:FragmentWordListBinding
+    lateinit var binding: FragmentWordListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_list, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            com.batdaulaptrinh.completlearningenglishapp.R.layout.fragment_word_list,
+            container,
+            false)
+        //TODO FAKING
+        binding.recyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), {
+            context?.let { it1 -> Utils.playSoundHello(it1) }
+        }, {
+        }, {
+
+        })
+
+
+
+
         return binding.root
 
     }

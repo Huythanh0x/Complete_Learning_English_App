@@ -1,9 +1,12 @@
 package com.batdaulaptrinh.completlearningenglishapp.model
 
+import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "word_table")
 data class Word(
     @PrimaryKey
@@ -29,5 +32,5 @@ data class Word(
     @NonNull
     val clean_word_url: String,
     @NonNull
-    val thumbnail: String
-)
+    val thumbnail: String,
+) : Parcelable

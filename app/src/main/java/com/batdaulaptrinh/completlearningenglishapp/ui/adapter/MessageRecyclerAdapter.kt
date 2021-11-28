@@ -1,6 +1,7 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,10 @@ class MessageRecyclerAdapter(private val listMessage: ArrayList<Message>) :
     RecyclerView.Adapter<MessageRecyclerAdapter.MyViewHolder>() {
     class MyViewHolder(val binding: MessageRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: Message) {
-
+//            binding.imageMessage.setImageResource(R.drawable.primary_color_gradient)
+            binding.tvMessage.text = message.text
+            binding.imageProfileImg.setImageResource(R.drawable.avatar_example)
+            binding.imageMessage.visibility = View.GONE
         }
 
     }

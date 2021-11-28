@@ -24,6 +24,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -33,7 +34,8 @@
                 android:layout_marginStart="20dp"
                 android:autoSizeMaxTextSize="20dp"
                 android:text="Beginner"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/settings_btn"

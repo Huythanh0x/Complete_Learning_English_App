@@ -1,31 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/settings_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_extra_bold"
+            android:gravity="center_horizontal"
+            android:text="Flash card Settings"
+            android:textColor="@color/lightPrimaryColor"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/delay_before_moving_txt"
+            app:layout_constraintEnd_toEndOf="@+id/delay_before_moving_time_txt"
+            app:layout_constraintStart_toStartOf="@+id/delay_before_moving_txt"
+            app:layout_constraintTop_toBottomOf="@+id/settings_txt" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/delay_before_moving_txt"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Delay before moving" />
+            android:layout_marginStart="20dp"
+            android:paddingVertical="10dp"
+            android:text="Delay before moving"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/delay_before_moving_time_txt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view6" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/turn_of_after_time"
-            android:layout_width="match_parent"
+            android:id="@+id/delay_before_moving_time_txt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Turn off after" />
+            android:layout_marginEnd="20dp"
+            android:text="7s"
+            android:textColor="@color/lightPrimaryColor"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/delay_before_moving_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/delay_before_moving_txt" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/turn_off_after_txt"
+            app:layout_constraintEnd_toEndOf="@+id/turn_off_after_time_txt"
+            app:layout_constraintStart_toStartOf="@+id/turn_off_after_txt"
+            app:layout_constraintTop_toBottomOf="@+id/delay_before_moving_txt" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/flash_card_mode"
-            android:layout_width="match_parent"
+            android:id="@+id/turn_off_after_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="Turn off after"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/turn_off_after_time_txt"
+            app:layout_constraintStart_toStartOf="@+id/delay_before_moving_txt"
+            app:layout_constraintTop_toBottomOf="@+id/delay_before_moving_txt" />
 
-            android:layout_height="wrap_content"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/turn_off_after_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="10 minutes"
+            android:textColor="@color/lightPrimaryColor"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/turn_off_after_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/turn_off_after_txt" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/auto_repeat_txt"
+            app:layout_constraintEnd_toEndOf="@+id/auto_repeat_cb"
+            app:layout_constraintStart_toStartOf="@id/auto_repeat_txt"
+            app:layout_constraintTop_toBottomOf="@+id/turn_off_after_txt" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/auto_repeat_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="Auto repeat"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@+id/turn_off_after_txt"
+            app:layout_constraintTop_toBottomOf="@+id/turn_off_after_txt" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/auto_repeat_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/auto_repeat_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/auto_repeat_txt" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/play_sound_txt"
+            app:layout_constraintEnd_toEndOf="@+id/play_sound_cb"
+            app:layout_constraintStart_toStartOf="@id/play_sound_txt"
+            app:layout_constraintTop_toBottomOf="@+id/auto_repeat_txt" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/play_sound_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:paddingVertical="10dp"
+            android:text="Play sound"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/auto_repeat_txt"
+            app:layout_constraintTop_toBottomOf="@+id/auto_repeat_txt" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/play_sound_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/play_sound_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/play_sound_txt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

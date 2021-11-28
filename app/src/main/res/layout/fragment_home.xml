@@ -25,8 +25,10 @@
                 android:id="@+id/title_tool_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:text="HOME"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </androidx.appcompat.widget.Toolbar>
 

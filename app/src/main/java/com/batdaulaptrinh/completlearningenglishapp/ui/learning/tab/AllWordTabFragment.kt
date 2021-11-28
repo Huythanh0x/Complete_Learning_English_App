@@ -6,10 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentAllWordTabBinding
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class AllWordTabFragment : Fragment() {
@@ -34,7 +37,7 @@ class AllWordTabFragment : Fragment() {
                 binding.root.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
             }
         }
-        binding.collapseBottomSheetImg.setOnClickListener{
+        binding.collapseBottomSheetImg.setOnClickListener {
             bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
@@ -42,7 +45,7 @@ class AllWordTabFragment : Fragment() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                     binding.root.setBackgroundColor(Color.GRAY)
-                } else if(newState == BottomSheetBehavior.STATE_COLLAPSED){
+                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     binding.root.setBackgroundColor(Color.WHITE)
                 }
             }
@@ -51,6 +54,16 @@ class AllWordTabFragment : Fragment() {
                 Log.d("TAG BOTTOM SHEET", slideOffset.toString())
             }
         })
+        //TODO faking here
+        binding.allWordsRecyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), {
+            context?.let { it1 -> Utils.playSoundHello(it1) }
+        }, {
+            Toast.makeText(context, "OPEN WORD DETAIL AT ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
+
+        }, {
+            Toast.makeText(context, "Change star fav ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
+        })
+
 
         return binding.root
     }

@@ -22,10 +22,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backward_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -34,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="SET WORD NUMBER 2"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/settings_btn"

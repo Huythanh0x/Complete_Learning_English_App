@@ -6,10 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentYourWordTabBinding
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class YourWordTabFragment : Fragment() {
@@ -17,7 +20,7 @@ class YourWordTabFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_your_word_tab, container, false)
         // Inflate the layout for this fragment
@@ -50,6 +53,16 @@ class YourWordTabFragment : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 Log.d("TAG BOTTOM SHEET", slideOffset.toString())
             }
+        })
+
+        //TODO faking here
+        binding.yourWordsRecyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), {
+            context?.let { it1 -> Utils.playSoundHello(it1) }
+        }, {
+            Toast.makeText(context, "OPEN WORD DETAIL AT ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
+
+        }, {
+            Toast.makeText(context, "Change star fav ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
         })
 
         return binding.root

@@ -21,7 +21,6 @@
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/barrier"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/barrier"
             app:layout_constraintVertical_bias="1.0"
             tools:srcCompat="@tools:sample/avatars">
 
@@ -77,19 +76,16 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/image_profile_cv"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:src="@tools:sample/avatars"
             tools:visibility="gone" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tv_message,image_message" />
+        <!--        <androidx.constraintlayout.widget.Barrier-->
+        <!--            android:id="@+id/barrier"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:barrierDirection="bottom"-->
+        <!--            app:constraint_referenced_ids="tv_message,image_message" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

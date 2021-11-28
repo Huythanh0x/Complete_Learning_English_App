@@ -1,60 +1,130 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.game
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentConnectWordBinding
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.EmptyLetterRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.MissingLetterRecyclerAdapter
+import java.lang.StringBuilder
+import java.util.*
+import java.util.function.Consumer
+import java.util.stream.Collectors
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ConnectWordFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ConnectWordFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    lateinit var binding: FragmentConnectWordBinding
+    private val listEmptyLetter = arrayListOf<String>()
+    private val primaryListMissingLetter = arrayListOf<String>()
+    private val secondaryListMissingLetter = arrayListOf<String>()
+    lateinit var primaryListMissingLetterRecyclerAdapter: MissingLetterRecyclerAdapter
+    lateinit var secondaryListMissingLetterRecyclerAdapter: MissingLetterRecyclerAdapter
+    lateinit var emptyLetterRecyclerAdapter: EmptyLetterRecyclerAdapter
+    var originWord: String = ""
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_connect_word, container, false)
-    }
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_connect_word, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ConnectWordFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ConnectWordFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+        //TODO FAKING HERE
+        originWord = "BEAUTIFUL"
+        val shuffleWord = shuffleString(originWord)
+        shuffleWord?.forEachIndexed() { index, letter ->
+            if (index < MAX_LENGTH) {
+                primaryListMissingLetter.add(letter.toString())
+            } else {
+                secondaryListMissingLetter.add(letter.toString())
+            }
+            listEmptyLetter.add("")
+        }
+        Log.d("TAG LIST SIZE PRIMARY", primaryListMissingLetter.size.toString())
+        Log.d("TAG LIST SIZE SECOND", secondaryListMissingLetter.size.toString())
+        emptyLetterRecyclerAdapter =
+            EmptyLetterRecyclerAdapter(listEmptyLetter,
+                primaryListMissingLetter,
+                secondaryListMissingLetter) { clickedLetter, position ->
+//                Toast.makeText(context, "EMPTY LIST STRING IS $listEmptyLetter", Toast.LENGTH_SHORT)
+//                    .show()
+                if(clickedLetter == " " || clickedLetter == ""){
+                    return@EmptyLetterRecyclerAdapter
+                }
+                listEmptyLetter[position] = ""
+                emptyLetterRecyclerAdapter.notifyItemChanged(position)
+                if (primaryListMissingLetter.size < 5) {
+                    primaryListMissingLetter.add(clickedLetter)
+                    primaryListMissingLetterRecyclerAdapter.notifyDataSetChanged()
+                } else {
+                    secondaryListMissingLetter.add(clickedLetter)
+                    secondaryListMissingLetterRecyclerAdapter.notifyDataSetChanged()
                 }
             }
+        primaryListMissingLetterRecyclerAdapter =
+            MissingLetterRecyclerAdapter(primaryListMissingLetter) { clickedLetter ->
+                primaryListMissingLetter.remove(clickedLetter)
+                primaryListMissingLetterRecyclerAdapter.notifyDataSetChanged()
+                run loop@{
+                    listEmptyLetter.forEachIndexed() { index, letter ->
+                        if (letter == "") {
+                            listEmptyLetter[index] = clickedLetter
+                            emptyLetterRecyclerAdapter.notifyItemChanged(index)
+                            return@loop
+                        }
+                    }
+                }
+            }
+
+        secondaryListMissingLetterRecyclerAdapter =
+            MissingLetterRecyclerAdapter(secondaryListMissingLetter) { clickedLetter ->
+                secondaryListMissingLetter.remove(clickedLetter)
+                secondaryListMissingLetterRecyclerAdapter.notifyDataSetChanged()
+                run loop@{
+                    listEmptyLetter.forEachIndexed() { index, letter ->
+                        if (letter == "") {
+                            listEmptyLetter[index] = clickedLetter
+                            emptyLetterRecyclerAdapter.notifyItemChanged(index)
+                            return@loop
+                        }
+                    }
+                }
+            }
+
+
+        binding.listEmptyLetterRc.adapter = emptyLetterRecyclerAdapter
+        binding.primaryListMissingLetterRc.adapter = primaryListMissingLetterRecyclerAdapter
+        binding.secondaryListMissingLetterRc.adapter = secondaryListMissingLetterRecyclerAdapter
+
+
+        binding.checkBtn.setOnClickListener {
+            if (listEmptyLetter.joinToString().replace(",", "").replace(" ", "") == originWord) {
+                Toast.makeText(context, "CORRECT", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "INCORRECT", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return binding.root
     }
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun shuffleString(string: String): String? {
+        val list: List<Char?> = string.chars().mapToObj { c: Int -> c.toChar() }
+            .collect(Collectors.toList())
+        Collections.shuffle(list)
+        val sb = StringBuilder()
+        list.forEach(Consumer { c: Char? -> sb.append(c) })
+        return sb.toString()
+    }
+
+    private val MAX_LENGTH = 5
 }

@@ -6,10 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentTestTabBinding
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordSetRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordTestRecyclerViewAdapter
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 
 class TestTabFragment : Fragment() {
     lateinit var binding: FragmentTestTabBinding
@@ -28,6 +32,11 @@ class TestTabFragment : Fragment() {
         binding.learningDayCv.setOnClickListener{
             val dialog = AlertDialog.Builder(requireContext()).setView(R.layout.statistic_streak_dialog).create()
             dialog.show()
+        }
+        //TODO faking here
+        binding.recyclerView.adapter = WordTestRecyclerViewAdapter(Utils.getWordSet()){
+            wordSet->
+            Toast.makeText(context,"CLICK AT TEST SET ${wordSet.setNth}",Toast.LENGTH_LONG).show()
         }
 
 
