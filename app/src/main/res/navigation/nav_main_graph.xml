@@ -15,6 +15,9 @@
         <argument
             android:name="wordSet"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.WordSet" />
+        <action
+            android:id="@+id/action_navigation_home_to_multipleChoiceFragment"
+            app:destination="@id/multipleChoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
@@ -33,12 +36,12 @@
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.LearningFragment"
         android:label="fragment_learning"
         tools:layout="@layout/fragment_learning" >
-        <action
-            android:id="@+id/action_navigation_learning_to_wordDetailFragment"
-            app:destination="@id/wordDetailFragment" />
         <argument
             android:name="word"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+        <action
+            android:id="@+id/action_navigation_learning_to_wordDetailFragment"
+            app:destination="@id/wordDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"

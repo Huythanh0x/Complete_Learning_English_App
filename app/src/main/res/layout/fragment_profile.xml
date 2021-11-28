@@ -34,9 +34,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="OPTIONS"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/logout_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -210,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -359,7 +361,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"

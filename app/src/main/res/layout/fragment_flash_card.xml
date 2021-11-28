@@ -81,7 +81,7 @@
                 android:paddingVertical="20dp"
                 android:text="A person just starting to learn a skill or take part in an activity.\nA beginner's guide"
                 android:textSize="20sp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
         </androidx.cardview.widget.CardView>
 

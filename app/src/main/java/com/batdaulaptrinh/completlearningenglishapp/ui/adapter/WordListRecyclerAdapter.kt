@@ -37,7 +37,7 @@ class WordListRecyclerAdapter(
             binding.playSoundImg.setOnClickListener {
                 speakerClickListener(word)
             }
-            binding.enWordText.setOnClickListener {
+            binding.root.setOnClickListener {
                 wordClickListener(word)
             }
 

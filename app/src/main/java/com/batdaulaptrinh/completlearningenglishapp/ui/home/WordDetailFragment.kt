@@ -10,6 +10,9 @@ import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordDetailBinding
 
 class WordDetailFragment : Fragment() {
+    companion object{
+        val DETAIL_WORK_KEY = "DETAIL_WORD_KEY"
+    }
     lateinit var binding: FragmentWordDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

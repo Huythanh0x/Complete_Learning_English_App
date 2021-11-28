@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentMainLoginBinding
 
@@ -17,7 +18,14 @@ class MainLoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_login, container, false)
+        binding.signInBtn.setOnClickListener{
+            findNavController().navigate(R.id.action_mainLoginFragment_to_signInFragment)
+        }
+        binding.signUpBtn.setOnClickListener{
+            findNavController().navigate(R.id.action_mainLoginFragment_to_signUpFragment)
+        }
         return binding.root
 
     }
+
 }

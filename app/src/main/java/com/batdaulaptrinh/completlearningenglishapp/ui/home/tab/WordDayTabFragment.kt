@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordDayTabBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordSetRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.ui.game.MultipleChoiceFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 
 class WordDayTabFragment : Fragment() {
@@ -46,7 +47,7 @@ class WordDayTabFragment : Fragment() {
 //            Toast.makeText(context, "CLICK AT ${wordSet.setNth}", Toast.LENGTH_LONG).show()
             findNavController().navigate(
                 R.id.action_navigation_home_to_choosingModeFragment,
-                bundleOf(KEY_AGRS_SET to wordSet)
+                bundleOf(MultipleChoiceFragment.KEY_AGRS_SET to wordSet)
             )
         }
 

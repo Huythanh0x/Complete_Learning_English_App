@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentAllWordTabBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -19,7 +22,7 @@ class AllWordTabFragment : Fragment() {
     lateinit var binding: FragmentAllWordTabBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_all_word_tab, container, false)
@@ -55,11 +58,11 @@ class AllWordTabFragment : Fragment() {
             }
         })
         //TODO faking here
-        binding.allWordsRecyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), {
-            context?.let { it1 -> Utils.playSoundHello(it1) }
-        }, {
-            Toast.makeText(context, "OPEN WORD DETAIL AT ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
-
+        binding.allWordsRecyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), { _ ->
+            context?.let { word -> Utils.playSoundHello(word) }
+        }, { word ->
+            findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
+                bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
         }, {
             Toast.makeText(context, "Change star fav ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
         })

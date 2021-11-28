@@ -127,6 +127,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/appCompatTextView11" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/easy_cb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
@@ -208,6 +209,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/appCompatTextView12" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/serious_cb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
@@ -289,6 +291,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/appCompatTextView8" />
 
                         <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/intense_cb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"

@@ -1,6 +1,5 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordListBinding
-import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.SetWordListRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 
 
@@ -25,10 +25,11 @@ class WordListFragment : Fragment() {
             container,
             false)
         //TODO FAKING
-        binding.recyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), {
+        binding.recyclerView.adapter = SetWordListRecyclerAdapter(Utils.getWordList(), {
+            findNavController().navigate(R.id.action_wordListFragment_to_wordDetailFragment)
+        }, {
             context?.let { it1 -> Utils.playSoundHello(it1) }
-        }, {
-        }, {
+        },{
 
         })
 
