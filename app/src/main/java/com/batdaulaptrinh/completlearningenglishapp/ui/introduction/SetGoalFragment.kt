@@ -21,7 +21,24 @@ class SetGoalFragment : Fragment() {
         binding.continueBtn.setOnClickListener { findNavController().navigate(R.id.action_setGoalFragment_to_completeIntroductionFragment) }
         binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
 
-
+        //handle click radio button
+        binding.apply {
+            easyModeCl.setOnClickListener{
+                binding.easyCb.isChecked = true
+                binding.seriousCb.isChecked = false
+                binding.intenseCb.isChecked = false
+            }
+            seriousModeCl.setOnClickListener{
+                binding.seriousCb.isChecked = true
+                binding.easyCb.isChecked = false
+                binding.intenseCb.isChecked = false
+            }
+            intenseModeCl.setOnClickListener{
+                binding.intenseCb.isChecked = true
+                binding.easyCb.isChecked = false
+                binding.seriousCb.isChecked = false
+            }
+        }
 
         return binding.root
 

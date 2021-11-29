@@ -86,6 +86,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/easy_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:cardCornerRadius="10dp"
@@ -168,6 +169,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/serious_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:cardCornerRadius="10dp"
@@ -250,6 +252,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/intense_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:cardCornerRadius="10dp"

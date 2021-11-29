@@ -10,13 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CompletLearningEnglishApp">
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"
             android:name=".ui.introduction.IntroductionActivity"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"
             android:name=".ui.login.MainLoginActivity"
+            android:exported="true" />
+        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
