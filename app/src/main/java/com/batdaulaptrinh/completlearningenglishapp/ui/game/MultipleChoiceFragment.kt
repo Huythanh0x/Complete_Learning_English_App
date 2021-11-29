@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -49,7 +49,7 @@ class MultipleChoiceFragment : Fragment() {
         for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
             nextChild.setOnClickListener {
-                    createNextDialog()
+                createNextDialog()
                 showCorrectAnswer(answerCode)
             }
         }
@@ -60,8 +60,9 @@ class MultipleChoiceFragment : Fragment() {
     private fun showCorrectAnswer(answerCode: String) {
         for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
-            if (nextChild.tag == answerCode){
-                nextChild.alpha = 0f
+            if (nextChild.tag == answerCode + "txt") {
+                nextChild.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.correct_answer_bg)
             }
         }
     }
@@ -71,13 +72,14 @@ class MultipleChoiceFragment : Fragment() {
             R.layout.pure_next_dialog,
             null,
             false)
-        val dialog = context?.let { BottomSheetDialog(it) }
-        dialog?.setContentView(dialogBinding.root)
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
         dialogBinding.nextBtn.setOnClickListener {
-            dialog?.dismiss()
+            dialog.dismiss()
             createCompleteDialog()
         }
-        dialog?.show()
+        dialog.show()
     }
 
     private fun createCompleteDialog() {
@@ -87,6 +89,7 @@ class MultipleChoiceFragment : Fragment() {
                 null,
                 false)
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
+        dialog.setCancelable(false)
         dialogBinding.listWrongAnswerRv.adapter = WrongAnswerRecyclerAdapter(Utils.getWordList())
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
             dialog.dismiss()
@@ -96,7 +99,6 @@ class MultipleChoiceFragment : Fragment() {
             Snackbar.make(binding.root,
                 "All of this word was add to next set",
                 Snackbar.LENGTH_LONG).setAction("Undo") {
-                Toast.makeText(requireContext(), "Adding was cancel", Toast.LENGTH_SHORT).show()
             }.show()
             findNavController().popBackStack()
         }
@@ -104,7 +106,6 @@ class MultipleChoiceFragment : Fragment() {
             dialog.dismiss()
             findNavController().popBackStack()
         }
-        WrongAnswerRecyclerAdapter(Utils.getWordList())
         dialog.show()
     }
 }
