@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.profile
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +12,8 @@ import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 
-
 class ProfileFragment : Fragment() {
+    private val CHOOSEIMAGECODE = 11123
     lateinit var binding: FragmentProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +32,11 @@ class ProfileFragment : Fragment() {
         binding.editPhoneNumberBtn.setOnClickListener{
             startEditText(binding.numberInfoTxt)
             finishEditText(binding.numberInfoTxt)
+        }
+        binding.avatarCv.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, CHOOSEIMAGECODE)
         }
 
         return binding.root
@@ -59,4 +65,13 @@ class ProfileFragment : Fragment() {
             false
         })
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            data?.let {
+                binding.avatarImg.setImageURI(data.data)
+            }
+        }
+    }
+
 }
