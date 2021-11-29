@@ -47,7 +47,11 @@
         android:id="@+id/navigation_profile"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_showFullSizeAvatar"
+            app:destination="@id/showFullSizeAvatar" />
+    </fragment>
     <fragment
         android:id="@+id/wordDayTabFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.WordDayTabFragment"
@@ -126,4 +130,9 @@
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab.YourWordTabFragment"
         android:label="YourWordTabFragment"
         tools:layout="@layout/fragment_your_word_tab" />
+    <fragment
+        android:id="@+id/showFullSizeAvatar"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.profile.ShowFullSizeAvatar"
+        tools:layout="@layout/fragment_show_full_size_avatar"
+        android:label="ShowFullSizeAvatar" />
 </navigation>

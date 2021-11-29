@@ -6,8 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
@@ -15,6 +18,9 @@ import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 class ProfileFragment : Fragment() {
     private val CHOOSEIMAGECODE = 11123
     lateinit var binding: FragmentProfileBinding
+    companion object{
+        val KEY_AVATAR = "KEY_AVATAR"
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -29,14 +35,24 @@ class ProfileFragment : Fragment() {
             startEditText(binding.nameInfoTxt)
             finishEditText(binding.nameInfoTxt)
         }
-        binding.editPhoneNumberBtn.setOnClickListener{
+        binding.editPhoneNumberBtn.setOnClickListener {
             startEditText(binding.numberInfoTxt)
             finishEditText(binding.numberInfoTxt)
         }
-        binding.avatarCv.setOnClickListener {
+        binding.editEmailInfoBtn.setOnClickListener {
+            startEditText(binding.emailInfoTxt)
+            startEditText(binding.emailInfoTxt)
+        }
+        binding.editProfileCv.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, CHOOSEIMAGECODE)
+        }
+
+        binding.avatarCv.setOnClickListener {
+            val bitmap = binding.avatarImg.drawable.toBitmap()
+            findNavController().navigate(R.id.action_navigation_profile_to_showFullSizeAvatar,
+                bundleOf(KEY_AVATAR to bitmap))
         }
 
         return binding.root

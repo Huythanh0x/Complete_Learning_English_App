@@ -25,8 +25,7 @@
                 android:id="@+id/title_tool_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="YOUR PROFILE"
+                android:text="CHAT"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -39,13 +38,13 @@
                 android:src="@drawable/ic_baseline_settings_24" />
         </androidx.appcompat.widget.Toolbar>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +57,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:paddingVertical="2dp"
                     app:endIconMode="clear_text"
@@ -73,6 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Search for friend"
+                        android:imeOptions="actionDone"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,18 +91,15 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_chat_room_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:scrollbars="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/online_user_list_rv"
                     tools:listitem="@layout/chat_room_row" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
