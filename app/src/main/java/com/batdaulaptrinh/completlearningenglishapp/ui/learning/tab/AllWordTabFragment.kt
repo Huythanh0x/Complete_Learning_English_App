@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class AllWordTabFragment : Fragment() {
     lateinit var binding: FragmentAllWordTabBinding
+    lateinit var bottomSheet:  BottomSheetBehavior<CardView>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -27,7 +29,7 @@ class AllWordTabFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_all_word_tab, container, false)
         // Inflate the layout for this fragment
-        val bottomSheet = BottomSheetBehavior.from(binding.standardBottomSheet)
+        bottomSheet = BottomSheetBehavior.from(binding.standardBottomSheet)
         bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheet.peekHeight = 0
         binding.sortImg.setOnClickListener() {
@@ -57,6 +59,25 @@ class AllWordTabFragment : Fragment() {
                 Log.d("TAG BOTTOM SHEET", slideOffset.toString())
             }
         })
+
+
+        binding.sortByAZTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by ascending alphabet", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        binding.sortByZATxt.setOnClickListener {
+            Toast.makeText(context, "Sort by descending alphabet", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        binding.sortByLevelAscTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by ascending level", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        binding.sortByLevelDesTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by descending level", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+
         //TODO faking here
         binding.allWordsRecyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), { _ ->
             context?.let { word -> Utils.playSoundHello(word) }
@@ -67,7 +88,11 @@ class AllWordTabFragment : Fragment() {
             Toast.makeText(context, "Change star fav ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
         })
 
-
         return binding.root
+    }
+
+    override fun onPause() {
+        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        super.onPause()
     }
 }

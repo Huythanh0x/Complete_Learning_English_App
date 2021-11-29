@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class YourWordTabFragment : Fragment() {
     lateinit var binding: FragmentYourWordTabBinding
+    lateinit var bottomSheet:  BottomSheetBehavior<CardView>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -27,7 +29,7 @@ class YourWordTabFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_your_word_tab, container, false)
         // Inflate the layout for this fragment
-        val bottomSheet = BottomSheetBehavior.from(binding.standardBottomSheet)
+        bottomSheet = BottomSheetBehavior.from(binding.standardBottomSheet)
         bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheet.peekHeight = 0
         binding.sortImg.setOnClickListener() {
@@ -58,6 +60,24 @@ class YourWordTabFragment : Fragment() {
             }
         })
 
+        binding.sortByAZTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by ascending alphabet", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        binding.sortByZATxt.setOnClickListener {
+            Toast.makeText(context, "Sort by descending alphabet", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        binding.sortByTimeAddAscTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by ascending add time", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        binding.sortByTimeAddDesTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by descending add time", Toast.LENGTH_SHORT).show()
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+
+
         //TODO faking here
         binding.yourWordsRecyclerView.adapter =
             WordListRecyclerAdapter(Utils.getWordList(), { _ ->
@@ -70,5 +90,11 @@ class YourWordTabFragment : Fragment() {
             })
 
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+
     }
 }

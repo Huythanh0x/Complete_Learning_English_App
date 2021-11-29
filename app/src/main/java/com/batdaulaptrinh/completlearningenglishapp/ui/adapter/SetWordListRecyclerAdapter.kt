@@ -9,10 +9,10 @@ import com.batdaulaptrinh.completlearningenglishapp.databinding.WordRowInWordset
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 
 class SetWordListRecyclerAdapter(
-    val listWord: ArrayList<Word>,
-    val clickWordListener: (word: Word) -> Unit,
-    val clickSpeakerListener: (word: Word) -> Unit,
-    val clickStarListener: (word: Word) -> Unit,
+    private val listWord: ArrayList<Word>,
+    private val clickWordListener: (word: Word) -> Unit,
+    private val clickSpeakerListener: (word: Word) -> Unit,
+    private val clickStarListener: (word: Word) -> Unit,
 ) :
     RecyclerView.Adapter<SetWordListRecyclerAdapter.MyViewHolder>() {
     class MyViewHolder(val binding: WordRowInWordsetBinding) :
@@ -29,7 +29,7 @@ class SetWordListRecyclerAdapter(
             binding.enWordText.text = word.en_word
             binding.playSoundImg.setOnClickListener { clickSpeakerListener(word) }
             binding.root.setOnClickListener { clickWordListener(word) }
-            binding.isFavouriteStarImg.setOnClickListener { clickStarListener }
+            binding.isFavouriteStarImg.setOnClickListener { clickStarListener(word) }
         }
 
     }
