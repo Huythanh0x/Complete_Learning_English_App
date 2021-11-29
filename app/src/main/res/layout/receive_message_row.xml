@@ -9,19 +9,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/image_profile_cv"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/rounded_transparent_bg"
             android:scaleType="centerCrop"
             app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/barrier"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_message"
             tools:srcCompat="@tools:sample/avatars">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -31,10 +32,8 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/rounded_transparent_bg"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/barrier"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/barrier"
-                app:layout_constraintVertical_bias="1.0"
                 tools:srcCompat="@tools:sample/avatars" />
 
         </androidx.cardview.widget.CardView>
@@ -43,24 +42,22 @@
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/in_message_bg"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/receive_message_bg"
             android:backgroundTint="?attr/colorPrimary"
-            android:paddingStart="8dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
             android:paddingBottom="16dp"
-            android:textColor="?attr/colorOnPrimary"
+            android:paddingEnd="16dp"
             app:layout_constrainedWidth="true"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/image_profile_cv"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/image_profile_cv"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_goneMarginEnd="100dp"
             tools:text="@tools:sample/lorem" />
 
 
@@ -68,25 +65,13 @@
             android:id="@+id/image_message"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="5dp"
             android:scaleType="centerCrop"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/image_profile_cv"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_message"
+            app:layout_constraintStart_toEndOf="@id/image_profile_cv"
             app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/avatar_example"
             tools:visibility="gone" />
-
-        <!--        <androidx.constraintlayout.widget.Barrier-->
-        <!--            android:id="@+id/barrier"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:barrierDirection="bottom"-->
-        <!--            app:constraint_referenced_ids="tv_message,image_message" />-->
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

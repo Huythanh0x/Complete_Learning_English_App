@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            tools:listitem="@layout/message_row" />
+            tools:listitem="@layout/send_message_row" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_write_message"
