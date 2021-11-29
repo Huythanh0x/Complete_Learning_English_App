@@ -51,8 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/text_input_layout_write_message"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,23 +59,32 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:listitem="@layout/send_message_row" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height=".1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@+id/messages_rc" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_write_message"
             style="@style/Widget.AppTheme.MaterialComponents.CustomTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="8dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/send_picture_img"
             app:layout_constraintEnd_toStartOf="@+id/send_message_img"
-            app:layout_constraintStart_toEndOf="@+id/send_picture_img">
+            app:layout_constraintStart_toEndOf="@+id/send_picture_img"
+            app:layout_constraintTop_toTopOf="@+id/send_picture_img">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/message_input_edt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Start typing..." />
+                android:hint="Start typing..."
+                android:padding="6dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -84,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/ic_microphone_svgrepo_com"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -105,8 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:src="@drawable/send_message_ic"
-            app:layout_constraintBottom_toBottomOf="@+id/send_picture_img"
+            app:layout_constraintBottom_toBottomOf="@+id/text_input_layout_write_message"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/send_picture_img" />
+            app:layout_constraintTop_toTopOf="@+id/text_input_layout_write_message" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -38,6 +38,21 @@ class SetGoalFragment : Fragment() {
                 binding.easyCb.isChecked = false
                 binding.seriousCb.isChecked = false
             }
+            easyCb.setOnClickListener{
+                binding.easyCb.isChecked = true
+                binding.seriousCb.isChecked = false
+                binding.intenseCb.isChecked = false
+            }
+            seriousCb.setOnClickListener{
+                binding.seriousCb.isChecked = true
+                binding.easyCb.isChecked = false
+                binding.intenseCb.isChecked = false
+            }
+            intenseCb.setOnClickListener{
+                binding.intenseCb.isChecked = true
+                binding.easyCb.isChecked = false
+                binding.seriousCb.isChecked = false
+            }
         }
 
         return binding.root

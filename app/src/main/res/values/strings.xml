@@ -10,6 +10,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_up"><u>Sign up!</u></string>
     <string name="wrong_email_or_password">Wrong email or password!</string>
+    <string name="options">OPTIONS</string>
+    <string name="name_example_dinh_dat_vi">Dinh Dat Vi</string>
+    <string name="example_location_vietnam">Location: VietNam</string>
+    <string name="example_time_joined_09_2021">Joined 09/2021</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="example_word_count_100">WORD COUNT: 100</string>
+    <string name="example_score_3000">SCORE: 3000</string>
+    <string name="personal_info_title">Personal Info</string>
+    <string name="dinh_dat_vi_example">Dinh Dat Vi</string>
+    <string name="phone_number_09323523324">09323523324</string>
+    <string name="email_tvtrucnhu12_gmail_com">tvtrucnhu12@gmail.com</string>
+    <string name="change_password_title">change password</string>
+    <string name="settings_title">Settings</string>
+    <string name="prefer_accent_title">PREFER ACCENT</string>
+    <string name="us_example">US</string>
+    <string name="dark_mode_title">DARK MODE</string>
 
     <string-array name="prefer_accent_spinner">
         <item name="us">US</item>
