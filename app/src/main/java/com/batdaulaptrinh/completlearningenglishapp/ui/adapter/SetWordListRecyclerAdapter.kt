@@ -25,7 +25,7 @@ class SetWordListRecyclerAdapter(
         ) {
             binding.apiTxt.text = word.api_uk
             binding.descriptionTxt.text = word.definition
-            binding.thumbnailImg.setImageResource(R.drawable.clean_thumbnail_example)
+            binding.thumbnailImg.setImageResource(R.drawable.clean_thumbnail_1)
             binding.enWordText.text = word.en_word
             binding.playSoundImg.setOnClickListener { clickSpeakerListener(word) }
             binding.root.setOnClickListener { clickWordListener(word) }

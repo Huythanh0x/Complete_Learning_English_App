@@ -40,11 +40,11 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/settings_img"
                 android:layout_width="wrap_content"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/ic_baseline_settings_24" />
+                android:src="@drawable/ic_baseline_settings_24"
+                android:visibility="gone" />
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -124,13 +124,15 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/answerConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/en_word_txt">
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/answer_c_cv"
@@ -138,7 +140,8 @@
                 android:layout_height="0dp"
                 android:layout_marginEnd="20dp"
                 android:clickable="true"
-                android:src="@drawable/clean_thumbnail_example"
+                android:src="@drawable/clean_thumbnail_1"
+                android:tag="c"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -149,18 +152,18 @@
                 app:layout_constraintWidth_percent=".35">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_c_txt"
+                    android:id="@+id/answer_c_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_example" />
+                    android:src="@drawable/clean_thumbnail_2" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/answer_d_cv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:tag="d"
                 android:clickable="true"
-                android:src="@drawable/clean_thumbnail_example"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/answer_c_cv"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -170,10 +173,10 @@
                 app:layout_constraintWidth_percent=".35">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_d_txt"
+                    android:id="@+id/answer_d_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_example" />
+                    android:src="@drawable/clean_thumbnail_3" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -182,22 +185,21 @@
                 android:layout_height="0dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:clickable="true"
-                android:src="@drawable/clean_thumbnail_example"
-                app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toTopOf="@+id/answer_c_cv"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toStartOf="@id/answer_b_cv"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:tag="a"
                 app:layout_constraintWidth_percent=".35">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_a_txt"
+                    android:id="@+id/answer_a_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_example" />
+                    android:src="@drawable/clean_thumbnail_4" />
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -205,8 +207,11 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:clickable="true"
-                android:src="@drawable/clean_thumbnail_example"
+                android:elevation="10dp"
+                android:src="@drawable/clean_thumbnail_1"
                 app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:tag="b"
                 app:layout_constraintBottom_toBottomOf="@+id/answer_a_cv"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -215,40 +220,12 @@
                 app:layout_constraintWidth_percent=".35">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_b_txt"
+                    android:id="@+id/answer_b_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_example" />
+                    android:src="@drawable/clean_thumbnail_1" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/check_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:background="@drawable/solid_button_bg"
-            android:text="CHECK"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/next_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:background="@drawable/solid_button_bg"
-            android:text="NEXT QUESTION"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

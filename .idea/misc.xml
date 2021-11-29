@@ -41,6 +41,7 @@
         <entry key="app/src/main/res/drawable/ic_learned_date.xml" value="0.22072368421052632" />
         <entry key="app/src/main/res/drawable/ic_like_svgrepo_com__1_.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_microphone_svgrepo_com.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/ic_ryan_taylor_green_tick.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/drawable/ic_send.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/menu_bottom_sheet.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/online_friend_in_chat.xml" value="0.3494791666666667" />
@@ -51,7 +52,9 @@
         <entry key="app/src/main/res/drawable/p_right.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/primary_color_gradient.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/profile_ic.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/pure_next_dialog.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/drawable/rounded_tranparent_bg.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/selected_answer_card_bg.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/drawable/selector_tablayout_bg.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/send_message_ic.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/show_password_selector.xml" value="0.3494791666666667" />
@@ -85,7 +88,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_learning.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_main_login.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/fragment_multiple_choice.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_multiple_choice.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.67" />
         <entry key="app/src/main/res/layout/fragment_set_goal.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_show_full_size_avatar.xml" value="0.25905797101449274" />
@@ -108,8 +111,10 @@
         <entry key="app/src/main/res/layout/online_friend_in_chat.xml" value="0.4976671850699845" />
         <entry key="app/src/main/res/layout/online_user_row.xml" value="0.5" />
         <entry key="app/src/main/res/layout/pratice_listening_tflat.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/pure_next_dialog.xml" value="0.25905797101449274" />
         <entry key="app/src/main/res/layout/receive_message_row.xml" value="0.21052631578947367" />
         <entry key="app/src/main/res/layout/recieve_message_row.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/selected_card_bg.xml" value="0.25905797101449274" />
         <entry key="app/src/main/res/layout/send_message_row.xml" value="0.5" />
         <entry key="app/src/main/res/layout/sign_up_successfully_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/statistic_content_layout.xml" value="0.3333333333333333" />

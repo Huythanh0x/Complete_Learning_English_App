@@ -14,7 +14,7 @@
             android:id="@+id/thumbnail_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/clean_thumbnail_example"
+            android:src="@drawable/clean_thumbnail_1"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
