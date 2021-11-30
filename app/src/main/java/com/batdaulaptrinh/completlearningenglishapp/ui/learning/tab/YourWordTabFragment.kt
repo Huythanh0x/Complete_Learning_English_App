@@ -44,9 +44,9 @@ class YourWordTabFragment : Fragment() {
                     Snackbar.LENGTH_LONG).setAction("Undo") {
                 }.show()
             })
-        TODO("click outside to collapse bottom sheet")
-        TODO("draggable")
-        TODO("word suggestion")
+//        TODO("click outside to collapse bottom sheet")
+  //      TODO("draggable")
+    //    TODO("word suggestion")
         return binding.root
     }
 

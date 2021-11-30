@@ -30,7 +30,7 @@ class FlashCardFragment : Fragment() {
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
         }
-        TODO("CHANGE COLOR SEEKBAR")
+        //TODO("CHANGE COLOR SEEKBAR")
 
         return binding.root
 
@@ -41,7 +41,7 @@ class FlashCardFragment : Fragment() {
             R.layout.flash_card_settings_dialog,
             null,
             false)
-        TODO("choose correct answer")
+        //TODO("choose correct answer")
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
         dialogBinding.saveBtn.setOnClickListener {
             Toast.makeText(context, "save successfully", Toast.LENGTH_SHORT).show()
@@ -74,7 +74,7 @@ class FlashCardFragment : Fragment() {
     }
 
     private fun showDelayMovingDialog() {
-        TODO("background")
+        //TODO("background")
         val dialogBinding = DataBindingUtil.inflate<DelayBeforeMovingToNextWordDialogBinding>(
             layoutInflater,
             R.layout.delay_before_moving_to_next_word_dialog,

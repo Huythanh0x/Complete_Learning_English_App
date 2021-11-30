@@ -41,7 +41,8 @@ class WordListRecyclerAdapter(
                 wordClickListener(word)
             }
 
-            //TODO add field favorite and update database
+            //
+            // TODO add field favorite and update database
             binding.isFavouriteStarImg.setOnClickListener {
                 if (binding.isFavouriteStarImg.alpha != 1.0f) {
                     binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_24)

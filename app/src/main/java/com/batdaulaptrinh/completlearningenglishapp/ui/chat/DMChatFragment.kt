@@ -23,6 +23,7 @@ class DMChatFragment : Fragment() {
         val KEY_CHAT_HEADER = "KEY_CHAT_HEADER"
     }
 
+    //
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null

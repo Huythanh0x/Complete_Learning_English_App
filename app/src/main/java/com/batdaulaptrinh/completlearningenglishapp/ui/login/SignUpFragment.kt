@@ -62,7 +62,7 @@ class SignUpFragment : Fragment() {
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
         dialogBinding.signInBtn.setOnClickListener {
             findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-            TODO("cancelable = false, navigate to sign in BUG")
+            //TODO("cancelable = false, navigate to sign in BUG")
             dialog.dismiss()
         }
         dialog.show()

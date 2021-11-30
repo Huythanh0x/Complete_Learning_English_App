@@ -13,18 +13,22 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.CompleteGameDialogBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.CorrectAnswerNextDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentMultipleChoiceBinding
-import com.batdaulaptrinh.completlearningenglishapp.databinding.PureNextDialogBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.IncorrectAnswerNextDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WrongAnswerRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 
+
 class MultipleChoiceFragment : Fragment() {
     companion object {
         const val KEY_AGRS_SET = "WORD_SET"
     }
+
+    var isCorrectAnswer: Boolean = false
 
     lateinit var binding: FragmentMultipleChoiceBinding
     override fun onCreateView(
@@ -47,23 +51,29 @@ class MultipleChoiceFragment : Fragment() {
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
         }
-        val answerCode = "b"
-        for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
-            val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
-            nextChild.setOnClickListener {
-                createNextBottomSheet()
-                showCorrectAnswer(answerCode)
-                showIncorrectAnswer(it.tag.toString())
-            }
-        }
-
+        handleQuestion("B")
         return binding.root
     }
 
-    fun resetAllRing() {
+    private fun handleQuestion(correctAnswer: String) {
         for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
-            if (nextChild.tag == "atxt"||nextChild.tag == "btxt"||nextChild.tag == "ctxt"||nextChild.tag == "dtxt") {
+            nextChild.setOnClickListener {
+                showIncorrectAnswer(it.tag.toString())
+                showCorrectAnswer(correctAnswer)
+                if(it.tag.toString() == correctAnswer){
+                    createCorrectNextBottomSheet()
+                }else{
+                    createIncorrectNextBottomSheet(correctAnswer)
+                }
+            }
+        }
+    }
+
+    private fun resetAllRing() {
+        for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
+            val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
+            if (nextChild.tag == "atxt" || nextChild.tag == "btxt" || nextChild.tag == "ctxt" || nextChild.tag == "dtxt") {
                 nextChild.setBackgroundColor(Color.WHITE)
             }
         }
@@ -73,8 +83,11 @@ class MultipleChoiceFragment : Fragment() {
         for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
             if (nextChild.tag == answerCode + "txt") {
+                isCorrectAnswer = true
                 nextChild.background =
                     AppCompatResources.getDrawable(requireContext(), R.drawable.correct_answer_bg)
+            } else {
+                isCorrectAnswer = false
             }
         }
     }
@@ -89,13 +102,31 @@ class MultipleChoiceFragment : Fragment() {
         }
     }
 
-    private fun createNextBottomSheet() {
-        val dialogBinding = DataBindingUtil.inflate<PureNextDialogBinding>(layoutInflater,
-            R.layout.pure_next_dialog,
+    private fun createCorrectNextBottomSheet() {
+        val dialogBinding = DataBindingUtil.inflate<CorrectAnswerNextDialogBinding>(layoutInflater,
+            R.layout.correct_answer_next_dialog,
             null,
             false)
         val dialog = BottomSheetDialog(requireContext())
         dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
+        dialogBinding.nextBtn.setOnClickListener {
+            dialog.dismiss()
+            createCompleteDialog()
+        }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+    private fun createIncorrectNextBottomSheet(correctAnswer: String) {
+        val dialogBinding =
+            DataBindingUtil.inflate<IncorrectAnswerNextDialogBinding>(layoutInflater,
+                R.layout.incorrect_answer_next_dialog,
+                null,
+                false)
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setCancelable(false)
+        dialogBinding.correctAnswerTxt.text = correctAnswer
         dialog.setContentView(dialogBinding.root)
         dialogBinding.nextBtn.setOnClickListener {
             dialog.dismiss()
@@ -112,6 +143,7 @@ class MultipleChoiceFragment : Fragment() {
                 null,
                 false)
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
+        dialog.window?.setDimAmount(0.5f)
         dialog.setCancelable(false)
         dialogBinding.listWrongAnswerRv.adapter = WrongAnswerRecyclerAdapter(Utils.getWordList())
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
@@ -119,14 +151,11 @@ class MultipleChoiceFragment : Fragment() {
             dialog.dismiss()
         }
         dialogBinding.addToNextSetBtn.setOnClickListener {
-            dialog.dismiss()
-            TODO("don't move back when click")
-            TODO("back ground and button")
+            //TODO("back ground and button")
             Snackbar.make(binding.root,
                 "Wrong words was added to next set",
                 Snackbar.LENGTH_LONG).setAction("Undo") {
             }.show()
-            findNavController().popBackStack()
         }
         dialogBinding.backToMenuFlashCardBtn.setOnClickListener {
             dialog.dismiss()
