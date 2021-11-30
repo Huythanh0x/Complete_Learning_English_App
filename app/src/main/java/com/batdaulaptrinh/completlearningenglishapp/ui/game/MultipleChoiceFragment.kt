@@ -51,7 +51,7 @@ class MultipleChoiceFragment : Fragment() {
         for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
             nextChild.setOnClickListener {
-                createNextDialog()
+                createNextBottomSheet()
                 showCorrectAnswer(answerCode)
                 showIncorrectAnswer(it.tag.toString())
             }
@@ -89,7 +89,7 @@ class MultipleChoiceFragment : Fragment() {
         }
     }
 
-    private fun createNextDialog() {
+    private fun createNextBottomSheet() {
         val dialogBinding = DataBindingUtil.inflate<PureNextDialogBinding>(layoutInflater,
             R.layout.pure_next_dialog,
             null,
@@ -120,6 +120,8 @@ class MultipleChoiceFragment : Fragment() {
         }
         dialogBinding.addToNextSetBtn.setOnClickListener {
             dialog.dismiss()
+            TODO("don't move back when click")
+            TODO("back ground and button")
             Snackbar.make(binding.root,
                 "Wrong words was added to next set",
                 Snackbar.LENGTH_LONG).setAction("Undo") {

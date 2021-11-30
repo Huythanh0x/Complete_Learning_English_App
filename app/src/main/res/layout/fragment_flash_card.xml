@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/clean_thumbnail_1"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                 android:paddingVertical="20dp"
                 android:text="A person just starting to learn a skill or take part in an activity.\nA beginner's guide"
                 android:textSize="20sp"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
         </androidx.cardview.widget.CardView>
 
@@ -129,6 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
+            android:textColor="@color/black"
             android:text="12/20"
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toEndOf="parent"

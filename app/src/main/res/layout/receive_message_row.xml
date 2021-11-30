@@ -16,7 +16,6 @@
             android:id="@+id/image_profile_cv"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="10dp"
             android:background="@drawable/rounded_transparent_bg"
             android:scaleType="centerCrop"
             app:cardCornerRadius="20dp"

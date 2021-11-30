@@ -38,8 +38,9 @@ class ChatFragment : Fragment() {
                     bundleOf(
                         DMChatFragment.KEY_CHAT_HEADER to chatRoom))
             }
-
-
+        TODO("REMOVE settings chat icon")
+        TODO("full name ?")
+        TODO("new fragment and show suggestion")
         return binding.root
     }
 }

@@ -54,7 +54,8 @@
                 android:id="@+id/avatar_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/avatar_example" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/thumbnail_word_example" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView

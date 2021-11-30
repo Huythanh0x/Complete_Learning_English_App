@@ -50,7 +50,7 @@ class ConnectWordFragment : Fragment() {
                 binding.titleToolBar.text = "WORD SET NUMBER ${setWord.setNth}"
             }
         }
-
+        TODO("keep missing word position,hint: image")
         //TODO FAKING HERE
         originWord = "BEAUTIFUL"
         val shuffleWord = shuffleString(originWord)

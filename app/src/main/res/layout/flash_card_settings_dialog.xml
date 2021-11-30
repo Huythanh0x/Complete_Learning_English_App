@@ -203,6 +203,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/solid_button_bg"
             android:text="SAVE"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/view11"
             app:layout_constraintStart_toEndOf="@id/discard_btn"
             app:layout_constraintTop_toTopOf="@+id/discard_btn" />

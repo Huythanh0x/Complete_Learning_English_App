@@ -1,29 +1,25 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentYourWordTabBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.YourWordSortBottomSheetBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 
 class YourWordTabFragment : Fragment() {
     lateinit var binding: FragmentYourWordTabBinding
-    lateinit var sortBottomSheet:  BottomSheetBehavior<CardView>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -31,58 +27,11 @@ class YourWordTabFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_your_word_tab, container, false)
         // Inflate the layout for this fragment
-        sortBottomSheet = BottomSheetBehavior.from(binding.standardBottomSheet)
-        sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        sortBottomSheet.peekHeight = 0
         binding.sortImg.setOnClickListener() {
-            if (sortBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                binding.root.setBackgroundColor(Color.GRAY)
-                sortBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-
-            } else {
-                sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-                binding.root.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
-            }
+            createSortBottomSheet()
         }
-        binding.collapseBottomSheetImg.setOnClickListener {
-            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-
-        sortBottomSheet.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    binding.root.setBackgroundColor(Color.GRAY)
-                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                    binding.root.setBackgroundColor(Color.WHITE)
-                }
-            }
-
-            override fun onSlide(sortBottomSheet: View, slideOffset: Float) {
-                Log.d("TAG BOTTOM SHEET", slideOffset.toString())
-            }
-        })
-        
-        sortBottomSheet.isDraggable = false
-
-        binding.sortByAZTxt.setOnClickListener {
-            Toast.makeText(context, "Sort by ascending alphabet", Toast.LENGTH_SHORT).show()
-            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-        binding.sortByZATxt.setOnClickListener {
-            Toast.makeText(context, "Sort by descending alphabet", Toast.LENGTH_SHORT).show()
-            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-        binding.sortByTimeAddAscTxt.setOnClickListener {
-            Toast.makeText(context, "Sort by ascending add time", Toast.LENGTH_SHORT).show()
-            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-        binding.sortByTimeAddDesTxt.setOnClickListener {
-            Toast.makeText(context, "Sort by descending add time", Toast.LENGTH_SHORT).show()
-            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-
-
         //TODO faking here
+
         binding.yourWordsRecyclerView.adapter =
             WordListRecyclerAdapter(Utils.getWordList(), { _ ->
                 context?.let { word -> Utils.playSoundHello(word) }
@@ -95,13 +44,41 @@ class YourWordTabFragment : Fragment() {
                     Snackbar.LENGTH_LONG).setAction("Undo") {
                 }.show()
             })
-
+        TODO("click outside to collapse bottom sheet")
+        TODO("draggable")
+        TODO("word suggestion")
         return binding.root
     }
 
-    override fun onPause() {
-        super.onPause()
-        sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
 
+    private fun createSortBottomSheet() {
+        val bindingBottomSheet = DataBindingUtil.inflate<YourWordSortBottomSheetBinding>(
+            layoutInflater,
+            R.layout.your_word_sort_bottom_sheet,
+            null,
+            false)
+        val realBottomSheet = BottomSheetDialog(requireContext())
+        realBottomSheet.setContentView(bindingBottomSheet.root)
+        realBottomSheet.setCancelable(false)
+        bindingBottomSheet.sortByAZTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by ascending alphabet", Toast.LENGTH_SHORT).show()
+            realBottomSheet.dismiss()
+        }
+        bindingBottomSheet.sortByZATxt.setOnClickListener {
+            Toast.makeText(context, "Sort by descending alphabet", Toast.LENGTH_SHORT).show()
+            realBottomSheet.dismiss()
+        }
+        bindingBottomSheet.sortByTimeAddAscTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by ascending add time", Toast.LENGTH_SHORT).show()
+            realBottomSheet.dismiss()
+        }
+        bindingBottomSheet.sortByTimeAddDesTxt.setOnClickListener {
+            Toast.makeText(context, "Sort by descending add time", Toast.LENGTH_SHORT).show()
+            realBottomSheet.dismiss()
+        }
+        bindingBottomSheet.collapseBottomSheetImg.setOnClickListener {
+            realBottomSheet.dismiss()
+        }
+        realBottomSheet.show()
     }
 }
