@@ -18,10 +18,12 @@ import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerA
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 
 class YourWordTabFragment : Fragment() {
     lateinit var binding: FragmentYourWordTabBinding
-    lateinit var bottomSheet:  BottomSheetBehavior<CardView>
+    lateinit var sortBottomSheet:  BottomSheetBehavior<CardView>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -29,24 +31,24 @@ class YourWordTabFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_your_word_tab, container, false)
         // Inflate the layout for this fragment
-        bottomSheet = BottomSheetBehavior.from(binding.standardBottomSheet)
-        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        bottomSheet.peekHeight = 0
+        sortBottomSheet = BottomSheetBehavior.from(binding.standardBottomSheet)
+        sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        sortBottomSheet.peekHeight = 0
         binding.sortImg.setOnClickListener() {
-            if (bottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            if (sortBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
                 binding.root.setBackgroundColor(Color.GRAY)
-                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+                sortBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
 
             } else {
-                bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+                sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
                 binding.root.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
             }
         }
         binding.collapseBottomSheetImg.setOnClickListener {
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
-        bottomSheet.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        sortBottomSheet.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                     binding.root.setBackgroundColor(Color.GRAY)
@@ -55,26 +57,28 @@ class YourWordTabFragment : Fragment() {
                 }
             }
 
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            override fun onSlide(sortBottomSheet: View, slideOffset: Float) {
                 Log.d("TAG BOTTOM SHEET", slideOffset.toString())
             }
         })
+        
+        sortBottomSheet.isDraggable = false
 
         binding.sortByAZTxt.setOnClickListener {
             Toast.makeText(context, "Sort by ascending alphabet", Toast.LENGTH_SHORT).show()
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         binding.sortByZATxt.setOnClickListener {
             Toast.makeText(context, "Sort by descending alphabet", Toast.LENGTH_SHORT).show()
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         binding.sortByTimeAddAscTxt.setOnClickListener {
             Toast.makeText(context, "Sort by ascending add time", Toast.LENGTH_SHORT).show()
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         binding.sortByTimeAddDesTxt.setOnClickListener {
             Toast.makeText(context, "Sort by descending add time", Toast.LENGTH_SHORT).show()
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+            sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
 
@@ -86,7 +90,10 @@ class YourWordTabFragment : Fragment() {
                 findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
                     bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
             }, {
-                Toast.makeText(context, "Change star fav ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
+                Snackbar.make(binding.root,
+                    "${it.en_word} was removed from your wordlist",
+                    Snackbar.LENGTH_LONG).setAction("Undo") {
+                }.show()
             })
 
         return binding.root
@@ -94,7 +101,7 @@ class YourWordTabFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        sortBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
 
     }
 }

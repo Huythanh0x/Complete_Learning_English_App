@@ -178,8 +178,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="noun"
-            app:layout_constraintEnd_toEndOf="@+id/api_flash_card_txt"
-            app:layout_constraintStart_toStartOf="@+id/api_flash_card_txt"
+            app:layout_constraintEnd_toEndOf="@+id/en_word_txt"
+            app:layout_constraintStart_toStartOf="@+id/en_word_txt"
             app:layout_constraintTop_toBottomOf="@+id/en_word_txt" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -188,8 +188,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="/biginer/"
-            app:layout_constraintEnd_toEndOf="@+id/speaker_flash_card_img"
-            app:layout_constraintStart_toStartOf="@+id/en_word_txt"
+            app:layout_constraintEnd_toEndOf="@+id/type_word_txt"
+            app:layout_constraintStart_toStartOf="@+id/type_word_txt"
             app:layout_constraintTop_toBottomOf="@+id/type_word_txt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ class WordTestRecyclerViewAdapter(
             val decodedString: ByteArray = Base64.decode(wordSet.imageOfSet, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             binding.thumbnailImg.setImageBitmap(decodedByte)
-            binding.wordSetNumberTxt.text = "Word set test number ${wordSet.setNth + 1}"
+            binding.wordSetNumberTxt.text = "Word set number ${wordSet.setNth + 1}"
             binding.testBtn.setOnClickListener{
                 clickListener(wordSet)
             }

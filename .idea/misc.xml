@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/drawable/ic_microphone_svgrepo_com.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_ryan_taylor_green_tick.xml" value="0.4010416666666667" />
         <entry key="app/src/main/res/drawable/ic_send.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/incorrect_answer_bg.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/menu_bottom_sheet.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/online_friend_in_chat.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/outline_button_bg.xml" value="0.3494791666666667" />
@@ -75,6 +76,8 @@
         <entry key="app/src/main/res/layout/complete_flash_card_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/complete_game_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/correct_anwser_missing_word_dialog.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/delay_before_moving_to_next_word_dialog.xml" value="0.25905797101449274" />
+        <entry key="app/src/main/res/layout/delay_turn_off_dialog.xml" value="0.25905797101449274" />
         <entry key="app/src/main/res/layout/empty_letter_row.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/entrance_result_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/flash_card_settings_dialog.xml" value="0.5" />
@@ -85,12 +88,12 @@
         <entry key="app/src/main/res/layout/fragment_connect_word.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_d_m_chat.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_find_level.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/fragment_flash_card.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_flash_card.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_learning.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_main_login.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_multiple_choice.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_set_goal.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_show_full_size_avatar.xml" value="0.25905797101449274" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.36261040235525027" />
@@ -122,6 +125,7 @@
         <entry key="app/src/main/res/layout/statistic_experience_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/statistic_header_layout.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/statistic_streak_dialog.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/turn_off_after_dialog.xml" value="0.25905797101449274" />
         <entry key="app/src/main/res/layout/us_speaker_icon.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/user_chat_row.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/word_row_in_wordlist.xml" value="0.25" />

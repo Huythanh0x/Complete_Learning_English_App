@@ -1,6 +1,8 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.game
 
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,10 +53,20 @@ class MultipleChoiceFragment : Fragment() {
             nextChild.setOnClickListener {
                 createNextDialog()
                 showCorrectAnswer(answerCode)
+                showIncorrectAnswer(it.tag.toString())
             }
         }
 
         return binding.root
+    }
+
+    fun resetAllRing() {
+        for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
+            val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
+            if (nextChild.tag == "atxt"||nextChild.tag == "btxt"||nextChild.tag == "ctxt"||nextChild.tag == "dtxt") {
+                nextChild.setBackgroundColor(Color.WHITE)
+            }
+        }
     }
 
     private fun showCorrectAnswer(answerCode: String) {
@@ -63,6 +75,16 @@ class MultipleChoiceFragment : Fragment() {
             if (nextChild.tag == answerCode + "txt") {
                 nextChild.background =
                     AppCompatResources.getDrawable(requireContext(), R.drawable.correct_answer_bg)
+            }
+        }
+    }
+
+    private fun showIncorrectAnswer(answerCode: String) {
+        for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
+            val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
+            if (nextChild.tag == answerCode + "txt") {
+                nextChild.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.incorrect_answer_bg)
             }
         }
     }
@@ -79,6 +101,7 @@ class MultipleChoiceFragment : Fragment() {
             dialog.dismiss()
             createCompleteDialog()
         }
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }
 
@@ -92,12 +115,13 @@ class MultipleChoiceFragment : Fragment() {
         dialog.setCancelable(false)
         dialogBinding.listWrongAnswerRv.adapter = WrongAnswerRecyclerAdapter(Utils.getWordList())
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
+            resetAllRing()
             dialog.dismiss()
         }
         dialogBinding.addToNextSetBtn.setOnClickListener {
             dialog.dismiss()
             Snackbar.make(binding.root,
-                "All of this word was add to next set",
+                "Wrong words was added to next set",
                 Snackbar.LENGTH_LONG).setAction("Undo") {
             }.show()
             findNavController().popBackStack()

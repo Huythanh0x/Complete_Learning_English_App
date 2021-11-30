@@ -85,7 +85,7 @@ class AllWordTabFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
                 bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
         }, {
-            Toast.makeText(context, "Change star fav ${it.mp3_uk}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${it.en_word} was add to your wordlist", Toast.LENGTH_SHORT).show()
         })
 
         return binding.root

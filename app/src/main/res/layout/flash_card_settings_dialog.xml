@@ -29,66 +29,93 @@
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintBottom_toTopOf="@+id/delay_before_moving_txt"
-            app:layout_constraintEnd_toEndOf="@+id/delay_before_moving_time_txt"
-            app:layout_constraintStart_toStartOf="@+id/delay_before_moving_txt"
+            app:layout_constraintBottom_toTopOf="@+id/delay_before_moving_cl"
+            app:layout_constraintEnd_toEndOf="@+id/delay_before_moving_cl"
+            app:layout_constraintStart_toStartOf="@+id/delay_before_moving_cl"
             app:layout_constraintTop_toBottomOf="@+id/settings_txt" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/delay_before_moving_txt"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/delay_before_moving_cl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:paddingVertical="10dp"
-            android:text="Delay before moving"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toStartOf="@+id/delay_before_moving_time_txt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view6" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/delay_before_moving_time_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:text="7s"
-            android:textColor="@color/lightPrimaryColor"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/delay_before_moving_txt"
+            android:layout_marginHorizontal="20dp"
+            android:text="Delay before moving to next word"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/delay_before_moving_txt" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view6">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/delay_before_moving_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:paddingVertical="10dp"
+                android:text="Delay for earch word"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/delay_before_moving_time_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="7s"
+                android:textColor="@color/lightPrimaryColor"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/delay_before_moving_txt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/delay_before_moving_txt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintBottom_toTopOf="@+id/turn_off_after_txt"
+            app:layout_constraintBottom_toTopOf="@+id/turn_off_after_cl"
             app:layout_constraintEnd_toEndOf="@+id/turn_off_after_time_txt"
-            app:layout_constraintStart_toStartOf="@+id/turn_off_after_txt"
-            app:layout_constraintTop_toBottomOf="@+id/delay_before_moving_txt" />
+            app:layout_constraintStart_toStartOf="@+id/turn_off_after_cl"
+            app:layout_constraintTop_toBottomOf="@+id/delay_before_moving_cl" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/turn_off_after_txt"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/turn_off_after_cl"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
+            android:layout_height="match_parent"
             android:text="Turn off after"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toStartOf="@+id/turn_off_after_time_txt"
-            app:layout_constraintStart_toStartOf="@+id/delay_before_moving_txt"
-            app:layout_constraintTop_toBottomOf="@+id/delay_before_moving_txt" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/turn_off_after_time_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:text="10 minutes"
-            android:textColor="@color/lightPrimaryColor"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/turn_off_after_txt"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/turn_off_after_txt" />
+            app:layout_constraintStart_toStartOf="@+id/delay_before_moving_cl"
+            app:layout_constraintTop_toBottomOf="@+id/delay_before_moving_cl">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/turn_off_after_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="Turn off after"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/turn_off_after_time_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="10 minutes"
+                android:textColor="@color/lightPrimaryColor"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/turn_off_after_cl"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/turn_off_after_cl" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <View
             android:layout_width="0dp"
@@ -97,7 +124,7 @@
             app:layout_constraintBottom_toTopOf="@+id/auto_repeat_txt"
             app:layout_constraintEnd_toEndOf="@+id/auto_repeat_cb"
             app:layout_constraintStart_toStartOf="@id/auto_repeat_txt"
-            app:layout_constraintTop_toBottomOf="@+id/turn_off_after_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/turn_off_after_cl" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/auto_repeat_txt"
@@ -105,9 +132,9 @@
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
             android:text="Auto repeat"
-            android:textSize="18dp"
-            app:layout_constraintStart_toStartOf="@+id/turn_off_after_txt"
-            app:layout_constraintTop_toBottomOf="@+id/turn_off_after_txt" />
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/turn_off_after_cl"
+            app:layout_constraintTop_toBottomOf="@+id/turn_off_after_cl" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/auto_repeat_cb"
@@ -134,8 +161,7 @@
             android:layout_marginBottom="20dp"
             android:paddingVertical="10dp"
             android:text="Play sound"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/auto_repeat_txt"
             app:layout_constraintTop_toBottomOf="@+id/auto_repeat_txt" />
 
@@ -148,6 +174,38 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/play_sound_txt" />
 
+        <View
+            android:id="@+id/view11"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@id/play_sound_cb"
+            app:layout_constraintStart_toStartOf="@+id/play_sound_txt"
+            app:layout_constraintTop_toBottomOf="@+id/play_sound_txt" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/discard_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/outline_button_bg"
+            android:text="DISCARD"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/save_btn"
+            app:layout_constraintStart_toStartOf="@+id/play_sound_txt"
+            app:layout_constraintTop_toBottomOf="@+id/view11" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/solid_button_bg"
+            android:text="SAVE"
+            app:layout_constraintEnd_toEndOf="@+id/view11"
+            app:layout_constraintStart_toEndOf="@id/discard_btn"
+            app:layout_constraintTop_toTopOf="@+id/discard_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

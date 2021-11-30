@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -18,9 +19,11 @@ import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 class ProfileFragment : Fragment() {
     private val CHOOSEIMAGECODE = 11123
     lateinit var binding: FragmentProfileBinding
-    companion object{
+
+    companion object {
         val KEY_AVATAR = "KEY_AVATAR"
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -41,7 +44,7 @@ class ProfileFragment : Fragment() {
         }
         binding.editEmailInfoBtn.setOnClickListener {
             startEditText(binding.emailInfoTxt)
-            startEditText(binding.emailInfoTxt)
+            finishEditText(binding.emailInfoTxt)
         }
         binding.editProfileCv.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -61,6 +64,7 @@ class ProfileFragment : Fragment() {
 
     private fun startEditText(editText: androidx.appcompat.widget.AppCompatEditText) {
         editText.isFocusable = true
+        editText.isCursorVisible = true
         editText.isFocusableInTouchMode = true
         editText.requestFocus()
         editText.setSelection((editText.text?.length ?: 0))
@@ -71,8 +75,9 @@ class ProfileFragment : Fragment() {
 
     private fun finishEditText(editText: androidx.appcompat.widget.AppCompatEditText) {
         editText.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && (event.action == KeyEvent.ACTION_DOWN)) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 editText.isFocusable = false
+                editText.isCursorVisible = false
                 val imm =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
                 imm!!.hideSoftInputFromWindow(editText.windowToken, 0)

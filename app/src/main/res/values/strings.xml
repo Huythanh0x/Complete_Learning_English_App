@@ -31,4 +31,23 @@
         <item name="us">US</item>
         <item name="uk">UK</item>
     </string-array>
+
+    <string-array name="delay_before_moving_spinner">
+        <item name="2s">2s</item>
+        <item name="3s">3s</item>
+        <item name="4s">4s</item>
+        <item name="5s">5s</item>
+        <item name="6s">6s</item>
+        <item name="7s">7s</item>
+        <item name="8s">8s</item>
+    </string-array>
+
+    <string-array name="turn_off_after">
+        <item name="5_minutes">5 minutes</item>
+        <item name="10_minutes">10 minutes</item>
+        <item name="15_minutes">15 minutes</item>
+        <item name="20_minutes">20 minutes</item>
+        <item name="25_minutes">25 minutes</item>
+        <item name="30_minutes">30 minutes</item>
+    </string-array>
 </resources>
