@@ -2,6 +2,7 @@ package com.batdaulaptrinh.completlearningenglishapp.model
 
 import android.os.Parcelable
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
@@ -33,4 +34,10 @@ data class Word(
     val clean_word_url: String,
     @NonNull
     val thumbnail: String,
+    @Nullable
+    val set_nth: Int?,
+    @Nullable
+    val is_favourite: Int?,
+    @Nullable
+    val add_date: String?,
 ) : Parcelable

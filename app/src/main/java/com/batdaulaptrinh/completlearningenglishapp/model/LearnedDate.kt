@@ -8,6 +8,8 @@ data class LearnedDate(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val date: String,
-    val isComplete: Int
+    val is_complete: Int,
+    val set_nt: Int,
+    val progress: String,
 ) {
 }

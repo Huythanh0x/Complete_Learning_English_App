@@ -28,12 +28,12 @@ class WordListFragment : Fragment() {
         binding.recyclerView.adapter = SetWordListRecyclerAdapter(Utils.getWordList(), {
             findNavController().navigate(R.id.action_wordListFragment_to_wordDetailFragment)
         }, {
-            context?.let { it1 -> Utils.playSoundHello(it1) }
-        },{
+            context?.let { context -> Utils.playSoundHello(context) }
+        }, {
 
         })
 
-        binding.backwardImg.setOnClickListener{
+        binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
         }
 

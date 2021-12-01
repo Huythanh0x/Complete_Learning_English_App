@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -58,16 +60,24 @@ class MultipleChoiceFragment : Fragment() {
     private fun handleQuestion(correctAnswer: String) {
         for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
-            nextChild.setOnClickListener {
-                showIncorrectAnswer(it.tag.toString())
-                showCorrectAnswer(correctAnswer)
-                if(it.tag.toString() == correctAnswer){
-                    createCorrectNextBottomSheet()
-                }else{
-                    createIncorrectNextBottomSheet(correctAnswer)
+            if (nextChild.tag.toString() == "a" || nextChild.tag.toString() == "b" || nextChild.tag.toString() == "c" || nextChild.tag.toString() == "d")
+                nextChild.setOnClickListener {
+                    adjustMarginTopOfRoot(-550)
+                    showIncorrectAnswer(it.tag.toString())
+                    showCorrectAnswer(correctAnswer)
+                    if (it.tag.toString().uppercase() == correctAnswer) {
+                        createCorrectNextBottomSheet()
+                    } else {
+                        createIncorrectNextBottomSheet(correctAnswer)
+                    }
                 }
-            }
         }
+    }
+
+    private fun adjustMarginTopOfRoot(pixel: Int) {
+        val params = FrameLayout.LayoutParams(binding.root.layoutParams)
+        params.topMargin = pixel
+        binding.root.layoutParams = params
     }
 
     private fun resetAllRing() {
@@ -82,7 +92,7 @@ class MultipleChoiceFragment : Fragment() {
     private fun showCorrectAnswer(answerCode: String) {
         for (index in 0 until (binding.answerConstraintLayout as ViewGroup).childCount) {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
-            if (nextChild.tag == answerCode + "txt") {
+            if (nextChild.tag == answerCode.lowercase() + "txt") {
                 isCorrectAnswer = true
                 nextChild.background =
                     AppCompatResources.getDrawable(requireContext(), R.drawable.correct_answer_bg)
@@ -108,10 +118,12 @@ class MultipleChoiceFragment : Fragment() {
             null,
             false)
         val dialog = BottomSheetDialog(requireContext())
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.setCancelable(false)
         dialog.setContentView(dialogBinding.root)
         dialogBinding.nextBtn.setOnClickListener {
             dialog.dismiss()
+            resetAllRing()
             createCompleteDialog()
         }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -125,12 +137,15 @@ class MultipleChoiceFragment : Fragment() {
                 null,
                 false)
         val dialog = BottomSheetDialog(requireContext())
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.setCancelable(false)
         dialogBinding.correctAnswerTxt.text = correctAnswer
         dialog.setContentView(dialogBinding.root)
         dialogBinding.nextBtn.setOnClickListener {
             dialog.dismiss()
+            resetAllRing()
             createCompleteDialog()
+            adjustMarginTopOfRoot(0)
         }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
@@ -147,14 +162,14 @@ class MultipleChoiceFragment : Fragment() {
         dialog.setCancelable(false)
         dialogBinding.listWrongAnswerRv.adapter = WrongAnswerRecyclerAdapter(Utils.getWordList())
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
-            resetAllRing()
             dialog.dismiss()
+            adjustMarginTopOfRoot(0)
         }
         dialogBinding.addToNextSetBtn.setOnClickListener {
             //TODO("back ground and button")
-            Snackbar.make(binding.root,
+            Snackbar.make(dialogBinding.root,
                 "Wrong words was added to next set",
-                Snackbar.LENGTH_LONG).setAction("Undo") {
+                Snackbar.LENGTH_SHORT).setAction("Undo") {
             }.show()
         }
         dialogBinding.backToMenuFlashCardBtn.setOnClickListener {
