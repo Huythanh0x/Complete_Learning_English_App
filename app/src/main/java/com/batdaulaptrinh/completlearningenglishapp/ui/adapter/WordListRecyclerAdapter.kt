@@ -6,34 +6,32 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.WordRowInWordlistBinding
-import com.batdaulaptrinh.completlearningenglishapp.model.Word
-import kotlin.random.Random
+import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 
 class WordListRecyclerAdapter(
-    private val listWord: ArrayList<Word>,
-    private val speakerClickListener: (word: Word) -> Unit,
-    private val wordClickListener: (word: Word) -> Unit,
-    private val starClickListener: (word: Word) -> Unit
+    private val listWord: ArrayList<MinimalWord>,
+    private val speakerClickListener: (word: MinimalWord) -> Unit,
+    private val wordClickListener: (word: MinimalWord) -> Unit,
+    private val starClickListener: (word: MinimalWord) -> Unit,
 ) :
     RecyclerView.Adapter<WordListRecyclerAdapter.MyViewHolder>() {
     class MyViewHolder(val binding: WordRowInWordlistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun binding(
-            word: Word,
-            speakerClickListener: (word: Word) -> Unit,
-            wordClickListener: (word: Word) -> Unit,
-            starClickListener: (word: Word) -> Unit
+            word: MinimalWord,
+            speakerClickListener: (word: MinimalWord) -> Unit,
+            wordClickListener: (word: MinimalWord) -> Unit,
+            starClickListener: (word: MinimalWord) -> Unit,
         ) {
-            binding.apiTxt.text = word.api_uk
-            binding.enWordText.text = word.en_word
-            val isStar = Random.nextInt(100) % 2 == 0
-            if (isStar) {
+            if (word.is_favourite == 1) {
                 binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_24)
-                binding.isFavouriteStarImg.alpha = 1.0f
             } else {
                 binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_border_24)
-                binding.isFavouriteStarImg.alpha = 0.9f
             }
+            //TODO check accent
+            binding.playSoundImg.setImageResource(R.drawable.us_speaker_ic)
+            binding.apiTxt.text = word.api_us
+            binding.enWordText.text = word.en_word
             binding.playSoundImg.setOnClickListener {
                 speakerClickListener(word)
             }
@@ -41,15 +39,11 @@ class WordListRecyclerAdapter(
                 wordClickListener(word)
             }
 
-            //
-            // TODO add field favorite and update database
             binding.isFavouriteStarImg.setOnClickListener {
-                if (binding.isFavouriteStarImg.alpha != 1.0f) {
+                if (word.is_favourite != 1) {
                     binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_24)
-                    binding.isFavouriteStarImg.alpha = 1.0f
                 } else {
                     binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_border_24)
-                    binding.isFavouriteStarImg.alpha = 0.9f
                 }
                 starClickListener(word)
             }
@@ -75,4 +69,10 @@ class WordListRecyclerAdapter(
     }
 
     override fun getItemCount() = listWord.size
+
+    fun addList(newList: List<MinimalWord>) {
+        listWord.clear()
+        listWord.addAll(newList)
+        notifyDataSetChanged()
+    }
 }

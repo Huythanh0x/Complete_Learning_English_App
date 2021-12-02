@@ -1,0 +1,68 @@
+CREATE TABLE "word_table_demo" (
+	"_id"	TEXT NOT NULL Primary key,
+	"en_word"	TEXT NOT NULL,
+	"type"	TEXT NOT NULL,
+	"cefr"	TEXT NOT NULL,
+	"definition"	TEXT NOT NULL,
+	"api_uk"	TEXT NOT NULL,
+	"api_us"	TEXT NOT NULL,
+	"mp3_uk"	TEXT NOT NULL,
+	"mp3_us"	TEXT NOT NULL,
+	"examples"	TEXT NOT NULL,
+	"clean_word_url"	TEXT NOT NULL,
+	"thumbnail"	TEXT NOT NULL,
+	"set_nth"	INTEGER NOT NULL,
+	"is_favourite"	INTEGER NOT NULL,
+	"add_date"	TEXT NOT NULL
+);
+
+sqlite3 perfect_oxford_worldlist.db 
+
+select * from thumbnail,new_table
+where
+	thumbnail.word = new_table.en_word;
+	
+##word with word
+select count(*) from thumbnail,new_table
+where
+	lower(thumbnail.word) = lower(new_table.en_word);
+
+##thumbnail word with word
+select count(*) from thumbnail,new_table
+where
+	lower(thumbnail.thumbnail_word) = lower(new_table.en_word);
+
+## combine
+create table combine_1 as
+select * from thumbnail,new_table
+where
+	lower(thumbnail.thumbnail_word) = lower(new_table.en_word) or lower(thumbnail.word) = lower(new_table.en_word);
+
+##compare word and thumnail word
+select count(DISTINCT new_table._id) from thumbnail,new_table
+where
+	thumbnail.thumbnail_word =  thumbnail.word 
+	group by thumbnail.word;
+
+## combine distinct
+create table combine_2 as
+select new_table._id,new_table.en_word,new_table.type,new_table.cefr,new_table.definition,new_table.api_uk,new_table.api_us,new_table.mp3_uk,new_table.mp3_us,new_table.examples,new_table.clean_word_url,thumbnail.thumb1 from thumbnail,new_table
+where
+	lower(thumbnail.thumbnail_word) = lower(new_table.en_word) or lower(thumbnail.word) = lower(new_table.en_word);
+
+###find between
+
+create table different as
+SELECT thumbnail.word FROM (SELECT thumbnail.word FROM thumbnail
+               EXCEPT
+               SELECT new_table.en_word FROM new_table)
+UNION ALL
+SELECT new_table.en_word FROM (SELECT new_table.en_word FROM new_table
+               EXCEPT
+               SELECT thumbnail.thumbnail_word FROM thumbnail);
+               
+#add a new table 
+alter table combine_2 add column set_nth text
+
+##copy table , check primarykey
+insert or REPLACE  into word_table_demo SELECT * FROM word_table;

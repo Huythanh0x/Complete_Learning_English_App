@@ -10,6 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "word_table")
 data class Word(
+    @NonNull
     @PrimaryKey
     val _id: String,
     @NonNull
@@ -34,10 +35,10 @@ data class Word(
     val clean_word_url: String,
     @NonNull
     val thumbnail: String,
-    @Nullable
-    val set_nth: Int?,
-    @Nullable
-    val is_favourite: Int?,
-    @Nullable
-    val add_date: String?,
+    @NonNull
+    val set_nth: Int,
+    @NonNull
+    val is_favourite: Int,
+    @NonNull
+    val add_date: String,
 ) : Parcelable

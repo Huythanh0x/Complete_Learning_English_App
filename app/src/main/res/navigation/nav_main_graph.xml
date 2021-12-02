@@ -35,7 +35,7 @@
         android:id="@+id/navigation_learning"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.learning.LearningFragment"
         android:label="fragment_learning"
-        tools:layout="@layout/fragment_learning" >
+        tools:layout="@layout/fragment_learning">
         <argument
             android:name="word"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
@@ -47,7 +47,7 @@
         android:id="@+id/navigation_profile"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_navigation_profile_to_showFullSizeAvatar"
             app:destination="@id/showFullSizeAvatar" />
@@ -73,7 +73,14 @@
         android:id="@+id/wordDetailFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment"
         android:label="WordDetailFragment"
-        tools:layout="@layout/fragment_word_detail" />
+        tools:layout="@layout/fragment_word_detail">
+        <action
+            android:id="@+id/action_wordDetailFragment_to_wordMoreDetail"
+            app:destination="@id/wordMoreDetail" />
+        <argument
+            android:name="word"
+            app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+    </fragment>
     <fragment
         android:id="@+id/testTabFragment"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.tab.TestTabFragment"
@@ -133,6 +140,11 @@
     <fragment
         android:id="@+id/showFullSizeAvatar"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.profile.ShowFullSizeAvatar"
-        tools:layout="@layout/fragment_show_full_size_avatar"
-        android:label="ShowFullSizeAvatar" />
+        android:label="ShowFullSizeAvatar"
+        tools:layout="@layout/fragment_show_full_size_avatar" />
+    <fragment
+        android:id="@+id/wordMoreDetail"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordMoreDetailFragment"
+        android:label="WordMoreDetail"
+        tools:layout="@layout/fragment_word_more_detail" />
 </navigation>

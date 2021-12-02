@@ -66,11 +66,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias=".1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".2"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias=".05"
             app:layout_constraintWidth_percent=".4">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/thumbnail_example_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/clean_thumbnail_1" />
@@ -141,6 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/thumbnail_example_cv">
 
@@ -172,15 +174,15 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/description_content_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5dp"
-                    android:paddingHorizontal="20dp"
                     android:text="A person just starting to learn a skill or take part in an activity.
 A beginner's guide"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/word_type_txt"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/word_type_txt" />
 
                 <View
@@ -204,15 +206,27 @@ A beginner's guide"
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/example_content_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5dp"
-                    android:paddingHorizontal="20dp"
                     android:text="The book is advertised as a beginner's guide to opera.\nThe classes are suitable for complete beginners.\nThis is a good starting point for beginners in computing."
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/description_content_txt"
+                    app:layout_constraintStart_toStartOf="@+id/example_txt"
                     app:layout_constraintTop_toBottomOf="@+id/example_txt" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/more_detail_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="@string/click_here_for_more_detail_at_oxford_home_page"
+                    android:textColor="@color/lightPrimaryColor"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/example_content_txt"
+                    app:layout_constraintStart_toStartOf="@+id/example_content_txt"
+                    app:layout_constraintTop_toBottomOf="@+id/example_content_txt" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

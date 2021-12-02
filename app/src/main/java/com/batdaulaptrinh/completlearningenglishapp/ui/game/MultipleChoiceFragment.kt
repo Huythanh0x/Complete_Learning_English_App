@@ -124,6 +124,7 @@ class MultipleChoiceFragment : Fragment() {
         dialogBinding.nextBtn.setOnClickListener {
             dialog.dismiss()
             resetAllRing()
+            adjustMarginTopOfRoot(0)
             createCompleteDialog()
         }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -160,10 +161,9 @@ class MultipleChoiceFragment : Fragment() {
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
         dialog.window?.setDimAmount(0.5f)
         dialog.setCancelable(false)
-        dialogBinding.listWrongAnswerRv.adapter = WrongAnswerRecyclerAdapter(Utils.getWordList())
+        dialogBinding.listWrongAnswerRv.adapter = WrongAnswerRecyclerAdapter(arrayListOf())
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
             dialog.dismiss()
-            adjustMarginTopOfRoot(0)
         }
         dialogBinding.addToNextSetBtn.setOnClickListener {
             //TODO("back ground and button")

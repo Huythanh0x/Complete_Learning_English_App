@@ -25,7 +25,7 @@ class WordListFragment : Fragment() {
             container,
             false)
         //TODO FAKING
-        binding.recyclerView.adapter = SetWordListRecyclerAdapter(Utils.getWordList(), {
+        binding.recyclerView.adapter = SetWordListRecyclerAdapter(arrayListOf(), {
             findNavController().navigate(R.id.action_wordListFragment_to_wordDetailFragment)
         }, {
             context?.let { context -> Utils.playSoundHello(context) }

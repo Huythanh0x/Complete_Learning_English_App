@@ -1,28 +1,54 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab
 
-import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
 import com.batdaulaptrinh.completlearningenglishapp.databinding.AllWordsSortBottomSheetBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentAllWordTabBinding
+import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.lang.Exception
+import java.net.URL
+import java.net.URLConnection
 
 class AllWordTabFragment : Fragment() {
+    lateinit var allWordViewModel: AllWordViewModel
+    lateinit var adapter: WordListRecyclerAdapter
     lateinit var binding: FragmentAllWordTabBinding
+
+    private var previousTotal = 0
+    private var loading = true
+    private val visibleThreshold = 5
+    var firstVisibleItem = 0
+    var visibleItemCount:Int = 0
+    var totalItemCount:Int = 0
+    lateinit var layoutManager: LinearLayoutManager
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -30,25 +56,111 @@ class AllWordTabFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_all_word_tab, container, false)
         // Inflate the layout for this fragment
+        val wordDao = LearningAppDatabase.getInstance(requireContext()).wordDao
+        val learnedDateDao = LearningAppDatabase.getInstance(requireContext()).learnedDateDAO
+        val wordRepository = WordRepository(wordDao, learnedDateDao)
+        val allWordViewModelFactory = AllWordViewModelFactory(wordRepository)
+        allWordViewModel =
+            ViewModelProvider(this, allWordViewModelFactory)[AllWordViewModel::class.java]
+        adapter = WordListRecyclerAdapter(arrayListOf(), { word ->
+            playSound(word.mp3_us)
+        }, { word ->
+            findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
+                bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
+        }, {word->
+            if(word.is_favourite == 0){
+                allWordViewModel.insertFavouriteWord(word._id)
+                Toast.makeText(requireContext(),
+                    "${word.en_word} was added to your word list",
+                    Toast.LENGTH_LONG).show()
+            }else{
+                allWordViewModel.deleteFavouriteWord(word._id)
+            }
+        })
+        binding.allWordsRecyclerView.adapter = adapter
+        allWordViewModel.allWords.observe(viewLifecycleOwner, { listWord ->
+
+            adapter.addList(listWord)
+        })
         binding.sortImg.setOnClickListener {
             createSortBottomSheet()
         }
 
+        layoutManager = LinearLayoutManager(requireContext())
+        binding.allWordsRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                visibleItemCount = binding.allWordsRecyclerView.childCount;
+                totalItemCount = binding.allWordsRecyclerView.layoutManager?.itemCount ?: 0;
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false;
+                        previousTotal = totalItemCount;
+                    }
+                }
+                if (!loading && (totalItemCount - visibleItemCount)
+                    <= (firstVisibleItem + visibleThreshold)) {
+                    // End has been reached
 
-        //TODO faking here
-        binding.allWordsRecyclerView.adapter = WordListRecyclerAdapter(Utils.getWordList(), { _ ->
-            context?.let { word -> Utils.playSoundHello(word) }
-        }, { word ->
-            findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
-                bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
-        }, {
-            Toast.makeText(context, "${it.en_word} was add to your wordlist", Toast.LENGTH_SHORT)
-                .show()
+                    Log.i("Yaeye!", "end called");
+
+                    // Do something
+
+                    loading = true;
+                }
+            }
         })
+
 
         return binding.root
     }
+
+
+    private fun playSound(mp3Us: String) {
+        try{
+            GlobalScope.launch(Dispatchers.IO) {
+                val base64String = getByteArrayFromImageURL(mp3Us)
+                if (base64String != null) {
+                    playAudio(base64String)
+                }
+            }
+        }catch (e: Exception){
+            Log.e("response",e.toString())
+        }
+    }
+
+    private fun getByteArrayFromImageURL(url: String): String? {
+        try {
+            val imageUrl = URL(url)
+            val urlConnection: URLConnection = imageUrl.openConnection()
+            val inputStream: InputStream = urlConnection.getInputStream()
+            val bytesOutputStream = ByteArrayOutputStream()
+            val buffer = ByteArray(1024)
+            var read = 0
+            while (inputStream.read(buffer, 0, buffer.size).also { read = it } != -1) {
+                bytesOutputStream.write(buffer, 0, read)
+            }
+            bytesOutputStream.flush()
+            return Base64.encodeToString(bytesOutputStream.toByteArray(), Base64.DEFAULT).filter { !it.isWhitespace() }
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
+        }
+        return null
+    }
+
+    private fun playAudio(base64EncodedString: String) {
+        try {
+            val url = "data:audio/mp3;base64,$base64EncodedString"
+            val mediaPlayer = MediaPlayer()
+            mediaPlayer.setDataSource(url)
+            mediaPlayer.prepare()
+            mediaPlayer.start()
+        } catch (ex: Exception) {
+            print(ex.message)
+        }
+    }
+
 
     private fun createSortBottomSheet() {
         val bindingBottomSheet = DataBindingUtil.inflate<AllWordsSortBottomSheetBinding>(
@@ -79,5 +191,10 @@ class AllWordTabFragment : Fragment() {
             realBottomSheet.dismiss()
         }
         realBottomSheet.show()
+    }
+
+    override fun onResume() {
+        allWordViewModel.updateListWordWord()
+        super.onResume()
     }
 }

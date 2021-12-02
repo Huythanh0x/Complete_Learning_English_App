@@ -26,6 +26,7 @@
     <string name="prefer_accent_title">PREFER ACCENT</string>
     <string name="us_example">US</string>
     <string name="dark_mode_title">DARK MODE</string>
+    <string name="click_here_for_more_detail_at_oxford_home_page">Click here for more detail at <u><bold>Oxford home page</bold></u></string>
 
     <string-array name="prefer_accent_spinner">
         <item name="us">US</item>
