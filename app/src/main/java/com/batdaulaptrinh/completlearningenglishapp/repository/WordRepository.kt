@@ -69,4 +69,8 @@ class WordRepository(private val wordDao: WordDAO) {
     fun getAllWordSortedListLevelDESC(): List<MinimalWord> {
         return wordDao.getAllWordSortedListLevelDESC()
     }
+
+    fun getFakeSetWord(nTh: Int): List<Word> {
+        return wordDao.getFakeSetWord(nTh)
+    }
 }

@@ -1,4 +1,4 @@
-package com.batdaulaptrinh.completlearningenglishapp.ui.game
+package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
 import android.os.Build
 import android.os.Bundle
@@ -50,7 +50,7 @@ class ConnectWordFragment : Fragment() {
                 binding.titleToolBar.text = "WORD SET NUMBER ${setWord.setNth}"
             }
         }
-        //TODO("keep missing word position,hint: image")
+        // TODO("keep missing word position,hint: image")
         //TODO FAKING HERE
         originWord = "BEAUTIFUL"
         val shuffleWord = shuffleString(originWord)

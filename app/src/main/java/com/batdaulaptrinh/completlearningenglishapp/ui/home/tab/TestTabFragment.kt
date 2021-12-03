@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentTestTabBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordTestRecyclerViewAdapter
-import com.batdaulaptrinh.completlearningenglishapp.ui.game.MultipleChoiceFragment
+import com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.MultipleChoiceFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 
 class TestTabFragment : Fragment() {

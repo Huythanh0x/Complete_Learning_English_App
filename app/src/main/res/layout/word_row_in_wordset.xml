@@ -64,7 +64,7 @@
             android:id="@+id/description_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
             android:maxLines="3"
             android:minLines="3"
             android:text="a person who is starting to learn something and cannot do it very well yet"

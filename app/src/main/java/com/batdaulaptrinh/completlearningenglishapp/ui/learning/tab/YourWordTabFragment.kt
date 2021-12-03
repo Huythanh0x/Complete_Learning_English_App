@@ -56,10 +56,8 @@ class YourWordTabFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
                 bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
         }, { word ->
-//            yourWordViewModel.setActionNothing()
             yourWordViewModel.deleteFavouriteWord(word._id)
             yourWordViewModel.removeWordFromList(word._id)
-//            yourWordViewModel.updateListWordWord()
             Snackbar.make(binding.root,
                 "${word.en_word} was removed from your wordlist",
                 Snackbar.LENGTH_LONG).setAction("Undo") {
@@ -76,7 +74,6 @@ class YourWordTabFragment : Fragment() {
         yourWordViewModel.lastAction.observe(viewLifecycleOwner,{
             Log.d("TAG LAST ACTION",it.toString())
         })
-        //    TODO bug when click at star after search
         binding.sortImg.setOnClickListener() {
             binding.searchView.setQuery("", false)
             binding.searchView.clearFocus()

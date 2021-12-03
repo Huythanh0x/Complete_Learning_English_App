@@ -38,7 +38,7 @@ data class Word(
     @NonNull
     val set_nth: Int,
     @NonNull
-    val is_favourite: Int,
+    var is_favourite: Int,
     @NonNull
     val add_date: String,
 ) : Parcelable

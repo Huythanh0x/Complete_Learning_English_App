@@ -17,6 +17,10 @@ class YourWordViewModel(private val wordRepository: WordRepository) : ViewModel(
         wordRepository.deleteFavouriteWord(_id)
     }
 
+    fun insertFavouriteWord(_id: String) {
+        wordRepository.insertFavouriteWord(_id)
+    }
+
     fun setActionSort() {
         lastAction.value = Utils.SORT
     }
@@ -24,7 +28,7 @@ class YourWordViewModel(private val wordRepository: WordRepository) : ViewModel(
     fun removeWordFromList(_id: String) {
         listYourWord.value
         val newList = listYourWord.value?.filter {minimalWord -> minimalWord._id!=_id}
-        listYourWord.postValue(newList)
+        listYourWord.postValue(newList!!)
     }
 
     fun setActionNothing() {
@@ -33,10 +37,6 @@ class YourWordViewModel(private val wordRepository: WordRepository) : ViewModel(
 
     fun setActionSearch() {
         lastAction.value = Utils.SEARCH
-    }
-
-    fun insertFavouriteWord(_id: String) {
-        wordRepository.insertFavouriteWord(_id)
     }
 
     fun getYourWordSortedListAZ() {

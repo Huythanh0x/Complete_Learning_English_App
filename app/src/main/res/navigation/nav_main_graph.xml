@@ -59,7 +59,7 @@
         tools:layout="@layout/fragment_word_day_tab" />
     <fragment
         android:id="@+id/wordListFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.WordListFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.WordListFragment"
         android:label="WordListFragment"
         tools:layout="@layout/fragment_word_list">
         <action
@@ -88,7 +88,7 @@
         tools:layout="@layout/fragment_test_tab" />
     <fragment
         android:id="@+id/flashCardFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.FlashCardFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.FlashCardFragment"
         android:label="FlashCardFragment"
         tools:layout="@layout/fragment_flash_card" />
     <fragment
@@ -119,7 +119,7 @@
     </fragment>
     <fragment
         android:id="@+id/connectWordFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.game.ConnectWordFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.ConnectWordFragment"
         android:label="ConnectWordFragment"
         tools:layout="@layout/fragment_connect_word" />
     <fragment
@@ -129,7 +129,7 @@
         tools:layout="@layout/fragment_d_m_chat" />
     <fragment
         android:id="@+id/multipleChoiceFragment"
-        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.game.MultipleChoiceFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.MultipleChoiceFragment"
         android:label="MultipleChoiceFragment"
         tools:layout="@layout/fragment_multiple_choice" />
     <fragment

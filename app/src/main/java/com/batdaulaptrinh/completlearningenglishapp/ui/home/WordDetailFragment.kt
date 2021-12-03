@@ -17,6 +17,7 @@ import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordDetailBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
+import com.batdaulaptrinh.completlearningenglishapp.model.Word
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,8 @@ class WordDetailFragment : Fragment() {
             val minimalWord = bundle.get(DETAIL_WORK_KEY)
             if (minimalWord is MinimalWord) {
                 wordDetailViewModel.getWord(minimalWord._id)
-
+            }else if(minimalWord is Word){
+                wordDetailViewModel.getWord(minimalWord._id)
             }
         }
         binding.moreDetailTxt.setOnClickListener {

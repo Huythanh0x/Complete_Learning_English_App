@@ -1,4 +1,4 @@
-package com.batdaulaptrinh.completlearningenglishapp.ui.home
+package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
 import android.app.AlertDialog
 import android.os.Bundle
