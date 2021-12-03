@@ -164,7 +164,8 @@
             app:layout_constraintEnd_toStartOf="@id/speaker_flash_card_img"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/flash_card_cv"
-            app:layout_constraintTop_toBottomOf="@+id/flash_card_cv" />
+            app:layout_constraintTop_toBottomOf="@+id/flash_card_cv"
+            tools:text="Beginner" />
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -174,9 +175,9 @@
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/en_word_txt"
             app:layout_constraintEnd_toEndOf="@+id/flash_card_cv"
-            app:playSound="@{word}"
             app:layout_constraintStart_toEndOf="@+id/en_word_txt"
-            app:layout_constraintTop_toTopOf="@+id/en_word_txt" />
+            app:layout_constraintTop_toTopOf="@+id/en_word_txt"
+            app:playSoundUs="@{word}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/type_word_txt"
@@ -186,7 +187,8 @@
             android:text="@{word.type}"
             app:layout_constraintEnd_toEndOf="@+id/en_word_txt"
             app:layout_constraintStart_toStartOf="@+id/en_word_txt"
-            app:layout_constraintTop_toBottomOf="@+id/en_word_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/en_word_txt"
+            tools:text="noun" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/api_flash_card_txt"
@@ -196,7 +198,8 @@
             android:text="@{word.api_us}"
             app:layout_constraintEnd_toEndOf="@+id/type_word_txt"
             app:layout_constraintStart_toStartOf="@+id/type_word_txt"
-            app:layout_constraintTop_toBottomOf="@+id/type_word_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/type_word_txt"
+            tools:text="/biginer/" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

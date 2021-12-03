@@ -23,6 +23,7 @@ class WordMoreDetailFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_word_more_detail, container, false)
         // Inflate the layout for this fragment
+        binding.previewImg.visibility = View.GONE
         arguments?.let { bundle ->
             val word = bundle.get(KEY_MORE_DETAIL)
             if (word is Word) {

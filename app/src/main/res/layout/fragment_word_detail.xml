@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="word"
+            type="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,7 +77,8 @@
                 android:id="@+id/thumbnail_example_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/clean_thumbnail_1" />
+                app:setImage="@{word}"
+                tools:src="@drawable/clean_thumbnail_1" />
         </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -81,12 +86,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="beginner"
+            android:text="@{word.en_word}"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/uk_speaker_img"
             app:layout_constraintStart_toEndOf="@+id/thumbnail_example_cv"
-            app:layout_constraintTop_toTopOf="@+id/thumbnail_example_cv" />
+            app:layout_constraintTop_toTopOf="@+id/thumbnail_example_cv"
+            tools:text="beginner" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/uk_speaker_img"
@@ -96,7 +102,8 @@
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toTopOf="@id/us_speaker_img"
             app:layout_constraintStart_toStartOf="@+id/en_word_txt"
-            app:layout_constraintTop_toBottomOf="@+id/en_word_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/en_word_txt"
+            app:playSoundUK="@{word}" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/us_speaker_img"
@@ -106,27 +113,30 @@
             android:src="@drawable/us_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/thumbnail_example_cv"
             app:layout_constraintStart_toStartOf="@+id/uk_speaker_img"
-            app:layout_constraintTop_toBottomOf="@+id/uk_speaker_img" />
+            app:layout_constraintTop_toBottomOf="@+id/uk_speaker_img"
+            app:playSoundUs="@{word}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/uk_api_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="/bi:giner/"
+            android:text="@{word.api_uk}"
             app:layout_constraintBottom_toBottomOf="@+id/uk_speaker_img"
             app:layout_constraintStart_toEndOf="@+id/uk_speaker_img"
-            app:layout_constraintTop_toTopOf="@+id/uk_speaker_img" />
+            app:layout_constraintTop_toTopOf="@+id/uk_speaker_img"
+            tools:text="/biginer/" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/us_api_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="/bi:giner/"
+            android:text="@{word.api_us}"
             app:layout_constraintBottom_toBottomOf="@+id/us_speaker_img"
             app:layout_constraintStart_toEndOf="@+id/us_speaker_img"
-            app:layout_constraintTop_toTopOf="@+id/us_speaker_img" />
+            app:layout_constraintTop_toTopOf="@+id/us_speaker_img"
+            tools:text="/biginer/" />
 
         <View
             android:id="@+id/view"
@@ -166,9 +176,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="noun"
+                    android:text="@{word.type}"
                     app:layout_constraintStart_toStartOf="@+id/description_txt"
-                    app:layout_constraintTop_toBottomOf="@+id/description_txt" />
+                    app:layout_constraintTop_toBottomOf="@+id/description_txt"
+                    tools:text="noun" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -178,11 +189,11 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="A person just starting to learn a skill or take part in an activity.
-A beginner's guide"
+                    android:text="@{word.definition}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/word_type_txt" />
+                    app:layout_constraintTop_toBottomOf="@+id/word_type_txt"
+                    tools:text="a person who is starting to learn something and cannot do it very well yet" />
 
                 <View
                     android:layout_width="match_parent"
@@ -209,10 +220,11 @@ A beginner's guide"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="The book is advertised as a beginner's guide to opera.\nThe classes are suitable for complete beginners.\nThis is a good starting point for beginners in computing."
+                    android:text="@{word.examples}"
                     app:layout_constraintEnd_toEndOf="@+id/description_content_txt"
                     app:layout_constraintStart_toStartOf="@+id/example_txt"
-                    app:layout_constraintTop_toBottomOf="@+id/example_txt" />
+                    app:layout_constraintTop_toBottomOf="@+id/example_txt"
+                    tools:text="She's in the beginners' class.\nItalian for beginners" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/more_detail_txt"

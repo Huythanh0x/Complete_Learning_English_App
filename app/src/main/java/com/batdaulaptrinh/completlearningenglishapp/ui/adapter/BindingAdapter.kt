@@ -29,14 +29,21 @@ fun setImage(imageView: ImageView, word: Word?) {
             .error(R.drawable.app_logo_img)  // any image in case of error
             .centerCrop()
             .into(imageView);  // imageview object
-
     } catch (e: Exception) {
         Log.e("LOAD IMAGE", e.toString())
     }
 }
 
-@BindingAdapter("playSound")
-fun playSound(imageView: ImageView, word: Word?) {
+@BindingAdapter("playSoundUs")
+fun playSoundUs(imageView: ImageView, word: Word?) {
+    imageView.setOnClickListener {
+        word?.let { it1 -> playSound(it1.mp3_us) }
+    }
+
+}
+
+@BindingAdapter("playSoundUK")
+fun playSoundUK(imageView: ImageView, word: Word?) {
     imageView.setOnClickListener {
         word?.let { it1 -> playSound(it1.mp3_us) }
     }
