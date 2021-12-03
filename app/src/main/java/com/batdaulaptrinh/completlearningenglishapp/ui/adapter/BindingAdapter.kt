@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
@@ -34,10 +35,40 @@ fun setImage(imageView: ImageView, word: Word?) {
     }
 }
 
+@BindingAdapter("setStar")
+fun setStar(imageView: ImageView, word: Word?) {
+    if (word != null) {
+        if (word.is_favourite == 1) {
+            imageView.setImageResource(R.drawable.ic_baseline_star_24)
+        } else {
+            imageView.setImageResource(R.drawable.ic_baseline_star_border_24)
+        }
+    }
+}
+
 @BindingAdapter("playSoundUs")
 fun playSoundUs(imageView: ImageView, word: Word?) {
     imageView.setOnClickListener {
         word?.let { it1 -> playSound(it1.mp3_us) }
+    }
+
+}
+
+@BindingAdapter("setStarMinimal")
+fun setStarMinimal(imageView: ImageView, minimalWord: MinimalWord?) {
+    if (minimalWord != null) {
+        if (minimalWord.is_favourite == 1) {
+            imageView.setImageResource(R.drawable.ic_baseline_star_24)
+        } else {
+            imageView.setImageResource(R.drawable.ic_baseline_star_border_24)
+        }
+    }
+}
+
+@BindingAdapter("playSoundUsMinimal")
+fun playSoundUsMinimal(imageView: ImageView, minimalWord: MinimalWord?) {
+    imageView.setOnClickListener {
+        minimalWord?.let { it1 -> playSound(it1.mp3_us) }
     }
 
 }

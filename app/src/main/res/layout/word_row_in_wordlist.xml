@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="minimalWord"
+            type="com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,9 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_baseline_star_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/en_word_text" />
+            app:layout_constraintTop_toTopOf="@+id/en_word_text"
+            app:setStarMinimal="@{minimalWord}"
+            tools:src="@drawable/ic_baseline_star_24" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/en_word_text"
@@ -26,22 +31,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:text="beginner"
+            android:text="@{minimalWord.en_word}"
             android:textColor="@color/primaryColor"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/api_txt"
             app:layout_constraintStart_toEndOf="@+id/play_sound_img"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="beginner" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/api_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="/biginer/"
+            android:text="@{minimalWord.api_us}"
             app:layout_constraintStart_toStartOf="@+id/en_word_text"
-            app:layout_constraintTop_toBottomOf="@+id/en_word_text" />
+            app:layout_constraintTop_toBottomOf="@+id/en_word_text"
+            tools:text="/biginer/" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/play_sound_img"
@@ -53,7 +60,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/api_txt"
             app:layout_constraintDimensionRatio="W,1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/en_word_text" />
+            app:layout_constraintTop_toTopOf="@+id/en_word_text"
+            app:playSoundUsMinimal="@{minimalWord}" />
 
         <View
             android:id="@+id/divider_view"
@@ -64,5 +72,5 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/api_txt" />
-   </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
