@@ -47,7 +47,7 @@ class FlashCardFragment : Fragment() {
         }
         //TODO("CHANGE COLOR SEEKBAR")
         //TODO FAKE HERE
-        flashCardViewModel.listWord.observe(viewLifecycleOwner, { lkistWord ->
+        flashCardViewModel.listWord.observe(viewLifecycleOwner, { listWord ->
             binding.word = listWord[Random.nextInt(20)]
             Log.d("LIST FLASH CARD TAG", listWord.size.toString())
         })
