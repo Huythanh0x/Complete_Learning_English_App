@@ -39,11 +39,10 @@ class WordDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_detail, container, false)
         // Inflate the layout for this fragment
         val wordDao = LearningAppDatabase.getInstance(requireContext()).wordDao
-        val learnedDateDao = LearningAppDatabase.getInstance(requireContext()).learnedDateDAO
         val wordRepository = WordRepository(wordDao)
         val wordDetailViewModelFactory = WordDetailViewModelFactory(wordRepository)
         wordDetailViewModel =
@@ -53,7 +52,7 @@ class WordDetailFragment : Fragment() {
             val minimalWord = bundle.get(DETAIL_WORK_KEY)
             if (minimalWord is MinimalWord) {
                 wordDetailViewModel.getWord(minimalWord._id)
-            }else if(minimalWord is Word){
+            } else if (minimalWord is Word) {
                 wordDetailViewModel.getWord(minimalWord._id)
             }
         }
@@ -87,7 +86,7 @@ class WordDetailFragment : Fragment() {
                 .placeholder(R.drawable.app_logo_img) // any placeholder to load at start
                 .error(R.drawable.app_logo_img)  // any image in case of error
                 .centerCrop()
-                .into(binding.thumbnailExampleImg);  // imageview object
+                .into(binding.thumbnailExampleImg)  // imageview object
 
         })
         binding.backwardImg.setOnClickListener {
@@ -117,7 +116,7 @@ class WordDetailFragment : Fragment() {
             val inputStream: InputStream = urlConnection.getInputStream()
             val bytesOutputStream = ByteArrayOutputStream()
             val buffer = ByteArray(1024)
-            var read = 0
+            var read: Int
             while (inputStream.read(buffer, 0, buffer.size).also { read = it } != -1) {
                 bytesOutputStream.write(buffer, 0, read)
             }
@@ -137,8 +136,7 @@ class WordDetailFragment : Fragment() {
             mediaPlayer.setDataSource(url)
             mediaPlayer.prepare()
             mediaPlayer.start()
-            mediaPlayer.setOnCompletionListener {
-                mediaPlayer->
+            mediaPlayer.setOnCompletionListener { mediaPlayer ->
                 mediaPlayer.release()
             }
         } catch (ex: Exception) {

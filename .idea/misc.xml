@@ -75,6 +75,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main_login.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/all_words_sort_bottom_sheet.xml" value="0.25905797101449274" />
+        <entry key="app/src/main/res/layout/back_card_layout.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/chat_room_row.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/complete_dialog.xml" value="0.3333333333333333" />
@@ -89,7 +90,7 @@
         <entry key="app/src/main/res/layout/flash_card_settings_dialog.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_all_word_tab.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_choosing_mode.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/fragment_choosing_mode.xml" value="1.0" />
         <entry key="app/src/main/res/layout/fragment_complete_introduction.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_connect_word.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_d_m_chat.xml" value="0.33" />
@@ -113,6 +114,7 @@
         <entry key="app/src/main/res/layout/fragment_your_word.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_your_word2.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_your_word_tab.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/front_card_layout.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/full_size_avatar.xml" value="0.25905797101449274" />
         <entry key="app/src/main/res/layout/incorrect_answer_next_dialog.xml" value="0.4976671850699845" />
         <entry key="app/src/main/res/layout/incorrect_anwser_missing_word_dialog.xml" value="0.3333333333333333" />

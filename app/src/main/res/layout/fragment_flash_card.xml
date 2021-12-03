@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="word"
+            type="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,10 +26,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backward_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:id="@+id/backward_img"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -34,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:autoSizeMaxTextSize="20dp"
-                android:text="WORD SET NUMBER 2"
+                android:text="@{`WORD SET NUMBER` + word.set_nth}"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -56,35 +60,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
-        <androidx.cardview.widget.CardView
+        <com.wajahatkarim3.easyflipview.EasyFlipView
             android:id="@+id/flash_card_cv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="100dp"
+            app:autoFlipBack="false"
             app:cardCornerRadius="10dp"
+            app:flipDuration="400"
+            app:flipEnabled="true"
+            app:flipFrom="right"
+            app:flipOnTouch="true"
+            app:flipType="horizontal"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintWidth_percent=".6">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/clean_thumbnail_1"
-                android:visibility="gone" />
+            <include
+                android:id="@+id/back_layout"
+                layout="@layout/back_card_layout"
+                app:word="@{word}" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:maxLines="6"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="20dp"
-                android:text="A person just starting to learn a skill or take part in an activity.\nA beginner's guide"
-                android:textSize="20sp"
-                android:visibility="visible" />
+            <include
+                android:id="@+id/front_layout"
+                layout="@layout/front_card_layout"
+                app:word="@{word}" />
 
-        </androidx.cardview.widget.CardView>
+        </com.wajahatkarim3.easyflipview.EasyFlipView>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/next_card_img"
@@ -129,8 +133,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:textColor="@color/black"
             android:text="12/20"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/progress_sb"
@@ -153,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="5dp"
-            android:text="Beginner"
+            android:text="@{word.en_word}"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -170,6 +174,7 @@
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/en_word_txt"
             app:layout_constraintEnd_toEndOf="@+id/flash_card_cv"
+            app:playSound="@{word}"
             app:layout_constraintStart_toEndOf="@+id/en_word_txt"
             app:layout_constraintTop_toTopOf="@+id/en_word_txt" />
 
@@ -178,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="noun"
+            android:text="@{word.type}"
             app:layout_constraintEnd_toEndOf="@+id/en_word_txt"
             app:layout_constraintStart_toStartOf="@+id/en_word_txt"
             app:layout_constraintTop_toBottomOf="@+id/en_word_txt" />
@@ -188,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="/biginer/"
+            android:text="@{word.api_us}"
             app:layout_constraintEnd_toEndOf="@+id/type_word_txt"
             app:layout_constraintStart_toStartOf="@+id/type_word_txt"
             app:layout_constraintTop_toBottomOf="@+id/type_word_txt" />
