@@ -11,13 +11,21 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_choosingModeFragment"
-            app:destination="@id/choosingModeFragment" />
+            app:destination="@id/choosingModeFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="wordSet"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.WordSet" />
         <action
             android:id="@+id/action_navigation_home_to_multipleChoiceFragment"
-            app:destination="@id/multipleChoiceFragment" />
+            app:destination="@id/multipleChoiceFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
@@ -26,7 +34,11 @@
         tools:layout="@layout/fragment_chat">
         <action
             android:id="@+id/action_navigation_chat_to_DMChatFragment"
-            app:destination="@id/DMChatFragment" />
+            app:destination="@id/DMChatFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="chatRoom"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom" />
@@ -41,7 +53,11 @@
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
         <action
             android:id="@+id/action_navigation_learning_to_wordDetailFragment"
-            app:destination="@id/wordDetailFragment" />
+            app:destination="@id/wordDetailFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -50,7 +66,11 @@
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_navigation_profile_to_showFullSizeAvatar"
-            app:destination="@id/showFullSizeAvatar" />
+            app:destination="@id/showFullSizeAvatar"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/wordDayTabFragment"
@@ -64,7 +84,11 @@
         tools:layout="@layout/fragment_word_list">
         <action
             android:id="@+id/action_wordListFragment_to_wordDetailFragment"
-            app:destination="@id/wordDetailFragment" />
+            app:destination="@id/wordDetailFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="word"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
@@ -76,7 +100,11 @@
         tools:layout="@layout/fragment_word_detail">
         <action
             android:id="@+id/action_wordDetailFragment_to_wordMoreDetail"
-            app:destination="@id/wordMoreDetail" />
+            app:destination="@id/wordMoreDetail"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="word"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
@@ -103,16 +131,32 @@
         tools:layout="@layout/fragment_choosing_mode">
         <action
             android:id="@+id/action_choosingModeFragment_to_wordListFragment"
-            app:destination="@id/wordListFragment" />
+            app:destination="@id/wordListFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_choosingModeFragment_to_flashCardFragment"
-            app:destination="@id/flashCardFragment" />
+            app:destination="@id/flashCardFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_choosingModeFragment_to_connectWordFragment"
-            app:destination="@id/connectWordFragment" />
+            app:destination="@id/connectWordFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_choosingModeFragment_to_multipleChoiceFragment"
-            app:destination="@id/multipleChoiceFragment" />
+            app:destination="@id/multipleChoiceFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="setWord"
             app:argType="com.batdaulaptrinh.completlearningenglishapp.model.WordSet" />

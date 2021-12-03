@@ -7,32 +7,48 @@
 
     <fragment
         android:id="@+id/mainLoginFragment"
-        tools:layout="@layout/fragment_main_login"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginFragment"
-        android:label="MainLoginFragment" >
+        android:label="MainLoginFragment"
+        tools:layout="@layout/fragment_main_login">
         <action
             android:id="@+id/action_mainLoginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_mainLoginFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/signInFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        tools:layout="@layout/fragment_sign_in"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.SignInFragment"
-        android:label="SignInFragment" >
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        tools:layout="@layout/fragment_sign_up"
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.login.SignUpFragment"
-        android:label="SignUpFragment" >
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/signInFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 </navigation>
