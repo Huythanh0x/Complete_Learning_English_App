@@ -21,7 +21,7 @@ data class MinimalWord(
     @NonNull
     val mp3_us: String,
     @NonNull
-    val is_favourite: Int,
+    var is_favourite: Int,
     @NonNull
     val add_date: String,
 ) : Parcelable

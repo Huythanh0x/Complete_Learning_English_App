@@ -43,7 +43,7 @@ class WordDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         val wordDao = LearningAppDatabase.getInstance(requireContext()).wordDao
         val learnedDateDao = LearningAppDatabase.getInstance(requireContext()).learnedDateDAO
-        val wordRepository = WordRepository(wordDao, learnedDateDao)
+        val wordRepository = WordRepository(wordDao)
         val wordDetailViewModelFactory = WordDetailViewModelFactory(wordRepository)
         wordDetailViewModel =
             ViewModelProvider(this, wordDetailViewModelFactory)[WordDetailViewModel::class.java]

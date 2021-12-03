@@ -2,12 +2,18 @@ package com.batdaulaptrinh.completlearningenglishapp.utils
 
 import android.content.Context
 import android.media.MediaPlayer
-import com.batdaulaptrinh.completlearningenglishapp.model.*
+import com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom
+import com.batdaulaptrinh.completlearningenglishapp.model.Message
+import com.batdaulaptrinh.completlearningenglishapp.model.User
+import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import java.util.*
 import kotlin.random.Random
 
 class Utils {
     companion object {
+        const val SORT = "SORT"
+        const val SEARCH = "SEARCH"
+        const val NOTHING = "NOTHING"
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,

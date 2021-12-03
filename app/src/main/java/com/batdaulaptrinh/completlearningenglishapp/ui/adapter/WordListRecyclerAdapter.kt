@@ -40,9 +40,11 @@ class WordListRecyclerAdapter(
             }
 
             binding.isFavouriteStarImg.setOnClickListener {
-                if (word.is_favourite != 1) {
+                if (word.is_favourite == 0) {
+                    word.is_favourite = 1
                     binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_24)
                 } else {
+                    word.is_favourite = 0
                     binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_border_24)
                 }
                 starClickListener(word)

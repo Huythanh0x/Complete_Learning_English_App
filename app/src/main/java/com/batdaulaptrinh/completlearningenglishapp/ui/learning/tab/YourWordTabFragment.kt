@@ -7,14 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentYourWordTabBinding
@@ -22,6 +20,7 @@ import com.batdaulaptrinh.completlearningenglishapp.databinding.YourWordSortBott
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordListRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -37,13 +36,6 @@ class YourWordTabFragment : Fragment() {
     lateinit var yourWordViewModel: YourWordViewModel
     lateinit var adapter: WordListRecyclerAdapter
     lateinit var binding: FragmentYourWordTabBinding
-    private var previousTotal = 0
-    private var loading = true
-    private val visibleThreshold = 5
-    var firstVisibleItem = 0
-    var visibleItemCount:Int = 0
-    var totalItemCount:Int = 0
-    lateinit var layoutManager:LinearLayoutManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -52,18 +44,19 @@ class YourWordTabFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_your_word_tab, container, false)
         // Inflate the layout for this fragment
         val wordDao = LearningAppDatabase.getInstance(requireContext()).wordDao
-        val learnedDateDao = LearningAppDatabase.getInstance(requireContext()).learnedDateDAO
-        val wordRepository = WordRepository(wordDao, learnedDateDao)
+        LearningAppDatabase.getInstance(requireContext()).learnedDateDAO
+        val wordRepository = WordRepository(wordDao)
         val yourWordViewModelFactory = YourWordViewModelFactory(wordRepository)
-
         yourWordViewModel =
             ViewModelProvider(this, yourWordViewModelFactory)[YourWordViewModel::class.java]
+
         adapter = WordListRecyclerAdapter(arrayListOf(), { word ->
             playSound(word.mp3_us)
         }, { word ->
-                findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
+            findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
                 bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
         }, { word ->
+            yourWordViewModel.setActionNothing()
             yourWordViewModel.deleteFavouriteWord(word._id)
             yourWordViewModel.updateListWordWord()
             Snackbar.make(binding.root,
@@ -76,52 +69,31 @@ class YourWordTabFragment : Fragment() {
             adapter.addList(listWord)
         })
 
+        binding.searchView.setOnQueryTextListener(searchListener)
         binding.yourWordsRecyclerView.adapter = adapter
-//        TODO("click outside to collapse bottom sheet")
-        //      TODO("draggable")
-        //    TODO("word suggestion")
-        layoutManager = LinearLayoutManager(requireContext())
-        binding.yourWordsRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                visibleItemCount = binding.yourWordsRecyclerView.childCount;
-                totalItemCount = binding.yourWordsRecyclerView.layoutManager?.itemCount ?: 0;
-                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false;
-                        previousTotal = totalItemCount;
-                    }
-                }
-                if (!loading && (totalItemCount - visibleItemCount)
-                    <= (firstVisibleItem + visibleThreshold)) {
-                    // End has been reached
-
-                    Log.i("Yaeye!", "end called");
-
-                    // Do something
-
-                    loading = true;
-                }
-            }
+        yourWordViewModel.lastAction.observe(viewLifecycleOwner,{
+            Log.d("TAG LAST ACTION",it.toString())
         })
-
+        //    TODO bug when click at star after search
         binding.sortImg.setOnClickListener() {
+            binding.searchView.setQuery("", false)
+            binding.searchView.clearFocus()
             createSortBottomSheet()
         }
         return binding.root
     }
 
     private fun playSound(mp3Us: String) {
-        try{
+        try {
             GlobalScope.launch(Dispatchers.IO) {
                 val base64String = getByteArrayFromImageURL(mp3Us)
                 if (base64String != null) {
                     playAudio(base64String)
                 }
             }
-        }catch (e: Exception){
-            Log.e("response",e.toString())
+        } catch (e: Exception) {
+            Log.e("response", e.toString())
         }
     }
 
@@ -132,17 +104,19 @@ class YourWordTabFragment : Fragment() {
             val inputStream: InputStream = urlConnection.getInputStream()
             val bytesOutputStream = ByteArrayOutputStream()
             val buffer = ByteArray(1024)
-            var read = 0
+            var read: Int
             while (inputStream.read(buffer, 0, buffer.size).also { read = it } != -1) {
                 bytesOutputStream.write(buffer, 0, read)
             }
             bytesOutputStream.flush()
-            return Base64.encodeToString(bytesOutputStream.toByteArray(), Base64.DEFAULT).filter { !it.isWhitespace() }
+            return Base64.encodeToString(bytesOutputStream.toByteArray(), Base64.DEFAULT)
+                .filter { !it.isWhitespace() }
         } catch (e: Exception) {
             Log.d("Error", e.toString())
         }
         return null
     }
+
     private fun playAudio(base64EncodedString: String) {
         try {
             val url = "data:audio/mp3;base64,$base64EncodedString"
@@ -171,19 +145,13 @@ class YourWordTabFragment : Fragment() {
         realBottomSheet.setContentView(bindingBottomSheet.root)
         realBottomSheet.setCancelable(false)
         bindingBottomSheet.sortByAZTxt.setOnClickListener {
-            Toast.makeText(context, "Sort by ascending alphabet", Toast.LENGTH_SHORT).show()
+            yourWordViewModel.setActionSort()
+            yourWordViewModel.getYourWordSortedListAZ()
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.sortByZATxt.setOnClickListener {
-            Toast.makeText(context, "Sort by descending alphabet", Toast.LENGTH_SHORT).show()
-            realBottomSheet.dismiss()
-        }
-        bindingBottomSheet.sortByTimeAddAscTxt.setOnClickListener {
-            Toast.makeText(context, "Sort by ascending add time", Toast.LENGTH_SHORT).show()
-            realBottomSheet.dismiss()
-        }
-        bindingBottomSheet.sortByTimeAddDesTxt.setOnClickListener {
-            Toast.makeText(context, "Sort by descending add time", Toast.LENGTH_SHORT).show()
+            yourWordViewModel.setActionSort()
+            yourWordViewModel.getYourWordSortedListZA()
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.collapseBottomSheetImg.setOnClickListener {
@@ -195,5 +163,29 @@ class YourWordTabFragment : Fragment() {
     override fun onResume() {
         yourWordViewModel.updateListWordWord()
         super.onResume()
+    }
+
+    private val searchListener = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            query?.let {
+                yourWordViewModel.setActionSearch()
+                yourWordViewModel.getSearchYourWord(it)
+            }
+            return false
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            if (newText != null && newText.isNotEmpty()) {
+                yourWordViewModel.setActionSearch()
+                yourWordViewModel.getSearchYourWord(newText)
+            }
+            if (newText != null && newText.isEmpty()) {
+                if (yourWordViewModel.lastAction.value == Utils.SEARCH) {
+                    yourWordViewModel.getSearchYourWord(newText)
+                    Log.e("TAG SEARCH","CALLED")
+                }
+            }
+            return false
+        }
     }
 }

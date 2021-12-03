@@ -1,12 +1,11 @@
 package com.batdaulaptrinh.completlearningenglishapp.repository
 
-import com.batdaulaptrinh.completlearningenglishapp.data.database.LearnedDateDAO
 import com.batdaulaptrinh.completlearningenglishapp.data.database.WordDAO
 import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 
 
-class WordRepository(private val wordDao: WordDAO, private val leanedDateDAO: LearnedDateDAO) {
+class WordRepository(private val wordDao: WordDAO) {
     fun getAllWords(): List<MinimalWord> {
         return wordDao.getAllWords()
     }
@@ -31,11 +30,43 @@ class WordRepository(private val wordDao: WordDAO, private val leanedDateDAO: Le
         return wordDao.getMyWordList()
     }
 
+    fun getYourWordSortedListAZ(): List<MinimalWord> {
+        return wordDao.getYourWordSortedListAZ()
+    }
+
+    fun getYourWordSortedListZA(): List<MinimalWord> {
+        return wordDao.getYourWordSortedListZA()
+    }
+
+    fun getALlWordSortedListAZ(): List<MinimalWord> {
+        return wordDao.getAllWordSortedListAZ()
+    }
+
+    fun getALlWordSortedListZA(): List<MinimalWord> {
+        return wordDao.getAllWordSortedListZA()
+    }
+
     fun insertFavouriteWord(wordId: String) {
         return wordDao.insertFavouriteWord(wordId)
     }
 
     fun deleteFavouriteWord(wordId: String) {
         return wordDao.deleteFavouriteWord(wordId)
+    }
+
+    fun getSearchYourWord(formattedString: String): List<MinimalWord> {
+        return wordDao.getSearchYourWord(formattedString)
+    }
+
+    fun getSearchALlWord(formattedString: String): List<MinimalWord> {
+        return wordDao.getSearchAllWord(formattedString)
+    }
+
+    fun getAllWordSortedListLevelASC(): List<MinimalWord> {
+        return wordDao.getAllWordSortedListLevelASC()
+    }
+
+    fun getAllWordSortedListLevelDESC(): List<MinimalWord> {
+        return wordDao.getAllWordSortedListLevelDESC()
     }
 }
