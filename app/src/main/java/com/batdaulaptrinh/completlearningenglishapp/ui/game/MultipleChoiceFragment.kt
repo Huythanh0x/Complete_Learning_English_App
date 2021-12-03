@@ -166,7 +166,6 @@ class MultipleChoiceFragment : Fragment() {
             dialog.dismiss()
         }
         dialogBinding.addToNextSetBtn.setOnClickListener {
-            //TODO("back ground and button")
             Snackbar.make(dialogBinding.root,
                 "Wrong words was added to next set",
                 Snackbar.LENGTH_SHORT).setAction("Undo") {

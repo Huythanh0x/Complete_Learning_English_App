@@ -21,6 +21,12 @@ class YourWordViewModel(private val wordRepository: WordRepository) : ViewModel(
         lastAction.value = Utils.SORT
     }
 
+    fun removeWordFromList(_id: String) {
+        listYourWord.value
+        val newList = listYourWord.value?.filter {minimalWord -> minimalWord._id!=_id}
+        listYourWord.postValue(newList)
+    }
+
     fun setActionNothing() {
         lastAction.value = Utils.NOTHING
     }
