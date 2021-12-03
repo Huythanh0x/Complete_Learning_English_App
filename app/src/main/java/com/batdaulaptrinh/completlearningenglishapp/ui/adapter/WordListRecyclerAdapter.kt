@@ -10,7 +10,6 @@ import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 
 class WordListRecyclerAdapter(
     private val listWord: ArrayList<MinimalWord>,
-    private val speakerClickListener: (minimalWord: MinimalWord) -> Unit,
     private val wordClickListener: (minimalWord: MinimalWord) -> Unit,
     private val starClickListener: (minimalWord: MinimalWord) -> Unit,
 ) :
@@ -19,7 +18,6 @@ class WordListRecyclerAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun binding(
             minimalWord: MinimalWord,
-            speakerClickListener: (minimalWord: MinimalWord) -> Unit,
             wordClickListener: (minimalWord: MinimalWord) -> Unit,
             starClickListener: (minimalWord: MinimalWord) -> Unit,
         ) {
@@ -27,6 +25,7 @@ class WordListRecyclerAdapter(
             binding.root.setOnClickListener {
                 wordClickListener(minimalWord)
             }
+            //TODO binding adapter cause refresh so clearly
             binding.minimalWord = minimalWord
             binding.isFavouriteStarImg.setOnClickListener {
                 if (minimalWord.is_favourite == 0) {
@@ -53,7 +52,6 @@ class WordListRecyclerAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding(
             listWord[position],
-            speakerClickListener,
             wordClickListener,
             starClickListener
         )

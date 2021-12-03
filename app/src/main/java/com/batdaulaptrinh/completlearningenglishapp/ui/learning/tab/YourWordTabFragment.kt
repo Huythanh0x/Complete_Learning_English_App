@@ -51,11 +51,9 @@ class YourWordTabFragment : Fragment() {
             ViewModelProvider(this, yourWordViewModelFactory)[YourWordViewModel::class.java]
 
         adapter = WordListRecyclerAdapter(arrayListOf(), { word ->
-            playSound(word.mp3_us)
-        }, { word ->
             findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
                 bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
-        }, { word ->
+        }) { word ->
             yourWordViewModel.deleteFavouriteWord(word._id)
             yourWordViewModel.removeWordFromList(word._id)
             Snackbar.make(binding.root,
@@ -63,7 +61,7 @@ class YourWordTabFragment : Fragment() {
                 Snackbar.LENGTH_LONG).setAction("Undo") {
                 restoreYourWord(word._id)
             }.show()
-        })
+        }
         yourWordViewModel.listYourWord.observe(viewLifecycleOwner, { listWord ->
             adapter.addList(listWord)
         })

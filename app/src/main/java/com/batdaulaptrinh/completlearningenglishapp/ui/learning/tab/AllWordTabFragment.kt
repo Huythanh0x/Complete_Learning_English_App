@@ -51,11 +51,9 @@ class AllWordTabFragment : Fragment() {
         allWordViewModel =
             ViewModelProvider(this, allWordViewModelFactory)[AllWordViewModel::class.java]
         adapter = WordListRecyclerAdapter(arrayListOf(), { word ->
-            playSound(word.mp3_us)
-        }, { word ->
             findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
                 bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
-        }, { word ->
+        }) { word ->
             if (word.is_favourite == 1) {
                 allWordViewModel.insertFavouriteWord(word._id)
                 Toast.makeText(requireContext(),
@@ -64,7 +62,7 @@ class AllWordTabFragment : Fragment() {
             } else {
                 allWordViewModel.deleteFavouriteWord(word._id)
             }
-        })
+        }
         binding.allWordsRecyclerView.adapter = adapter
         allWordViewModel.allWords.observe(viewLifecycleOwner, { listWord ->
             Log.d("LAST ACTION TAG", allWordViewModel.lastAction.value.toString())

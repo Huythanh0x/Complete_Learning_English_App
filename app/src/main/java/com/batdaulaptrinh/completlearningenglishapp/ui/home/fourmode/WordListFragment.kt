@@ -53,9 +53,7 @@ class WordListFragment : Fragment() {
         adapter = SetWordListRecyclerAdapter(arrayListOf(), { word ->
             findNavController().navigate(R.id.action_wordListFragment_to_wordDetailFragment,
                 bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
-        }, { word ->
-            playSound(word.mp3_us)
-        }, { word ->
+        }) { word ->
             if (word.is_favourite == 1) {
                 wordListViewModel.insertFavouriteWord(word._id)
                 Toast.makeText(requireContext(),
@@ -65,7 +63,7 @@ class WordListFragment : Fragment() {
                 wordListViewModel.deleteFavouriteWord(word._id)
             }
 
-        })
+        }
         binding.recyclerView.adapter = adapter
 
         arguments?.let {
