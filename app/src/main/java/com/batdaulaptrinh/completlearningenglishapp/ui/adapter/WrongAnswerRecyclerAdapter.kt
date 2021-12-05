@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.WrongAnswerRowBinding
-import com.batdaulaptrinh.completlearningenglishapp.databinding.WrongPasswordDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 
 class WrongAnswerRecyclerAdapter(private val listWrongAnswer: ArrayList<Word>) :
@@ -19,7 +18,7 @@ class WrongAnswerRecyclerAdapter(private val listWrongAnswer: ArrayList<Word>) :
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): MyViewHolder {
         val binding = DataBindingUtil.inflate<WrongAnswerRowBinding>(
             LayoutInflater.from(parent.context),

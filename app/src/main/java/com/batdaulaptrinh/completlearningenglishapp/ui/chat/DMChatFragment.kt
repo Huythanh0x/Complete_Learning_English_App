@@ -22,11 +22,6 @@ class DMChatFragment : Fragment() {
     companion object {
         val KEY_CHAT_HEADER = "KEY_CHAT_HEADER"
     }
-
-    //
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -49,7 +44,6 @@ class DMChatFragment : Fragment() {
             }
         }
 
-        //TODO FAKING HERE
         binding.sendPictureImg.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_PICK
@@ -57,7 +51,7 @@ class DMChatFragment : Fragment() {
             startActivityForResult(intent, REQUEST_CODE)
         }
 
-
+        //TODO FAKING HERE
         val listMessage = Utils.getListMessage()
         binding.messagesRc.adapter = MessageRecyclerAdapter(listMessage)
         binding.messagesRc.scrollToPosition(listMessage.size - 1)

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +13,19 @@ import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
 import com.batdaulaptrinh.completlearningenglishapp.databinding.CompleteGameDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.CorrectAnswerNextDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentMultipleChoiceBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.IncorrectAnswerNextDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
+import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WrongAnswerRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WrongWordListRecyclerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 
@@ -29,9 +35,10 @@ class MultipleChoiceFragment : Fragment() {
         const val KEY_AGRS_SET = "WORD_SET"
     }
 
+    lateinit var multipleChoiceViewModel: MultipleChoiceViewModel
     var isCorrectAnswer: Boolean = false
-
     lateinit var binding: FragmentMultipleChoiceBinding
+    lateinit var adapter: WrongWordListRecyclerAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -42,13 +49,27 @@ class MultipleChoiceFragment : Fragment() {
             container,
             false)
 
+        val wordDao = LearningAppDatabase.getInstance(requireContext()).wordDao
+        LearningAppDatabase.getInstance(requireContext()).learnedDateDAO
+        val wordRepository = WordRepository(wordDao)
+        val multipleChoiceViewModelFactory = MultipleChoiceViewModelFactory(wordRepository)
+        multipleChoiceViewModel = ViewModelProvider(this,
+            multipleChoiceViewModelFactory)[MultipleChoiceViewModel::class.java]
+        adapter = WrongWordListRecyclerAdapter(arrayListOf())
         arguments?.let {
-            val setWord = it.get(KEY_AGRS_SET)
+            val setWord = it.get(ChoosingModeFragment.KEY_ARGS_SET)
             if (setWord is WordSet) {
                 binding.titleToolBar.text = setWord.setNth.toString()
+                multipleChoiceViewModel.getWordSetNth(setWord.setNth)
             }
         }
-
+        //TODO FAKE ALL LIST WORD ARE WRONG ANSWER
+        multipleChoiceViewModel.listWrongAnswer.observe(viewLifecycleOwner) { wrongListWord ->
+//            adapter.setList(wrongListWord)
+        }
+        multipleChoiceViewModel.listWord.observe(viewLifecycleOwner) {
+            adapter.setList(it)
+        }
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -160,7 +181,7 @@ class MultipleChoiceFragment : Fragment() {
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
         dialog.window?.setDimAmount(0.5f)
         dialog.setCancelable(false)
-        dialogBinding.listWrongAnswerRv.adapter = WrongAnswerRecyclerAdapter(arrayListOf())
+        dialogBinding.listWrongAnswerRv.adapter = adapter
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
             dialog.dismiss()
         }

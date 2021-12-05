@@ -52,6 +52,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_view"
                 tools:listitem="@layout/word_row_in_wordlist" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/empty_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_empty_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_extra_bold"
+                    android:text="Your word list is empty"
+                    android:textColor="@color/lightPrimaryColor"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
+                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

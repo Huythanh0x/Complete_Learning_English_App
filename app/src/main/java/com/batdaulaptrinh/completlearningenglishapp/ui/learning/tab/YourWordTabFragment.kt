@@ -63,14 +63,19 @@ class YourWordTabFragment : Fragment() {
             }.show()
         }
         yourWordViewModel.listYourWord.observe(viewLifecycleOwner, { listWord ->
+            if (listWord.isEmpty()) {
+                binding.emptyImg.visibility = View.VISIBLE
+            } else {
+                binding.emptyImg.visibility = View.GONE
+            }
             adapter.addList(listWord)
         })
 
         binding.searchView.setOnQueryTextListener(searchListener)
         binding.yourWordsRecyclerView.adapter = adapter
 
-        yourWordViewModel.lastAction.observe(viewLifecycleOwner,{
-            Log.d("TAG LAST ACTION",it.toString())
+        yourWordViewModel.lastAction.observe(viewLifecycleOwner, {
+            Log.d("TAG LAST ACTION", it.toString())
         })
         binding.sortImg.setOnClickListener() {
             binding.searchView.setQuery("", false)
@@ -78,51 +83,6 @@ class YourWordTabFragment : Fragment() {
             createSortBottomSheet()
         }
         return binding.root
-    }
-
-    private fun playSound(mp3Us: String) {
-        try {
-            GlobalScope.launch(Dispatchers.IO) {
-                val base64String = getByteArrayFromImageURL(mp3Us)
-                if (base64String != null) {
-                    playAudio(base64String)
-                }
-            }
-        } catch (e: Exception) {
-            Log.e("response", e.toString())
-        }
-    }
-
-    private fun getByteArrayFromImageURL(url: String): String? {
-        try {
-            val imageUrl = URL(url)
-            val urlConnection: URLConnection = imageUrl.openConnection()
-            val inputStream: InputStream = urlConnection.getInputStream()
-            val bytesOutputStream = ByteArrayOutputStream()
-            val buffer = ByteArray(1024)
-            var read: Int
-            while (inputStream.read(buffer, 0, buffer.size).also { read = it } != -1) {
-                bytesOutputStream.write(buffer, 0, read)
-            }
-            bytesOutputStream.flush()
-            return Base64.encodeToString(bytesOutputStream.toByteArray(), Base64.DEFAULT)
-                .filter { !it.isWhitespace() }
-        } catch (e: Exception) {
-            Log.d("Error", e.toString())
-        }
-        return null
-    }
-
-    private fun playAudio(base64EncodedString: String) {
-        try {
-            val url = "data:audio/mp3;base64,$base64EncodedString"
-            val mediaPlayer = MediaPlayer()
-            mediaPlayer.setDataSource(url)
-            mediaPlayer.prepare()
-            mediaPlayer.start()
-        } catch (ex: Exception) {
-            print(ex.message)
-        }
     }
 
     private fun restoreYourWord(_id: String) {
@@ -178,7 +138,7 @@ class YourWordTabFragment : Fragment() {
             if (newText != null && newText.isEmpty()) {
                 if (yourWordViewModel.lastAction.value == Utils.SEARCH) {
                     yourWordViewModel.getSearchYourWord(newText)
-                    Log.e("TAG SEARCH","CALLED")
+                    Log.e("TAG SEARCH", "CALLED")
                 }
             }
             return false
