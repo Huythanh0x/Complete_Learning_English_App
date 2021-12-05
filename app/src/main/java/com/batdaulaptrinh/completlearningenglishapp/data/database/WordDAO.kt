@@ -50,10 +50,10 @@ interface WordDAO {
     @Query("UPDATE word_table SET is_favourite = 0 where _id = :wordId")
     fun deleteFavouriteWord(wordId: String)
 
-    @Query("SELECT _id,en_word,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table WHERE is_favourite = 1 ORDER BY cefr ASC")
+    @Query("SELECT _id,en_word,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table ORDER BY cefr ASC")
     fun getAllWordSortedListLevelASC(): List<MinimalWord>
 
-    @Query("SELECT _id,en_word,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table WHERE is_favourite = 1 ORDER BY cefr DESC")
+    @Query("SELECT _id,en_word,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table ORDER BY cefr DESC")
     fun getAllWordSortedListLevelDESC(): List<MinimalWord>
     //TODO CHANGE OPERATOR != TO = in real data
 

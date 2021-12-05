@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,6 @@ import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentMultiple
 import com.batdaulaptrinh.completlearningenglishapp.databinding.IncorrectAnswerNextDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
-import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WrongAnswerRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WrongWordListRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -63,12 +61,13 @@ class MultipleChoiceFragment : Fragment() {
                 multipleChoiceViewModel.getWordSetNth(setWord.setNth)
             }
         }
-        //TODO FAKE ALL LIST WORD ARE WRONG ANSWER
         multipleChoiceViewModel.listWrongAnswer.observe(viewLifecycleOwner) { wrongListWord ->
 //            adapter.setList(wrongListWord)
         }
+        //TODO FAKE ALL LIST WORD ARE WRONG ANSWER
         multipleChoiceViewModel.listWord.observe(viewLifecycleOwner) {
-            adapter.setList(it)
+            val fakeListWord = it.filter { word -> word.examples.length % 2 == 0 }
+            adapter.setList(fakeListWord)
         }
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
@@ -185,6 +184,8 @@ class MultipleChoiceFragment : Fragment() {
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
             dialog.dismiss()
         }
+        dialogBinding.correctAnswerTxt.text = ((multipleChoiceViewModel.listWord.value?.size ?: 0) - adapter.itemCount).toString()
+        dialogBinding.wrongAnswerTxt.text = adapter.itemCount.toString()
         dialogBinding.addToNextSetBtn.setOnClickListener {
             Snackbar.make(dialogBinding.root,
                 "Wrong words was added to next set",

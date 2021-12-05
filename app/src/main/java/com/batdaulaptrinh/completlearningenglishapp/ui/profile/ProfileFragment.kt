@@ -57,9 +57,7 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_profile_to_showFullSizeAvatar,
                 bundleOf(KEY_AVATAR to bitmap))
         }
-
         return binding.root
-
     }
 
     private fun startEditText(editText: androidx.appcompat.widget.AppCompatEditText) {
@@ -94,5 +92,5 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
+    //TODO Personal goal
 }
