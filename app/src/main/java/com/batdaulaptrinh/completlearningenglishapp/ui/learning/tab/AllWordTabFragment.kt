@@ -65,6 +65,7 @@ class AllWordTabFragment : Fragment() {
         }
         binding.allWordsRecyclerView.adapter = adapter
         allWordViewModel.allWords.observe(viewLifecycleOwner, { listWord ->
+            binding.loadingCl.visibility = View.GONE
             Log.d("LAST ACTION TAG", allWordViewModel.lastAction.value.toString())
             adapter.addList(listWord)
         })

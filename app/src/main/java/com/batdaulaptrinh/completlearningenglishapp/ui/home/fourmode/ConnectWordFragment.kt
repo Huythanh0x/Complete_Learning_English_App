@@ -18,8 +18,6 @@ import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.EmptyLetterRecycl
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.MissingLetterRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment
 import java.util.*
-import java.util.function.Consumer
-import java.util.stream.Collectors
 
 class ConnectWordFragment : Fragment() {
     lateinit var binding: FragmentConnectWordBinding
@@ -54,16 +52,16 @@ class ConnectWordFragment : Fragment() {
         //TODO FAKING HERE
         originWord = "BEAUTIFUL"
         val shuffleWord = shuffleString(originWord)
-        shuffleWord?.forEachIndexed() { index, letter ->
-            if (index < MAX_LENGTH) {
+        shuffleWord.forEachIndexed() { index, letter ->
+            if (index < MAXLENGTH) {
                 primaryListMissingLetter.add(letter.toString())
             } else {
                 secondaryListMissingLetter.add(letter.toString())
             }
             listEmptyLetter.add("")
         }
-        Log.d("TAG LIST SIZE PRIMARY", primaryListMissingLetter.size.toString())
-        Log.d("TAG LIST SIZE SECOND", secondaryListMissingLetter.size.toString())
+        Log.d("TAG LIST SIZE PRIMARY", primaryListMissingLetter.toString())
+        Log.d("TAG LIST SIZE SECOND", secondaryListMissingLetter.toString())
         emptyLetterRecyclerAdapter =
             EmptyLetterRecyclerAdapter(listEmptyLetter,
                 primaryListMissingLetter,
@@ -130,15 +128,14 @@ class ConnectWordFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun shuffleString(string: String): String? {
-        val list: List<Char?> = string.chars().mapToObj { c: Int -> c.toChar() }
-            .collect(Collectors.toList())
-        Collections.shuffle(list)
-        val sb = StringBuilder()
-        list.forEach(Consumer { c: Char? -> sb.append(c) })
-        return sb.toString()
+    private fun shuffleString(string: String): String {
+        val listCharacter = string.toMutableList()
+        listCharacter.shuffle()
+        val shuffledString = listOf(string).shuffled().joinToString("")
+        Log.d("TAG SHUFFLED STRING",shuffledString)
+        return shuffledString
     }
 
-    private val MAX_LENGTH = 5
+
+    private val MAXLENGTH = 5
 }

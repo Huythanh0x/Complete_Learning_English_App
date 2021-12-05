@@ -17,7 +17,7 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
-            app:cardCornerRadius="2000dp"
+            app:cardCornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
             android:id="@+id/cardView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/cardView4"
             app:layout_constraintEnd_toEndOf="@+id/cardView4">
 

@@ -21,9 +21,9 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
-                app:iconifiedByDefault="false"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/outline_button_bg"
+                app:iconifiedByDefault="false"
                 app:layout_constraintEnd_toStartOf="@+id/sort_img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,13 +39,46 @@
                 app:layout_constraintStart_toEndOf="@id/search_view"
                 app:layout_constraintTop_toTopOf="@+id/search_view" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loading_cl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ProgressBar
+                    android:id="@+id/loading_pb"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".25" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="LOADING"
+                    android:textColor="@color/lightPrimaryColor"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/loading_pb" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/all_words_recyclerView"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scrollbars="vertical"
                 android:layout_margin="20dp"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

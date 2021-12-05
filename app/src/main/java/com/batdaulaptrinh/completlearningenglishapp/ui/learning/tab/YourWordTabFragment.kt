@@ -1,8 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab
 
-import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,13 +21,6 @@ import com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.net.URL
-import java.net.URLConnection
 
 
 class YourWordTabFragment : Fragment() {
@@ -63,6 +54,7 @@ class YourWordTabFragment : Fragment() {
             }.show()
         }
         yourWordViewModel.listYourWord.observe(viewLifecycleOwner, { listWord ->
+            binding.loadingCl.visibility = View.GONE
             if (listWord.isEmpty()) {
                 binding.emptyImg.visibility = View.VISIBLE
             } else {
