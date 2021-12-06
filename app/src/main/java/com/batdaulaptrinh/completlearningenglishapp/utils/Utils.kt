@@ -14,6 +14,11 @@ class Utils {
         const val SORT = "SORT"
         const val SEARCH = "SEARCH"
         const val NOTHING = "NOTHING"
+        const val IS_LOOP = "IS_LOOP"
+        const val TIME_DELAY = "TIME_DELAY"
+        const val TIME_OFF = "TIME_OFF"
+        const val IS_PLAY_SOUND = "IS_PLAY_SOUND"
+        const val AUTO_REPEAT = "AUTO_REPEAT"
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,

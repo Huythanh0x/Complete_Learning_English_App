@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="word"
+            type="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.wajahatkarim3.easyflipview.EasyFlipView
+            android:id="@+id/flash_card_cv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="10dp"
+            app:flipDuration="400"
+            app:flipEnabled="true"
+            app:flipFrom="right"
+            app:autoFlipBack="false"
+            app:flipOnTouch="true"
+            app:flipType="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".3"
+            app:layout_constraintWidth_percent=".6">
+
+            <include
+                android:id="@+id/back_layout"
+                layout="@layout/back_card_layout"
+                app:word="@{word}" />
+
+            <include
+                android:id="@+id/front_layout"
+                layout="@layout/front_card_layout"
+                app:word="@{word}" />
+
+        </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/next_card_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/next_card_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/flash_card_cv"
+            app:layout_constraintStart_toEndOf="@+id/flash_card_cv"
+            app:layout_constraintTop_toTopOf="@+id/flash_card_cv" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/previous_card_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/previous_card_ic"
+            app:layout_constraintBottom_toBottomOf="@+id/flash_card_cv"
+            app:layout_constraintEnd_toStartOf="@id/flash_card_cv"
+            app:layout_constraintTop_toTopOf="@+id/flash_card_cv" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/en_word_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="5dp"
+            android:text="@{word.en_word}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@id/speaker_flash_card_img"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/flash_card_cv"
+            app:layout_constraintTop_toBottomOf="@+id/flash_card_cv"
+            tools:text="Beginner" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/speaker_flash_card_img"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/uk_speaker_ic"
+            app:layout_constraintBottom_toBottomOf="@+id/en_word_txt"
+            app:layout_constraintEnd_toEndOf="@+id/flash_card_cv"
+            app:layout_constraintStart_toEndOf="@+id/en_word_txt"
+            app:layout_constraintTop_toTopOf="@+id/en_word_txt"
+            app:playSoundUs="@{word}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/type_word_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{word.type}"
+            app:layout_constraintEnd_toEndOf="@+id/en_word_txt"
+            app:layout_constraintStart_toStartOf="@+id/en_word_txt"
+            app:layout_constraintTop_toBottomOf="@+id/en_word_txt"
+            tools:text="noun" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/api_flash_card_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{word.api_us}"
+            app:layout_constraintEnd_toEndOf="@+id/type_word_txt"
+            app:layout_constraintStart_toStartOf="@+id/type_word_txt"
+            app:layout_constraintTop_toBottomOf="@+id/type_word_txt"
+            tools:text="/biginer/" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
