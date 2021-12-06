@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:src="@drawable/play_flash_card"
+            android:src="@drawable/play_flash_card_ic"
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toStartOf="@+id/progress_sb"
             app:layout_constraintStart_toStartOf="parent"

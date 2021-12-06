@@ -2,6 +2,7 @@ package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
 import com.batdaulaptrinh.completlearningenglishapp.databinding.DelayBeforeMovingToNextWordDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FlashCardSettingsDialogBinding
@@ -21,14 +23,11 @@ import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.FlashCardAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment
-import java.util.*
-
 
 class FlashCardFragment : Fragment() {
     lateinit var binding: FragmentFlashCardBinding
     lateinit var flashCardViewModel: FlashCardViewModel
     lateinit var adapter: FlashCardAdapter
-    private lateinit var timer: Timer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -50,47 +49,35 @@ class FlashCardFragment : Fragment() {
                 flashCardViewModel.getSetWordNth(setWord.setNth)
             }
         }
-        adapter = FlashCardAdapter(arrayListOf(), {
-            flashCardViewModel.moveToNextPosition()
-        }, {
-            flashCardViewModel.moveToPreviousPosition()
-        })
+        adapter = FlashCardAdapter(arrayListOf(), moveToNextCallBack, moveToPreviousCallBack)
         binding.viewPager2.adapter = adapter
-        flashCardViewModel.listWord.observe(viewLifecycleOwner, { listWord ->
-            adapter.setList(listWord)
-        })
-        flashCardViewModel.currentFlashCardPosition.observe(viewLifecycleOwner) { newPosition ->
+        flashCardViewModel.listWord.observe(viewLifecycleOwner,
+            { listWord -> adapter.setList(listWord) })
+        flashCardViewModel.currentPosition.observe(viewLifecycleOwner) { newPosition ->
             binding.viewPager2.setCurrentItem(newPosition, true)
             binding.progressSb.progress = newPosition
             "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
                 binding.progressTxt.text = it
             }
-
         }
-        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                flashCardViewModel.setCurrentPosition(position)
+        flashCardViewModel.isAutoPlay.observe(viewLifecycleOwner) { isAutoPlay ->
+            when (isAutoPlay) {
+                true -> {
+                    binding.autoPlayStateImg.setImageResource(R.drawable.pause_flashcar_ic)
+                }
+                false -> {
+                    binding.autoPlayStateImg.setImageResource(R.drawable.play_flash_card_ic)
+                    //TODO Bug when call pauseAutoPlay from observe even call from clickListener is OK
+                }
             }
-        })
-
-        binding.progressSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekbar: SeekBar?, position: Int, p2: Boolean) {
-                flashCardViewModel.setCurrentPosition(position)
-            }
-
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-                //TODO("Not yet implemented")
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                //TODO("Not yet implemented")
-            }
-        })
-
+        }
+        flashCardViewModel.currentPosition.observe(viewLifecycleOwner) {
+            Log.d("CURRENT POSITION TAG", it.toString())
+        }
+        binding.viewPager2.registerOnPageChangeCallback(viewPagerChangeListener)
+        binding.progressSb.setOnSeekBarChangeListener(seekBarChangeListener)
         binding.autoPlayStateImg.setOnClickListener {
-
-            autoSlideFlashCard()
+            flashCardViewModel.clickPlayButton()
         }
         binding.settingsBtn.setOnClickListener {
             createSettingDialog()
@@ -101,21 +88,6 @@ class FlashCardFragment : Fragment() {
         return binding.root
     }
 
-    private fun autoSlideFlashCard() {
-        val runnableSlide = object : TimerTask() {
-            override fun run() {
-                flashCardViewModel.moveToNextPosition()
-            }
-        }
-        if (!flashCardViewModel.isAutoPlay.value!!) {
-            timer = Timer()
-            timer.schedule(runnableSlide, 0, 2000)
-            flashCardViewModel.isAutoPlay.value = true
-        } else {
-            timer.cancel()
-            flashCardViewModel.isAutoPlay.value = false
-        }
-    }
 
     private fun createSettingDialog() {
         val dialogBinding = DataBindingUtil.inflate<FlashCardSettingsDialogBinding>(layoutInflater,
@@ -165,4 +137,31 @@ class FlashCardFragment : Fragment() {
         }
         dialog.show()
     }
+
+    private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekbar: SeekBar?, position: Int, p2: Boolean) {
+            flashCardViewModel.setCurrentPosition(position)
+        }
+
+        override fun onStartTrackingTouch(p0: SeekBar?) {
+            //TODO("Not yet implemented")
+        }
+
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            //TODO("Not yet implemented")
+        }
+    }
+
+    private val viewPagerChangeListener = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            flashCardViewModel.setCurrentPosition(position)
+        }
+    }
+
+    val moveToNextCallBack: (position: Int) -> Unit =
+        { flashCardViewModel.moveToNextPosition() }
+
+    val moveToPreviousCallBack: (position: Int) -> Unit =
+        { flashCardViewModel.moveToPreviousPosition() }
 }
