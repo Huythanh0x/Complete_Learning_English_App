@@ -54,12 +54,22 @@ class FlashCardFragment : Fragment() {
         flashCardViewModel.listWord.observe(viewLifecycleOwner,
             { listWord -> adapter.setList(listWord) })
         flashCardViewModel.currentPosition.observe(viewLifecycleOwner) { newPosition ->
-            binding.viewPager2.setCurrentItem(newPosition, true)
-            binding.progressSb.progress = newPosition
-            "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
-                binding.progressTxt.text = it
+            if (binding.viewPager2.currentItem != binding.progressSb.progress) {
+                binding.progressSb.progress = newPosition
+                flashCardViewModel.playSound()
+                "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
+                    binding.progressTxt.text = it
+                }
+                Log.d("CURRENT POSITION TAG", newPosition.toString())
             }
-            Log.d("CURRENT POSITION TAG", newPosition.toString())
+            else if (flashCardViewModel.getCurrentPositionValue() != binding.progressSb.progress) {
+                Log.d("CURRENT AUTO TAG", newPosition.toString())
+                binding.progressSb.progress = newPosition
+                flashCardViewModel.playSound()
+                "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
+                    binding.progressTxt.text = it
+                }
+            }
         }
         flashCardViewModel.isAutoPlay.observe(viewLifecycleOwner) { isAutoPlay ->
             when (isAutoPlay) {
@@ -198,10 +208,15 @@ class FlashCardFragment : Fragment() {
 
     private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekbar: SeekBar?, position: Int, p2: Boolean) {
-            flashCardViewModel.setCurrentPosition(position)
+            binding.viewPager2.currentItem = position
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
-        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            if (seekBar != null) {
+                binding.viewPager2.currentItem = seekBar.progress
+            }
+            flashCardViewModel.playSound()
+        }
     }
 }

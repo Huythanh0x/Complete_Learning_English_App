@@ -34,17 +34,17 @@ class FlashCardAdapter(
         when (position) {
             0 -> {
                 holder.binding.previousCardImg.alpha = 0.3f
-                holder.binding.previousCardImg.isClickable = false
+                holder.binding.previousCardImg.isEnabled = false
             }
             listWord.size - 1 -> {
                 holder.binding.nextCardImg.alpha = 0.3f
-                holder.binding.nextCardImg.isClickable = false
+                holder.binding.nextCardImg.isEnabled = false
             }
             else -> {
                 holder.binding.nextCardImg.alpha = 1f
                 holder.binding.previousCardImg.alpha = 1f
-                holder.binding.nextCardImg.isClickable = true
-                holder.binding.previousCardImg.isClickable = true
+                holder.binding.nextCardImg.isEnabled = true
+                holder.binding.previousCardImg.isEnabled = true
             }
         }
         holder.binding.nextCardImg.setOnClickListener {

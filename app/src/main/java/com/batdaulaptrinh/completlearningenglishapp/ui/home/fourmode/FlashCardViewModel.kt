@@ -31,7 +31,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     val timeOffLiveData = MutableLiveData(sharePreferencesProvider.getTimeOff())
     val isAutoRepeatLiveData = MutableLiveData(sharePreferencesProvider.getIsAutoRepeat())
     val isPlaySoundLiveData = MutableLiveData(sharePreferencesProvider.getIsPlaySound())
-
+    var countDownTime = sharePreferencesProvider.getTimeOff() * 60
     fun getSetWordNth(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
         setWordNth = nTh
@@ -61,18 +61,21 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     fun pauseAutoPlay() {
         timer.cancel()
         timer.purge()
-        isAutoPlay.value = false
+        isAutoPlay.postValue(false)
     }
 
     fun setCurrentPosition(newPosition: Int) {
         currentPosition.postValue(newPosition)
     }
 
+    fun getCurrentPositionValue(): Int {
+        return currentPosition.value!!
+    }
+
     fun autoMoveToNextPosition() {
         val _currentPosition = currentPosition.value!!
         val _maxPosition = listWord.value?.size?.minus(1)
         val _isLoop = sharePreferencesProvider.getIsAutoRepeat()
-        val _isPlaySound = sharePreferencesProvider.getIsPlaySound()
         //TODO SHOULD OBSERVE CHANGE AND CALL PAUSE FROM FRAGMENT
         if (!isAutoPlay.value!!) {
             timer.cancel()
@@ -82,22 +85,25 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         } else if (!_isLoop && _currentPosition >= _maxPosition!!) {
             currentPosition.postValue(0)
             isAutoPlay.postValue(false)
-        } else if (_isLoop && _isPlaySound) {
+        } else if (_isLoop) {
             currentPosition.postValue((_currentPosition + 1) % _maxPosition!!)
         }
-        if (_isPlaySound) {
-            listWord.value?.get(currentPosition.value!!)?.let { playSound(it.mp3_us) }
+        countDownTime -= timeDelayLiveData.value!!
+        if (countDownTime <= 0) {
+            pauseAutoPlay()
         }
     }
 
     fun moveToNextPosition() {
         val _currentPosition = currentPosition.value!!
-        val _maxPosition = listWord.value?.size?.minus(1)
-        val _isLoop = sharePreferencesProvider.getIsAutoRepeat()
-        if (!_isLoop && _currentPosition < _maxPosition!!) {
+        val _maxPosition = listWord.value!!.size.minus(1)
+        val _isLoop = isAutoRepeatLiveData.value!!
+
+        Log.e("ERROR HERE CLICK TAG", "$_currentPosition $_maxPosition $_isLoop")
+        if (!_isLoop && _currentPosition < _maxPosition) {
             currentPosition.postValue(_currentPosition + 1)
         } else if (_isLoop) {
-            currentPosition.postValue((_currentPosition + 1) % _maxPosition!!)
+            currentPosition.postValue((_currentPosition + 1) % _maxPosition)
         }
     }
 
@@ -126,6 +132,8 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         sharePreferencesProvider.putTimeOff(timeOffLiveData.value!!)
         sharePreferencesProvider.putIsAutoRepeat(isAutoRepeatLiveData.value!!)
         sharePreferencesProvider.putIsPlaySound(isPlaySoundLiveData.value!!)
+        if (isAutoPlay.value!!)
+            updateSettingWhileAuto()
     }
 
     fun discardSettings() {
@@ -135,17 +143,20 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         isPlaySoundLiveData.postValue(sharePreferencesProvider.getIsPlaySound())
     }
 
-    fun playSound(mp3Us: String) {
-        Log.d("PLAYSOUND TAG", mp3Us)
-        try {
-            viewModelScope.launch(Dispatchers.IO) {
-                val base64String = getByteArrayFromImageURL(mp3Us)
-                if (base64String != null) {
-                    playAudio(base64String)
+    fun playSound() {
+        if (isPlaySoundLiveData.value!!) {
+            val _currentPosition = currentPosition.value!!
+            val mp3Us = listWord.value!![_currentPosition].mp3_us
+            try {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val base64String = getByteArrayFromImageURL(mp3Us)
+                    if (base64String != null) {
+                        playAudio(base64String)
+                    }
                 }
+            } catch (e: Exception) {
+                Log.e("response", e.toString())
             }
-        } catch (e: Exception) {
-            Log.e("response", e.toString())
         }
     }
 
@@ -182,5 +193,14 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         } catch (ex: Exception) {
             print(ex.message)
         }
+    }
+
+    fun getIsAutoPlay(): Boolean {
+        return isAutoPlay.value!!
+    }
+
+    fun updateSettingWhileAuto() {
+        pauseAutoPlay()
+        startAutoPlay()
     }
 }
