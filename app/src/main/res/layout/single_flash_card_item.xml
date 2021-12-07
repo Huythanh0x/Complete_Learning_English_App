@@ -91,8 +91,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/en_word_txt"
             app:layout_constraintEnd_toEndOf="@+id/flash_card_cv"
             app:layout_constraintStart_toEndOf="@+id/en_word_txt"
-            app:layout_constraintTop_toTopOf="@+id/en_word_txt"
-            app:playSoundUs="@{word}" />
+            app:layout_constraintTop_toTopOf="@+id/en_word_txt" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/type_word_txt"

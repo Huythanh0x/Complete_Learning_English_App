@@ -32,6 +32,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     val isAutoRepeatLiveData = MutableLiveData(sharePreferencesProvider.getIsAutoRepeat())
     val isPlaySoundLiveData = MutableLiveData(sharePreferencesProvider.getIsPlaySound())
     private var countDownTime = sharePreferencesProvider.getTimeOff() * 60
+    private val mediaPlayer = MediaPlayer()
     fun getSetWordNth(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
         setWordNth = nTh
@@ -184,13 +185,12 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     private fun playAudio(base64EncodedString: String) {
         try {
             val url = "data:audio/mp3;base64,$base64EncodedString"
-            val mediaPlayer = MediaPlayer()
+            mediaPlayer.reset()
             mediaPlayer.setDataSource(url)
             mediaPlayer.prepare()
             mediaPlayer.start()
             mediaPlayer.setOnCompletionListener { mediaPlayer ->
                 mediaPlayer.reset()
-                mediaPlayer.release()
             }
         } catch (ex: Exception) {
             print(ex.message)

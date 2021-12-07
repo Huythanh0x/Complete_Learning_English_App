@@ -12,6 +12,7 @@ class FlashCardAdapter(
     val listWord: ArrayList<Word>,
     val clickNextBtn: (position: Int) -> Unit,
     val clickPreviousBtn: (position: Int) -> Unit,
+    val clickPlaySound: () -> Unit,
 ) :
     RecyclerView.Adapter<FlashCardAdapter.MyViewHolder>() {
     class MyViewHolder(val binding: SingleFlashCardItemBinding) :
@@ -52,6 +53,9 @@ class FlashCardAdapter(
         }
         holder.binding.previousCardImg.setOnClickListener {
             clickPreviousBtn(position)
+        }
+        holder.binding.speakerFlashCardImg.setOnClickListener {
+            clickPlaySound()
         }
     }
 

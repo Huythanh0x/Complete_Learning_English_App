@@ -2,7 +2,6 @@ package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,10 @@ class FlashCardFragment : Fragment() {
                 flashCardViewModel.getSetWordNth(setWord.setNth)
             }
         }
-        adapter = FlashCardAdapter(arrayListOf(), moveToNextCallBack, moveToPreviousCallBack)
+        adapter = FlashCardAdapter(arrayListOf(),
+            moveToNextCallBack,
+            moveToPreviousCallBack,
+            clickPlaySoundCallBack)
         binding.viewPager2.adapter = adapter
         flashCardViewModel.listWord.observe(viewLifecycleOwner,
             { listWord -> adapter.setList(listWord) })
@@ -60,7 +62,6 @@ class FlashCardFragment : Fragment() {
                 "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
                     binding.progressTxt.text = it
                 }
-                Log.d("CURRENT POSITION TAG", newPosition.toString())
             }
         }
         flashCardViewModel.isAutoPlay.observe(viewLifecycleOwner) { isAutoPlay ->
@@ -191,6 +192,7 @@ class FlashCardFragment : Fragment() {
     private val moveToPreviousCallBack: (position: Int) -> Unit =
         { flashCardViewModel.moveToPreviousPosition() }
 
+    private val clickPlaySoundCallBack: () -> Unit = { flashCardViewModel.playSound() }
     private val viewPagerChangeListener = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
