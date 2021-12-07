@@ -2,6 +2,7 @@ package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +59,7 @@ class FlashCardFragment : Fragment() {
             "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
                 binding.progressTxt.text = it
             }
+            Log.d("CURRENT POSITION TAG", newPosition.toString())
         }
         flashCardViewModel.isAutoPlay.observe(viewLifecycleOwner) { isAutoPlay ->
             when (isAutoPlay) {
@@ -71,15 +73,6 @@ class FlashCardFragment : Fragment() {
         binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
         binding.settingsBtn.setOnClickListener { createSettingDialog() }
         return binding.root
-    }
-
-    private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekbar: SeekBar?, position: Int, p2: Boolean) {
-            flashCardViewModel.setCurrentPosition(position)
-        }
-
-        override fun onStartTrackingTouch(p0: SeekBar?) {}
-        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
     }
 
 
@@ -190,6 +183,12 @@ class FlashCardFragment : Fragment() {
         dialog.show()
     }
 
+    private val moveToNextCallBack: (position: Int) -> Unit =
+        { flashCardViewModel.moveToNextPosition() }
+
+    private val moveToPreviousCallBack: (position: Int) -> Unit =
+        { flashCardViewModel.moveToPreviousPosition() }
+
     private val viewPagerChangeListener = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
@@ -197,9 +196,12 @@ class FlashCardFragment : Fragment() {
         }
     }
 
-    private val moveToNextCallBack: (position: Int) -> Unit =
-        { flashCardViewModel.moveToNextPosition() }
+    private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekbar: SeekBar?, position: Int, p2: Boolean) {
+            flashCardViewModel.setCurrentPosition(position)
+        }
 
-    private val moveToPreviousCallBack: (position: Int) -> Unit =
-        { flashCardViewModel.moveToPreviousPosition() }
+        override fun onStartTrackingTouch(p0: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+    }
 }

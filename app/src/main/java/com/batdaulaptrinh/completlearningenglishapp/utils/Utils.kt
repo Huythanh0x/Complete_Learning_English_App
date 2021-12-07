@@ -464,11 +464,6 @@ class Utils {
                 .joinToString("")
         }
 
-        fun playSoundHello(context: Context) {
-            val mPlayer: MediaPlayer = MediaPlayer.create(context,
-                com.batdaulaptrinh.completlearningenglishapp.R.raw.hello__gb_1)
-            mPlayer.start()
-        }
 
         fun playSound(mp3Us: String) {
             try {

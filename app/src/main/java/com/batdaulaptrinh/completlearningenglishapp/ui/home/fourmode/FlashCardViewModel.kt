@@ -1,20 +1,29 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
 import android.app.Application
+import android.media.MediaPlayer
+import android.util.Base64
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
-import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.net.URL
+import java.net.URLConnection
 import java.util.*
 
 
 class FlashCardViewModel(val wordRepository: WordRepository, application: Application) :
     AndroidViewModel(application) {
     val listWord = MutableLiveData<List<Word>>()
-    val currentPosition = MutableLiveData(0)
-    var isAutoPlay = MutableLiveData(false)
+    val currentPosition = MutableLiveData<Int>()
+    var isAutoPlay = MutableLiveData<Boolean>(false)
     private val sharePreferencesProvider = SharePreferencesProvider(getApplication())
     private var timer = Timer()
     var setWordNth = 0
@@ -73,11 +82,11 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         } else if (!_isLoop && _currentPosition >= _maxPosition!!) {
             currentPosition.postValue(0)
             isAutoPlay.postValue(false)
-        } else if (_isLoop) {
+        } else if (_isLoop && _isPlaySound) {
             currentPosition.postValue((_currentPosition + 1) % _maxPosition!!)
         }
         if (_isPlaySound) {
-            listWord.value?.get(currentPosition.value!!)?.let { Utils.playSound(it.mp3_us) }
+            listWord.value?.get(currentPosition.value!!)?.let { playSound(it.mp3_us) }
         }
     }
 
@@ -124,5 +133,54 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         timeOffLiveData.postValue(sharePreferencesProvider.getTimeOff())
         isAutoRepeatLiveData.postValue(sharePreferencesProvider.getIsAutoRepeat())
         isPlaySoundLiveData.postValue(sharePreferencesProvider.getIsPlaySound())
+    }
+
+    fun playSound(mp3Us: String) {
+        Log.d("PLAYSOUND TAG", mp3Us)
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                val base64String = getByteArrayFromImageURL(mp3Us)
+                if (base64String != null) {
+                    playAudio(base64String)
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("response", e.toString())
+        }
+    }
+
+    private fun getByteArrayFromImageURL(url: String): String? {
+        try {
+            val imageUrl = URL(url)
+            val urlConnection: URLConnection = imageUrl.openConnection()
+            val inputStream: InputStream = urlConnection.getInputStream()
+            val bytesOutputStream = ByteArrayOutputStream()
+            val buffer = ByteArray(1024)
+            var read = 0
+            while (inputStream.read(buffer, 0, buffer.size).also { read = it } != -1) {
+                bytesOutputStream.write(buffer, 0, read)
+            }
+            bytesOutputStream.flush()
+            return Base64.encodeToString(bytesOutputStream.toByteArray(), Base64.DEFAULT)
+                .filter { !it.isWhitespace() }
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
+        }
+        return null
+    }
+
+    private fun playAudio(base64EncodedString: String) {
+        try {
+            val url = "data:audio/mp3;base64,$base64EncodedString"
+            val mediaPlayer = MediaPlayer()
+            mediaPlayer.setDataSource(url)
+            mediaPlayer.prepare()
+            mediaPlayer.start()
+            mediaPlayer.setOnCompletionListener { mediaPlayer ->
+                mediaPlayer.release()
+            }
+        } catch (ex: Exception) {
+            print(ex.message)
+        }
     }
 }
