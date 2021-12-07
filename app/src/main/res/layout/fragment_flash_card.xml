@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="word"
-            type="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+            name="flashCardViewModel"
+            type="com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.FlashCardViewModel" />
 
     </data>
 
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:autoSizeMaxTextSize="20dp"
-                android:text="@{`WORD SET NUMBER` + word.set_nth}"
+                android:text="@{`WORD SET NUMBER ` + flashCardViewModel.setWordNth}"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="12/20"
+            android:text="@{flashCardViewModel.currentPosition+``+flashCardViewModel.listWord.size()}"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:onClick="@{()->flashCardViewModel.clickPlayButton()}"
             android:src="@drawable/play_flash_card_ic"
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toStartOf="@+id/progress_sb"

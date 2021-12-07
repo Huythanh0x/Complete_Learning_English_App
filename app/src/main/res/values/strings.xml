@@ -27,6 +27,26 @@
     <string name="us_example">US</string>
     <string name="dark_mode_title">DARK MODE</string>
     <string name="click_here_for_more_detail_at_oxford_home_page">Click here for more detail at <u><bold>Oxford home page</bold></u></string>
+    <string name="_2s">2s</string>
+    <string name="_3s">3s</string>
+    <string name="_4s">4s</string>
+    <string name="_5s">5s</string>
+    <string name="_6s">6s</string>
+    <string name="_7s">7s</string>
+    <string name="_8s">8s</string>
+    <string name="_9s">9s</string>
+    <string name="_10s">10s</string>
+    <string name="_11s">11s</string>
+    <string name="_12s">12s</string>
+    <string name="_13s">13s</string>
+    <string name="_14s">14s</string>
+    <string name="_15s">15s</string>
+    <string name="_16s">16s</string>
+    <string name="_17s">17s</string>
+    <string name="_18s">18s</string>
+    <string name="_19s">19s</string>
+    <string name="_20s">20s</string>
+    <string name="delay_before_moving_to_next_word">Delay before moving to next word</string>
 
     <string-array name="prefer_accent_spinner">
         <item name="us">US</item>

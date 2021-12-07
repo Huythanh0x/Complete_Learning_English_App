@@ -7,16 +7,12 @@ import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 
 class SharePreferencesProvider(val context: Context) {
     private val sharePreferencesProvider = PreferenceManager.getDefaultSharedPreferences(context)
-    fun putIsLoop(isLoop: Boolean) {
-        sharePreferencesProvider.edit() {
-            putBoolean(Utils.IS_LOOP, isLoop)
-        }
-    }
 
     fun putTimeDelay(timeDelay: Int) {
         sharePreferencesProvider.edit() {
             putInt(Utils.TIME_DELAY, timeDelay)
         }
+        sharePreferencesProvider.edit().putInt(Utils.TIME_DELAY, timeDelay).commit()
     }
 
     fun putTimeOff(timeOff: Int) {
@@ -25,20 +21,21 @@ class SharePreferencesProvider(val context: Context) {
         }
     }
 
-    fun putAutoRepeat(isAutoRepeat: Boolean) {
+    fun putIsAutoRepeat(isAutoRepeat: Boolean) {
         sharePreferencesProvider.edit() {
             putBoolean(Utils.IS_LOOP, isAutoRepeat)
         }
+        sharePreferencesProvider.edit().putBoolean(Utils.IS_LOOP, isAutoRepeat).commit()
     }
 
-    fun putPlaySound(isPlaySound: Boolean) {
+    fun putIsPlaySound(isPlaySound: Boolean) {
         sharePreferencesProvider.edit() {
             putBoolean(Utils.IS_PLAY_SOUND, isPlaySound)
         }
     }
 
-    fun getIsLoop(): Boolean {
-        return sharePreferencesProvider.getBoolean(Utils.IS_LOOP, false)
+    fun getIsAutoRepeat(): Boolean {
+        return sharePreferencesProvider.getBoolean(Utils.IS_LOOP, true)
     }
 
     fun getTimeDelay(): Int {
@@ -49,17 +46,11 @@ class SharePreferencesProvider(val context: Context) {
         return sharePreferencesProvider.getInt(Utils.TIME_OFF, 10)
     }
 
-    fun getAutoRepeat(): Boolean {
-        return sharePreferencesProvider.getBoolean(Utils.AUTO_REPEAT, false)
-    }
-
     fun getIsPlaySound(): Boolean {
         return sharePreferencesProvider.getBoolean(Utils.IS_PLAY_SOUND, false)
     }
 
     fun clickPlayButton() {
-        putPlaySound(!getIsPlaySound())
+        putIsPlaySound(!getIsPlaySound())
     }
-
-
 }

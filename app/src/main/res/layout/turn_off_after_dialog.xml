@@ -46,6 +46,7 @@
                     android:layout_height="match_parent">
 
                     <RadioButton
+                        android:id="@+id/never"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -53,6 +54,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a5minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -60,6 +62,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a10minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -67,6 +70,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a15minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -74,6 +78,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a20minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -81,6 +86,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a30minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -88,6 +94,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a40minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -95,6 +102,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a50minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
@@ -102,6 +110,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a60minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"

@@ -12,12 +12,12 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/settings_title"
+            android:id="@+id/aettings_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:gravity="start"
-            android:text="Delay before moving to next word"
+            android:text="@string/delay_before_moving_to_next_word"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/settings_title">
+            app:layout_constraintTop_toBottomOf="@+id/aettings_title">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,136 +45,155 @@
                     android:layout_height="match_parent">
 
                     <RadioButton
+                        android:id="@+id/a2seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="2s"
+                        android:text="@string/_2s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a3seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="3s"
+                        android:text="@string/_3s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a4seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="4s"
+                        android:text="@string/_4s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a5seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="5s"
+                        android:text="@string/_5s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a6seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="6s"
+                        android:text="@string/_6s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a7seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="7s"
+                        android:text="@string/_7s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a8seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="8s"
+                        android:text="@string/_8s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a9seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="9s"
+                        android:text="@string/_9s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a10seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="10s"
+                        android:text="@string/_10s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a11seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="11s"
+                        android:text="@string/_11s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a12seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="12s"
+                        android:text="@string/_12s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a13seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="13s"
+                        android:text="@string/_13s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a14seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="14s"
+                        android:text="@string/_14s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a15seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="15s"
+                        android:text="@string/_15s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a16seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="16s"
+                        android:text="@string/_16s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a17seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="17s"
+                        android:text="@string/_17s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a18seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="18s"
+                        android:text="@string/_18s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a19seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="19s"
+                        android:text="@string/_19s"
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/a20seconds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="20s"
+                        android:text="@string/_20s"
                         android:textSize="18sp" />
                 </RadioGroup>
             </LinearLayout>
