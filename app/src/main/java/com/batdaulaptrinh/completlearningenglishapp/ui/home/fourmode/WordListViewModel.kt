@@ -7,9 +7,10 @@ import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 
 class WordListViewModel(val wordRepository: WordRepository) : ViewModel() {
     val listWord = MutableLiveData<List<Word>>()
-
+    val wordSetNth = MutableLiveData<Int>()
     fun getNewWordList(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
+        wordSetNth.postValue(nTh)
     }
 
     fun deleteFavouriteWord(_id: String) {

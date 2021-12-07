@@ -91,15 +91,18 @@ class YourWordTabFragment : Fragment() {
             false)
         val realBottomSheet = BottomSheetDialog(requireContext())
         realBottomSheet.setContentView(bindingBottomSheet.root)
-        realBottomSheet.setCancelable(false)
         bindingBottomSheet.sortByAZTxt.setOnClickListener {
             yourWordViewModel.setActionSort()
             yourWordViewModel.getYourWordSortedListAZ()
+            binding.yourWordsRecyclerView.scrollToPosition(0)
+            binding.sortImg.setImageResource(R.drawable.sort_by_alphabet_asc)
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.sortByZATxt.setOnClickListener {
             yourWordViewModel.setActionSort()
             yourWordViewModel.getYourWordSortedListZA()
+            binding.yourWordsRecyclerView.scrollToPosition(0)
+            binding.sortImg.setImageResource(R.drawable.sort_by_alphabet_desc)
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.collapseBottomSheetImg.setOnClickListener {

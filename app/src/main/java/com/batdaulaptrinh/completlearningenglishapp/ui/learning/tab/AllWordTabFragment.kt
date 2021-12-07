@@ -77,7 +77,6 @@ class AllWordTabFragment : Fragment() {
         allWordViewModel.lastAction.observe(viewLifecycleOwner, {
             allWordViewModel.allWords.value?.let { listWord -> adapter.addList(listWord) }
         })
-
         binding.searchView.setOnQueryTextListener(searchListener)
         return binding.root
     }
@@ -138,25 +137,32 @@ class AllWordTabFragment : Fragment() {
             false)
         val realBottomSheet = BottomSheetDialog(requireContext())
         realBottomSheet.setContentView(bindingBottomSheet.root)
-        realBottomSheet.setCancelable(false)
         bindingBottomSheet.sortByAZTxt.setOnClickListener {
             allWordViewModel.setActionSort()
             allWordViewModel.getAllWordSortedListAZ()
+            binding.allWordsRecyclerView.scrollToPosition(0)
+            binding.sortImg.setImageResource(R.drawable.sort_by_alphabet_asc)
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.sortByZATxt.setOnClickListener {
             allWordViewModel.setActionSort()
             allWordViewModel.getAllWordSortedListZA()
+            binding.allWordsRecyclerView.scrollToPosition(0)
+            binding.sortImg.setImageResource(R.drawable.sort_by_alphabet_desc)
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.sortByLevelDesTxt.setOnClickListener {
             allWordViewModel.setActionSort()
             allWordViewModel.getAllWordSortedListLevelDESC()
+            binding.allWordsRecyclerView.scrollToPosition(0)
+            binding.sortImg.setImageResource(R.drawable.sort_by_level_desc)
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.sortByLevelAscTxt.setOnClickListener {
             allWordViewModel.setActionSort()
             allWordViewModel.getAllWordSortedListLevelASC()
+            binding.allWordsRecyclerView.scrollToPosition(0)
+            binding.sortImg.setImageResource(R.drawable.sort_by_level_asc)
             realBottomSheet.dismiss()
         }
         bindingBottomSheet.collapseBottomSheetImg.setOnClickListener {

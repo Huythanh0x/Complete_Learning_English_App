@@ -197,10 +197,6 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         }
     }
 
-    fun getIsAutoPlay(): Boolean {
-        return isAutoPlay.value!!
-    }
-
     private fun updateSettingWhileAuto() {
         timer.cancel()
         timer.purge()
