@@ -54,21 +54,13 @@ class FlashCardFragment : Fragment() {
         flashCardViewModel.listWord.observe(viewLifecycleOwner,
             { listWord -> adapter.setList(listWord) })
         flashCardViewModel.currentPosition.observe(viewLifecycleOwner) { newPosition ->
-            if (binding.viewPager2.currentItem != binding.progressSb.progress) {
+            if ((binding.viewPager2.currentItem != binding.progressSb.progress) || (flashCardViewModel.getCurrentPositionValue() != binding.progressSb.progress)) {
                 binding.progressSb.progress = newPosition
                 flashCardViewModel.playSound()
                 "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
                     binding.progressTxt.text = it
                 }
                 Log.d("CURRENT POSITION TAG", newPosition.toString())
-            }
-            else if (flashCardViewModel.getCurrentPositionValue() != binding.progressSb.progress) {
-                Log.d("CURRENT AUTO TAG", newPosition.toString())
-                binding.progressSb.progress = newPosition
-                flashCardViewModel.playSound()
-                "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
-                    binding.progressTxt.text = it
-                }
             }
         }
         flashCardViewModel.isAutoPlay.observe(viewLifecycleOwner) { isAutoPlay ->

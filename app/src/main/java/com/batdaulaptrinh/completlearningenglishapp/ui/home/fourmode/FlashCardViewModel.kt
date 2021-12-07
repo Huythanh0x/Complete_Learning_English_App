@@ -31,7 +31,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     val timeOffLiveData = MutableLiveData(sharePreferencesProvider.getTimeOff())
     val isAutoRepeatLiveData = MutableLiveData(sharePreferencesProvider.getIsAutoRepeat())
     val isPlaySoundLiveData = MutableLiveData(sharePreferencesProvider.getIsPlaySound())
-    var countDownTime = sharePreferencesProvider.getTimeOff() * 60
+    private var countDownTime = sharePreferencesProvider.getTimeOff() * 60
     fun getSetWordNth(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
         setWordNth = nTh
@@ -132,8 +132,9 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         sharePreferencesProvider.putTimeOff(timeOffLiveData.value!!)
         sharePreferencesProvider.putIsAutoRepeat(isAutoRepeatLiveData.value!!)
         sharePreferencesProvider.putIsPlaySound(isPlaySoundLiveData.value!!)
-        if (isAutoPlay.value!!)
+        if (isAutoPlay.value!!) {
             updateSettingWhileAuto()
+        }
     }
 
     fun discardSettings() {
@@ -167,7 +168,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
             val inputStream: InputStream = urlConnection.getInputStream()
             val bytesOutputStream = ByteArrayOutputStream()
             val buffer = ByteArray(1024)
-            var read = 0
+            var read: Int
             while (inputStream.read(buffer, 0, buffer.size).also { read = it } != -1) {
                 bytesOutputStream.write(buffer, 0, read)
             }
@@ -188,6 +189,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
             mediaPlayer.prepare()
             mediaPlayer.start()
             mediaPlayer.setOnCompletionListener { mediaPlayer ->
+                mediaPlayer.reset()
                 mediaPlayer.release()
             }
         } catch (ex: Exception) {
@@ -199,8 +201,16 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         return isAutoPlay.value!!
     }
 
-    fun updateSettingWhileAuto() {
-        pauseAutoPlay()
-        startAutoPlay()
+    private fun updateSettingWhileAuto() {
+        timer.cancel()
+        timer.purge()
+        val timeDelay = (sharePreferencesProvider.getTimeDelay() * 1000).toLong()
+        val runnableSlide = object : TimerTask() {
+            override fun run() {
+                autoMoveToNextPosition()
+            }
+        }
+        timer = Timer()
+        timer.schedule(runnableSlide, timeDelay, timeDelay)
     }
 }
