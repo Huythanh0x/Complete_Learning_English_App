@@ -2,7 +2,6 @@ package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,27 +61,15 @@ class FlashCardFragment : Fragment() {
         }
         flashCardViewModel.isAutoPlay.observe(viewLifecycleOwner) { isAutoPlay ->
             when (isAutoPlay) {
-                true -> {
-                    binding.autoPlayStateImg.setImageResource(R.drawable.pause_flashcar_ic)
-                }
-                false -> {
-                    binding.autoPlayStateImg.setImageResource(R.drawable.play_flash_card_ic)
-                    //TODO Bug when call pauseAutoPlay from observe even call from clickListener is OK
-                }
+                true -> binding.autoPlayStateImg.setImageResource(R.drawable.pause_flashcar_ic)
+                false -> binding.autoPlayStateImg.setImageResource(R.drawable.play_flash_card_ic)
             }
         }
         binding.flashCardViewModel = flashCardViewModel
-        flashCardViewModel.currentPosition.observe(viewLifecycleOwner) {
-            Log.d("CURRENT POSITION TAG", it.toString())
-        }
         binding.viewPager2.registerOnPageChangeCallback(viewPagerChangeListener)
         binding.progressSb.setOnSeekBarChangeListener(seekBarChangeListener)
-        binding.backwardImg.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        binding.settingsBtn.setOnClickListener {
-            createSettingDialog()
-        }
+        binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
+        binding.settingsBtn.setOnClickListener { createSettingDialog() }
         return binding.root
     }
 
@@ -92,12 +79,11 @@ class FlashCardFragment : Fragment() {
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
-
         override fun onStopTrackingTouch(seekBar: SeekBar?) {}
     }
 
 
-    fun createSettingDialog() {
+    private fun createSettingDialog() {
         val dialogBinding =
             DataBindingUtil.inflate<FlashCardSettingsDialogBinding>(LayoutInflater.from(
                 requireContext()),
@@ -105,18 +91,17 @@ class FlashCardFragment : Fragment() {
                 null,
                 false)
         val dialog = AlertDialog.Builder(requireContext()).setView(dialogBinding.root).create()
-        dialogBinding.saveBtn.setOnClickListener {
-            Toast.makeText(requireContext(), "save successfully", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
+        flashCardViewModel.timeDelayLiveData.observe(viewLifecycleOwner) { timeToDelay ->
+            "${timeToDelay}s".also { dialogBinding.delayBeforeMovingTimeTxt.text = it }
         }
-        dialogBinding.delayBeforeMovingTimeTxt.text =
-            "${flashCardViewModel.getTimeDelay()}s"
-        dialogBinding.turnOffAfterTimeTxt.text = "${flashCardViewModel.getTimeOff()} minutes"
-        dialogBinding.autoRepeatCb.isChecked = flashCardViewModel.getIsAutoRepeat()
-        dialogBinding.playSoundCb.isChecked = flashCardViewModel.getIsPlaySound()
-
-        dialogBinding.discardBtn.setOnClickListener {
-            dialog.dismiss()
+        flashCardViewModel.timeOffLiveData.observe(viewLifecycleOwner) { timeToOff ->
+            "$timeToOff minutes".also { dialogBinding.turnOffAfterTimeTxt.text = it }
+        }
+        flashCardViewModel.isAutoRepeatLiveData.observe(viewLifecycleOwner) { isAutoRepeat ->
+            dialogBinding.autoRepeatCb.isChecked = isAutoRepeat
+        }
+        flashCardViewModel.isPlaySoundLiveData.observe(viewLifecycleOwner) { isPlaySound ->
+            dialogBinding.playSoundCb.isChecked = isPlaySound
         }
         dialogBinding.delayBeforeMovingCl.setOnClickListener {
             showDelayMovingDialog()
@@ -125,10 +110,19 @@ class FlashCardFragment : Fragment() {
             showDelayTurfOffDialog()
         }
         dialogBinding.autoRepeatCb.setOnCheckedChangeListener { _, isCheck ->
-            flashCardViewModel.putIsAutoRepeat(isCheck)
+            flashCardViewModel.setIsAutoRepeat(isCheck)
         }
         dialogBinding.playSoundCb.setOnCheckedChangeListener { _, isCheck ->
-            flashCardViewModel.putIsPlaySound(isCheck)
+            flashCardViewModel.setIsPlaySound(isCheck)
+        }
+        dialogBinding.discardBtn.setOnClickListener {
+            flashCardViewModel.discardSettings()
+            dialog.dismiss()
+        }
+        dialogBinding.saveBtn.setOnClickListener {
+            flashCardViewModel.saveSettings()
+            Toast.makeText(requireContext(), "save successfully", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
         }
         dialog.show()
 
@@ -154,7 +148,7 @@ class FlashCardFragment : Fragment() {
                 R.id.a50minutes -> timeToOff = 50
                 R.id.a60minutes -> timeToOff = 60
             }
-            flashCardViewModel.putTimeOff(timeToOff)
+            flashCardViewModel.setTimeOff(timeToOff)
             dialog.dismiss()
         }
         dialog.show()
@@ -190,7 +184,7 @@ class FlashCardFragment : Fragment() {
                 R.id.a19seconds -> timeToDelay = 19
                 R.id.a20seconds -> timeToDelay = 20
             }
-            flashCardViewModel.putTimeDelay(timeToDelay)
+            flashCardViewModel.setTimeDelay(timeToDelay)
             dialog.dismiss()
         }
         dialog.show()

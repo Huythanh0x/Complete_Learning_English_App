@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import java.util.*
 
 
@@ -17,6 +18,10 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     private val sharePreferencesProvider = SharePreferencesProvider(getApplication())
     private var timer = Timer()
     var setWordNth = 0
+    val timeDelayLiveData = MutableLiveData(sharePreferencesProvider.getTimeDelay())
+    val timeOffLiveData = MutableLiveData(sharePreferencesProvider.getTimeOff())
+    val isAutoRepeatLiveData = MutableLiveData(sharePreferencesProvider.getIsAutoRepeat())
+    val isPlaySoundLiveData = MutableLiveData(sharePreferencesProvider.getIsPlaySound())
 
     fun getSetWordNth(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
@@ -31,7 +36,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         }
     }
 
-    fun startAutoPlay() {
+    private fun startAutoPlay() {
         val timeDelay = (sharePreferencesProvider.getTimeDelay() * 1000).toLong()
         val runnableSlide = object : TimerTask() {
             override fun run() {
@@ -58,6 +63,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         val _currentPosition = currentPosition.value!!
         val _maxPosition = listWord.value?.size?.minus(1)
         val _isLoop = sharePreferencesProvider.getIsAutoRepeat()
+        val _isPlaySound = sharePreferencesProvider.getIsPlaySound()
         //TODO SHOULD OBSERVE CHANGE AND CALL PAUSE FROM FRAGMENT
         if (!isAutoPlay.value!!) {
             timer.cancel()
@@ -69,6 +75,9 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
             isAutoPlay.postValue(false)
         } else if (_isLoop) {
             currentPosition.postValue((_currentPosition + 1) % _maxPosition!!)
+        }
+        if (_isPlaySound) {
+            listWord.value?.get(currentPosition.value!!)?.let { Utils.playSound(it.mp3_us) }
         }
     }
 
@@ -87,35 +96,33 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         currentPosition.postValue(currentPosition.value?.minus(1))
     }
 
-    fun putIsAutoRepeat(isAutoRepeat: Boolean) {
-        sharePreferencesProvider.putIsAutoRepeat(isAutoRepeat)
+    fun setIsAutoRepeat(isAutoRepeat: Boolean) {
+        isAutoRepeatLiveData.postValue(isAutoRepeat)
     }
 
-    fun putIsPlaySound(isPlaySound: Boolean) {
-        sharePreferencesProvider.putIsPlaySound(isPlaySound)
+    fun setIsPlaySound(isPlaySound: Boolean) {
+        isPlaySoundLiveData.postValue(isPlaySound)
     }
 
-    fun putTimeOff(timeToOff: Int) {
-        sharePreferencesProvider.putTimeOff(timeToOff)
+    fun setTimeOff(timeToOff: Int) {
+        timeOffLiveData.postValue(timeToOff)
     }
 
-    fun putTimeDelay(timeToDelay: Int) {
-        sharePreferencesProvider.putTimeDelay(timeToDelay)
+    fun setTimeDelay(timeToDelay: Int) {
+        timeDelayLiveData.postValue(timeToDelay)
     }
 
-    fun getIsAutoRepeat(): Boolean {
-        return sharePreferencesProvider.getIsAutoRepeat()
+    fun saveSettings() {
+        sharePreferencesProvider.putTimeDelay(timeDelayLiveData.value!!)
+        sharePreferencesProvider.putTimeOff(timeOffLiveData.value!!)
+        sharePreferencesProvider.putIsAutoRepeat(isAutoRepeatLiveData.value!!)
+        sharePreferencesProvider.putIsPlaySound(isPlaySoundLiveData.value!!)
     }
 
-    fun getIsPlaySound(): Boolean {
-        return sharePreferencesProvider.getIsPlaySound()
-    }
-
-    fun getTimeDelay(): Int {
-        return sharePreferencesProvider.getTimeDelay()
-    }
-
-    fun getTimeOff(): Int {
-        return sharePreferencesProvider.getTimeOff()
+    fun discardSettings() {
+        timeDelayLiveData.postValue(sharePreferencesProvider.getTimeDelay())
+        timeOffLiveData.postValue(sharePreferencesProvider.getTimeOff())
+        isAutoRepeatLiveData.postValue(sharePreferencesProvider.getIsAutoRepeat())
+        isPlaySoundLiveData.postValue(sharePreferencesProvider.getIsPlaySound())
     }
 }
