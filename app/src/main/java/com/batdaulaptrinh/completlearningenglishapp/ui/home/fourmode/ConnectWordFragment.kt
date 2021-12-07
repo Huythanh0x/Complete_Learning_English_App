@@ -110,13 +110,9 @@ class ConnectWordFragment : Fragment() {
                     }
                 }
             }
-
-
         binding.listEmptyLetterRc.adapter = emptyLetterRecyclerAdapter
         binding.primaryListMissingLetterRc.adapter = primaryListMissingLetterRecyclerAdapter
         binding.secondaryListMissingLetterRc.adapter = secondaryListMissingLetterRecyclerAdapter
-
-
         binding.checkBtn.setOnClickListener {
             if (listEmptyLetter.joinToString().replace(",", "").replace(" ", "") == originWord) {
                 Toast.makeText(context, "CORRECT", Toast.LENGTH_SHORT).show()
@@ -124,18 +120,15 @@ class ConnectWordFragment : Fragment() {
                 Toast.makeText(context, "INCORRECT", Toast.LENGTH_SHORT).show()
             }
         }
-
         return binding.root
     }
 
     private fun shuffleString(string: String): String {
-        val listCharacter = string.toMutableList()
-        listCharacter.shuffle()
-        val shuffledString = listOf(string).shuffled().joinToString("")
-        Log.d("TAG SHUFFLED STRING",shuffledString)
+        val shuffledListCharacter = string.toList().shuffled()
+        val shuffledString = shuffledListCharacter.joinToString("")
+        Log.d("TAG SHUFFLED STRING", shuffledString)
         return shuffledString
     }
-
 
     private val MAXLENGTH = 5
 }
