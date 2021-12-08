@@ -22,6 +22,7 @@ class DMChatFragment : Fragment() {
     companion object {
         val KEY_CHAT_HEADER = "KEY_CHAT_HEADER"
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -34,7 +35,7 @@ class DMChatFragment : Fragment() {
         arguments?.let {
             val chatRoom = it.get(KEY_CHAT_HEADER)
             if (chatRoom is ChatRoom) {
-                binding.titleToolBar.text = chatRoom.receiverId.toString()
+                binding.titleToolBar.text = chatRoom.receiverId ?: "Dinh Son Pro"
                 binding.sendMessageImg.setOnClickListener {
                     Toast.makeText(context,
                         "Send message ${binding.messageInputEdt.text}",

@@ -13,6 +13,10 @@ data class MinimalWord(
     @NonNull
     val en_word: String,
     @NonNull
+    val type: String,
+    @NonNull
+    val cefr: String,
+    @NonNull
     val api_uk: String,
     @NonNull
     val api_us: String,
