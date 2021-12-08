@@ -38,12 +38,12 @@
             app:layout_constraintTop_toBottomOf="@+id/complete_txt" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/try_again_flash_card_btn"
+            android:id="@+id/flash_again_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:background="@drawable/outline_button_bg"
-            android:text="TRY AGAIN"
+            android:text="FLASH AGAIN"
             app:layout_constraintEnd_toEndOf="@+id/back_to_menu_flash_card_btn"
             app:layout_constraintStart_toStartOf="@+id/back_to_menu_flash_card_btn"
             app:layout_constraintTop_toBottomOf="@+id/complete_content_txt" />
@@ -59,7 +59,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/try_again_flash_card_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/flash_again_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

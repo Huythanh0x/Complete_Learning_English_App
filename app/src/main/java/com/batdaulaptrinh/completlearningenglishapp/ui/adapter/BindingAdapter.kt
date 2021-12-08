@@ -11,7 +11,6 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
-import com.batdaulaptrinh.completlearningenglishapp.model.UserSettings
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
@@ -98,25 +97,6 @@ fun setStatePlayImage(imageView: ImageView, isAutoPlay: LiveData<Boolean>) {
     }
 }
 
-@BindingAdapter("isDarkMode")
-fun isDarkMode(switch: SwitchCompat, userSettings: UserSettings?) {
-    if (userSettings != null) {
-        switch.isChecked = userSettings.isDarkMode
-        Log.e("BINDING TAG ISDARKMODE", "${userSettings.isDarkMode}")
-    }
-}
-
-@BindingAdapter("preferAccent")
-fun preferAccent(spinner: Spinner, userSettings: UserSettings?) {
-    if (userSettings != null) {
-        when (userSettings.preferAccent) {
-            "US" -> spinner.setSelection(0)
-            "UK" -> spinner.setSelection(1)
-            else -> Log.e("BINDING TAG ACCENT", "NOT US UK")
-        }
-        Log.e("BINDING TAG ISDARKMODE", "${userSettings.preferAccent}")
-    }
-}
 
 fun playSound(mp3Us: String) {
     try {

@@ -33,6 +33,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_tool_bar"
+                android:text="@{`WORD SET NUMBER ` + wordListViewModel.wordSetNth}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

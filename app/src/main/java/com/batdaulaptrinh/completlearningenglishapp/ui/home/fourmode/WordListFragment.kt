@@ -43,9 +43,6 @@ class WordListFragment : Fragment() {
             val setWord = it.get(ChoosingModeFragment.KEY_ARGS_SET)
             if (setWord is WordSet) {
                 wordListViewModel.getNewWordList(setWord.setNth)
-                "`WORD SET NUMBER` +  ${wordListViewModel.wordSetNth}".also {
-                    binding.titleToolBar.text = it
-                }
             }
         }
         adapter = SetWordListRecyclerAdapter(arrayListOf(), { word ->
@@ -61,11 +58,13 @@ class WordListFragment : Fragment() {
                 wordListViewModel.deleteFavouriteWord(word._id)
             }
         }
-        binding.wordListViewModel = wordListViewModel
         binding.recyclerView.adapter = adapter
         wordListViewModel.listWord.observe(viewLifecycleOwner, { listWord ->
             adapter.addList(listWord)
         })
+        wordListViewModel.wordSetNth.observe(viewLifecycleOwner){
+            binding.wordListViewModel = wordListViewModel
+        }
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
         }

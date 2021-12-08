@@ -16,8 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
-import com.batdaulaptrinh.completlearningenglishapp.model.UserInfo
-import com.batdaulaptrinh.completlearningenglishapp.model.UserSettings
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 
 class ProfileFragment : Fragment() {
@@ -36,31 +34,24 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         val viewModelFactory = ProfileViewModelFactory(requireActivity().application)
         profileViewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
-        profileViewModel.loadDataFromLocalMemory()
-        profileViewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
-            binding.userInfo = userInfo
-        }
-        profileViewModel.settings.observe(viewLifecycleOwner) { userSettings ->
-            binding.userSettings = userSettings
-            Log.d("SETTING TAG", userSettings.toString())
-        }
-        binding.preferAccentSp.onItemSelectedListener = object : AdapterView.OnItemClickListener,
-            AdapterView.OnItemSelectedListener {
-
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                p1: View?,
-                position: Int,
-                p3: Long,
-            ) {
-                updateUserSettingFromUser()
-            }
-
-            override fun onItemClick(a: AdapterView<*>?, p1: View?, position: Int, id: Long) {}
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
+        binding.preferAccentSp.onItemSelectedListener = spinnerClickListener
         binding.darkModeSw.setOnCheckedChangeListener { switch, isCheck ->
-            updateUserSettingFromUser()
+            profileViewModel.putDarMode(isCheck)
+        }
+        profileViewModel.apply {
+            phoneNumberLiveData.observe(viewLifecycleOwner) {
+                binding.numberInfoTxt.setText(it)
+                Log.d("TAG PROFILE",it.toString())
+            }
+            fullNameLiveData.observe(viewLifecycleOwner) {
+                binding.nameInfoTxt.setText(it)
+                binding.nameTxt.text = it
+                Log.d("TAG PROFILE",it.toString())
+            }
+            emailLiveData.observe(viewLifecycleOwner) {
+                binding.emailInfoTxt.setText(it)
+                Log.d("TAG PROFILE",it.toString())
+            }
         }
         binding.logoutImg.setOnClickListener {
             startActivity(Intent(context, MainLoginActivity::class.java))
@@ -106,12 +97,15 @@ class ProfileFragment : Fragment() {
     private fun finishEditText(editText: androidx.appcompat.widget.AppCompatEditText) {
         editText.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                updateUserInfoFromUser()
                 editText.isFocusable = false
                 editText.isCursorVisible = false
                 val imm =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
                 imm!!.hideSoftInputFromWindow(editText.windowToken, 0)
+
+                profileViewModel.putEmail(binding.emailInfoTxt.text.toString())
+                profileViewModel.putPhoneNumber(binding.numberInfoTxt.text.toString())
+                profileViewModel.putFullName(binding.nameInfoTxt.text.toString())
                 return@OnKeyListener true
             }
             false
@@ -126,21 +120,13 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    //TODO Personal goal
-    fun updateUserInfoFromUser() {
-        val newUserInfo = UserInfo(binding.nameInfoTxt.text.toString(),
-            binding.numberInfoTxt.text.toString(),
-            binding.emailInfoTxt.text.toString(),
-            binding.locationTxt.text.toString(),
-            binding.joinedTimeTxt.text.toString())
-        profileViewModel.updateInfoFromUser(newUserInfo)
-    }
+    private val spinnerClickListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+            profileViewModel.putPreferAccent(position)
+        }
 
-    fun updateUserSettingFromUser() {
-        val newSettings = UserSettings(
-            binding.preferAccentSp.selectedItem.toString(),
-            binding.darkModeSw.isChecked
-        )
-        profileViewModel.updateSettingFromUser(newSettings)
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+//            TODO("Not yet implemented")
+        }
     }
 }

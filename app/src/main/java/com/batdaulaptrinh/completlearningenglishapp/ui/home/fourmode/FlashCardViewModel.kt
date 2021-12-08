@@ -33,6 +33,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     val isPlaySoundLiveData = MutableLiveData(sharePreferencesProvider.getIsPlaySound())
     private var countDownTime = sharePreferencesProvider.getTimeOff() * 60
     private val mediaPlayer = MediaPlayer()
+    val isFinish = MutableLiveData<Boolean>(false)
     fun getSetWordNth(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
         setWordNth = nTh
@@ -103,8 +104,8 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         Log.e("ERROR HERE CLICK TAG", "$_currentPosition $_maxPosition $_isLoop")
         if (!_isLoop && _currentPosition < _maxPosition) {
             currentPosition.postValue(_currentPosition + 1)
-        } else if (_isLoop) {
-            currentPosition.postValue((_currentPosition + 1) % _maxPosition)
+        } else {
+            isFinish.postValue(true)
         }
     }
 
@@ -145,20 +146,34 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         isPlaySoundLiveData.postValue(sharePreferencesProvider.getIsPlaySound())
     }
 
-    fun playSound() {
+    fun autoPlaySound() {
+        if ((isPlaySoundLiveData.value!! && isAutoPlay.value!!)) {
+            playCurrentSoundWord()
+        }
+    }
+
+    fun clickPlaySound() {
+        playCurrentSoundWord()
+    }
+
+    fun clickSeekBarPlaySound() {
         if (isPlaySoundLiveData.value!!) {
-            val _currentPosition = currentPosition.value!!
-            val mp3Us = listWord.value!![_currentPosition].mp3_us
-            try {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val base64String = getByteArrayFromImageURL(mp3Us)
-                    if (base64String != null) {
-                        playAudio(base64String)
-                    }
+            playCurrentSoundWord()
+        }
+    }
+
+    private fun playCurrentSoundWord() {
+        val _currentPosition = currentPosition.value!!
+        val mp3Us = listWord.value!![_currentPosition].mp3_us
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                val base64String = getByteArrayFromImageURL(mp3Us)
+                if (base64String != null) {
+                    playAudio(base64String)
                 }
-            } catch (e: Exception) {
-                Log.e("response", e.toString())
             }
+        } catch (e: Exception) {
+            Log.e("response", e.toString())
         }
     }
 
@@ -208,5 +223,9 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         }
         timer = Timer()
         timer.schedule(runnableSlide, timeDelay, timeDelay)
+    }
+
+    fun flashAgain() {
+        isFinish.postValue(false)
     }
 }

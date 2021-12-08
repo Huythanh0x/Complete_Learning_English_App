@@ -14,10 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
-import com.batdaulaptrinh.completlearningenglishapp.databinding.DelayBeforeMovingToNextWordDialogBinding
-import com.batdaulaptrinh.completlearningenglishapp.databinding.FlashCardSettingsDialogBinding
-import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentFlashCardBinding
-import com.batdaulaptrinh.completlearningenglishapp.databinding.TurnOffAfterDialogBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.*
 import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.FlashCardAdapter
@@ -58,7 +55,7 @@ class FlashCardFragment : Fragment() {
         flashCardViewModel.currentPosition.observe(viewLifecycleOwner) { newPosition ->
             if ((binding.viewPager2.currentItem != binding.progressSb.progress) || (flashCardViewModel.getCurrentPositionValue() != binding.progressSb.progress)) {
                 binding.progressSb.progress = newPosition
-                flashCardViewModel.playSound()
+                flashCardViewModel.autoPlaySound()
                 "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
                     binding.progressTxt.text = it
                 }
@@ -68,6 +65,11 @@ class FlashCardFragment : Fragment() {
             when (isAutoPlay) {
                 true -> binding.autoPlayStateImg.setImageResource(R.drawable.pause_flashcar_ic)
                 false -> binding.autoPlayStateImg.setImageResource(R.drawable.play_flash_card_ic)
+            }
+        }
+        flashCardViewModel.isFinish.observe(viewLifecycleOwner) {
+            if (it) {
+                createCompleteDialog()
             }
         }
         binding.flashCardViewModel = flashCardViewModel
@@ -192,7 +194,7 @@ class FlashCardFragment : Fragment() {
     private val moveToPreviousCallBack: (position: Int) -> Unit =
         { flashCardViewModel.moveToPreviousPosition() }
 
-    private val clickPlaySoundCallBack: () -> Unit = { flashCardViewModel.playSound() }
+    private val clickPlaySoundCallBack: () -> Unit = { flashCardViewModel.clickPlaySound() }
     private val viewPagerChangeListener = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
@@ -203,6 +205,9 @@ class FlashCardFragment : Fragment() {
     private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekbar: SeekBar?, position: Int, p2: Boolean) {
             binding.viewPager2.currentItem = position
+            "${(position + 1)}/${flashCardViewModel.listWord.value?.size}".also {
+                binding.progressTxt.text = it
+            }
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -210,7 +215,26 @@ class FlashCardFragment : Fragment() {
             if (seekBar != null) {
                 binding.viewPager2.currentItem = seekBar.progress
             }
-            flashCardViewModel.playSound()
+            flashCardViewModel.clickSeekBarPlaySound()
         }
+    }
+
+    fun createCompleteDialog() {
+        val dialogBinding =
+            DataBindingUtil.inflate<CompleteFlashCardDialogBinding>(LayoutInflater.from(context),
+                R.layout.complete_flash_card_dialog,
+                null,
+                false)
+        val dialog = AlertDialog.Builder(requireContext()).setView(dialogBinding.root).create()
+
+        dialogBinding.flashAgainBtn.setOnClickListener {
+            flashCardViewModel.flashAgain()
+            dialog.dismiss()
+        }
+        dialogBinding.backToMenuFlashCardBtn.setOnClickListener {
+            dialog.dismiss()
+            findNavController().popBackStack()
+        }
+        dialog.show()
     }
 }

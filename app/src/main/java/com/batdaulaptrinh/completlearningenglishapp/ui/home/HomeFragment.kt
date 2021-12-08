@@ -45,12 +45,14 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private val pinkDateList: MutableList<String> = mutableListOf(
+    private val onlineDateList: MutableList<String> = mutableListOf(
         "2019-01-01",
+        "2021-12-8","2021-12-9","2021-12-10","2021-12-15","2021-12-16","2021-12-19",
         "2019-01-03", "2019-01-04", "2019-01-05", "2019-01-06"
     )
     private val grayDateList: MutableList<String> = mutableListOf(
         "2019-01-09", "2019-01-10", "2019-01-11",
+        "2021-12-8","2021-12-9","2021-12-10","2021-12-15","2021-12-16","2021-12-19",
         "2019-01-24", "2019-01-25", "2019-01-26", "2019-01-27", "2019-01-28", "2019-01-29"
     )
     private val DATE_FORMAT = "yyyy-MM-dd"
@@ -69,11 +71,11 @@ class HomeFragment : Fragment() {
         calendarView = dialogBinding.calendarView
         calendarView.showOtherDates = MaterialCalendarView.SHOW_ALL
 
-        val min = getLocalDate("2019-01-01")
-        val max = getLocalDate("2019-12-30")
+        val min = getLocalDate("2021-10-01")
+        val max = getLocalDate("2022-03-30")
         calendarView.state().edit().setMinimumDate(min).setMaximumDate(max).commit()
 
-        setEvent(pinkDateList, pink)
+        setEvent(onlineDateList, pink)
         setEvent(grayDateList, gray)
 
         calendarView.invalidateDecorators()

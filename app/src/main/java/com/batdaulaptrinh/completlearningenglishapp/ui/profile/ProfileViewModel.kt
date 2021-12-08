@@ -4,56 +4,61 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
-import com.batdaulaptrinh.completlearningenglishapp.model.UserInfo
-import com.batdaulaptrinh.completlearningenglishapp.model.UserSettings
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
     private val sharedPreferencesProvider = SharePreferencesProvider(application)
-    val settings = MutableLiveData<UserSettings>()
-    val userInfo = MutableLiveData<UserInfo>()
+    val fullNameLiveData = MutableLiveData(sharedPreferencesProvider.getFullName())
+    val phoneNumberLiveData = MutableLiveData(sharedPreferencesProvider.getPhoneNumber())
+    val emailLiveData = MutableLiveData(sharedPreferencesProvider.getEmail())
+    val locationLiveData = MutableLiveData(sharedPreferencesProvider.getLocation())
+    val joinedDateLiveData = MutableLiveData(sharedPreferencesProvider.getJoinedDate())
+    val preferAccentLiveData = MutableLiveData(sharedPreferencesProvider.getPreferAccent())
+    val isDarkModeLiveData = MutableLiveData(sharedPreferencesProvider.getIsDarkMode())
 
-    fun loadDataFromLocalMemory() {
-        loadUserInoFromLocalMemory()
-        loadSettingFromLocalMemory()
+    fun fetchDataFromLocalMemory() {
+        fullNameLiveData.postValue(sharedPreferencesProvider.getFullName())
+        phoneNumberLiveData.postValue(sharedPreferencesProvider.getPhoneNumber())
+        emailLiveData.postValue(sharedPreferencesProvider.getEmail())
+        locationLiveData.postValue(sharedPreferencesProvider.getLocation())
+        joinedDateLiveData.postValue(sharedPreferencesProvider.getJoinedDate())
+        preferAccentLiveData.postValue(sharedPreferencesProvider.getPreferAccent())
+        isDarkModeLiveData.postValue(sharedPreferencesProvider.getIsDarkMode())
     }
 
-    private fun loadSettingFromLocalMemory() {
-        settings.value = (UserSettings(
-            sharedPreferencesProvider.getPreferAccent(),
-            sharedPreferencesProvider.getIsDarkMode()
-        ))
+    fun putFullName(fullName: String) {
+        sharedPreferencesProvider.putFullName(fullName)
+        fullNameLiveData.postValue(fullName)
     }
 
-    private fun loadUserInoFromLocalMemory() {
-        userInfo.value = (UserInfo(
-            sharedPreferencesProvider.getFullName(),
-            sharedPreferencesProvider.getPhoneNumber(),
-            sharedPreferencesProvider.getEmail(),
-            sharedPreferencesProvider.getLocation(),
-            sharedPreferencesProvider.getJoinedDate()
-        ))
+    fun putPhoneNumber(phoneNumber: String) {
+        sharedPreferencesProvider.putPhoneNumber(phoneNumber)
+        phoneNumberLiveData.postValue(phoneNumber)
     }
 
-    private fun updateUserInfoToMemory(newUserInfo: UserInfo) {
-        sharedPreferencesProvider.putFullName(newUserInfo.fullName)
-        sharedPreferencesProvider.putPhoneNumber(newUserInfo.phoneNumber)
-        sharedPreferencesProvider.putEmail(newUserInfo.email)
-        sharedPreferencesProvider.putLocation(newUserInfo.location)
-        sharedPreferencesProvider.putJoinedDate(newUserInfo.joinedDate)
+    fun putEmail(email: String) {
+        sharedPreferencesProvider.putEmail(email)
+        emailLiveData.postValue(email)
     }
 
-    private fun updateUserSettingToMemory(newSetting: UserSettings) {
-        sharedPreferencesProvider.putIsDarkMode(newSetting.isDarkMode)
-        sharedPreferencesProvider.putPreferAccent(newSetting.preferAccent)
+    fun putLocation(location: String) {
+        sharedPreferencesProvider.putLocation(location)
+        locationLiveData.postValue(location)
     }
 
-    fun updateSettingFromUser(newSetting: UserSettings) {
-        settings.postValue(newSetting)
-        updateUserSettingToMemory(newSetting)
+    fun putJoinedDate(joinedDate: String) {
+        sharedPreferencesProvider.putJoinedDate(joinedDate)
+        joinedDateLiveData.postValue(joinedDate)
     }
 
-    fun updateInfoFromUser(newUserInfo: UserInfo) {
-        userInfo.postValue(newUserInfo)
-        updateUserInfoToMemory(newUserInfo)
+    fun putPreferAccent(position: Int) {
+        var preferAccent = "US"
+        if (position == 1) preferAccent = "UK"
+        sharedPreferencesProvider.putPreferAccent(preferAccent)
+        preferAccentLiveData.postValue(preferAccent)
+    }
+
+    fun putDarMode(isDarkMode: Boolean) {
+        sharedPreferencesProvider.putIsDarkMode(isDarkMode)
+        isDarkModeLiveData.postValue(isDarkMode)
     }
 }

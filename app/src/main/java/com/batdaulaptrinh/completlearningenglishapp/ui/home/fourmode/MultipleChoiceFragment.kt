@@ -57,7 +57,6 @@ class MultipleChoiceFragment : Fragment() {
         arguments?.let {
             val setWord = it.get(ChoosingModeFragment.KEY_ARGS_SET)
             if (setWord is WordSet) {
-                binding.titleToolBar.text = setWord.setNth.toString()
                 multipleChoiceViewModel.getWordSetNth(setWord.setNth)
             }
         }
@@ -68,6 +67,7 @@ class MultipleChoiceFragment : Fragment() {
         multipleChoiceViewModel.listWord.observe(viewLifecycleOwner) {
             val fakeListWord = it.filter { word -> word.examples.length % 2 == 0 }
             adapter.setList(fakeListWord)
+            binding.multipleChoiceViewModel = multipleChoiceViewModel
         }
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()

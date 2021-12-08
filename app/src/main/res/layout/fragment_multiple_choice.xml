@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="multipleChoiceViewModel"
+            type="com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.MultipleChoiceViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="SET WORD NUMBER @{}"
+                android:text="@{`SET WORD NUMBER ` + multipleChoiceViewModel.setNth}"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -128,7 +131,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/en_word_txt">

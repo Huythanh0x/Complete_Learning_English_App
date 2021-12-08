@@ -9,17 +9,18 @@ import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 class MultipleChoiceViewModel(val wordRepository: WordRepository) : ViewModel() {
     val listWord = MutableLiveData<List<Word>>(listOf())
     val listWrongAnswer = MutableLiveData<List<Word>>(listOf())
-
+    val setNth = MutableLiveData<Int>(0)
     fun setListWord(newList: List<Word>) {
         listWord.postValue(newList)
     }
 
-    fun shuffleListWord(){
+    fun shuffleListWord() {
         listWord.value = listWord.value?.shuffled()
     }
 
     fun getWordSetNth(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
+        setNth.postValue(nTh)
     }
 
     fun addWrongAnswer(wrongWord: Word) {

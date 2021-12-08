@@ -7,7 +7,7 @@ import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 
 class WordListViewModel(val wordRepository: WordRepository) : ViewModel() {
     val listWord = MutableLiveData<List<Word>>()
-    val wordSetNth = MutableLiveData<Int>()
+    val wordSetNth = MutableLiveData<Int>(0)
     fun getNewWordList(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
         wordSetNth.postValue(nTh)
