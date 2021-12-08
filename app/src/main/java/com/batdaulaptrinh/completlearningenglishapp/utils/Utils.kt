@@ -1,20 +1,9 @@
 package com.batdaulaptrinh.completlearningenglishapp.utils
 
-import android.content.Context
-import android.media.MediaPlayer
-import android.util.Base64
-import android.util.Log
 import com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom
 import com.batdaulaptrinh.completlearningenglishapp.model.Message
 import com.batdaulaptrinh.completlearningenglishapp.model.User
 import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.net.URL
-import java.net.URLConnection
 import java.util.*
 import kotlin.random.Random
 
@@ -28,6 +17,13 @@ class Utils {
         const val TIME_OFF = "TIME_OFF"
         const val IS_PLAY_SOUND = "IS_PLAY_SOUND"
         const val AUTO_REPEAT = "AUTO_REPEAT"
+        const val EMAIL = "EMAIL"
+        const val PHONE_NUMBER = "PHONE_NUMBER"
+        const val FULL_NAME = "FULL_NAME"
+        const val PREFER_ACCENT = "PREFER_ACCENT"
+        const val IS_DARK_MODE = "IS_DARK_MODE"
+        const val LOCATION = "LOCATION"
+        const val JOINED_DATE = "JOINED_DATE"
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,

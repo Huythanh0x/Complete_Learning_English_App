@@ -12,7 +12,7 @@ class SharePreferencesProvider(val context: Context) {
         sharePreferencesProvider.edit() {
             putInt(Utils.TIME_DELAY, timeDelay)
         }
-        sharePreferencesProvider.edit().putInt(Utils.TIME_DELAY, timeDelay).commit()
+        sharePreferencesProvider.edit().putInt(Utils.TIME_DELAY, timeDelay).apply()
     }
 
     fun putTimeOff(timeOff: Int) {
@@ -25,7 +25,7 @@ class SharePreferencesProvider(val context: Context) {
         sharePreferencesProvider.edit() {
             putBoolean(Utils.IS_LOOP, isAutoRepeat)
         }
-        sharePreferencesProvider.edit().putBoolean(Utils.IS_LOOP, isAutoRepeat).commit()
+        sharePreferencesProvider.edit().putBoolean(Utils.IS_LOOP, isAutoRepeat).apply()
     }
 
     fun putIsPlaySound(isPlaySound: Boolean) {
@@ -50,7 +50,63 @@ class SharePreferencesProvider(val context: Context) {
         return sharePreferencesProvider.getBoolean(Utils.IS_PLAY_SOUND, false)
     }
 
-    fun clickPlayButton() {
-        putIsPlaySound(!getIsPlaySound())
+    fun putEmail(email: String) {
+        sharePreferencesProvider.edit().putString(Utils.EMAIL, email).apply()
+    }
+
+    fun getEmail(): String {
+        return sharePreferencesProvider.getString(Utils.EMAIL, "admin@batdaulaptrinh.com")!!
+    }
+
+    fun putPhoneNumber(phoneNumber: String) {
+        sharePreferencesProvider.edit().putString(Utils.PHONE_NUMBER, phoneNumber).apply()
+    }
+
+    fun getPhoneNumber(): String {
+        return sharePreferencesProvider.getString(Utils.PHONE_NUMBER, "0347009370")!!
+    }
+
+    fun putLocation(location: String) {
+        sharePreferencesProvider.edit().putString(Utils.LOCATION, location).apply()
+    }
+
+    fun getLocation(): String {
+        return sharePreferencesProvider.getString(Utils.LOCATION, "Viet Nam")!!
+    }
+
+
+    fun putJoinedDate(joinDate: String) {
+        sharePreferencesProvider.edit().putString(Utils.JOINED_DATE, joinDate).apply()
+    }
+
+    fun getJoinedDate(): String {
+        return sharePreferencesProvider.getString(Utils.JOINED_DATE, "10/10/2010")!!
+    }
+
+
+    fun putPreferAccent(preferAccent: String) {
+        sharePreferencesProvider.edit().putString(Utils.PREFER_ACCENT, preferAccent).apply()
+    }
+
+    fun getPreferAccent(): String {
+        return sharePreferencesProvider.getString(Utils.PREFER_ACCENT, "UK")!!
+    }
+
+
+    fun putFullName(fullName: String) {
+        sharePreferencesProvider.edit().putString(Utils.FULL_NAME, fullName).apply()
+    }
+
+    fun getFullName(): String {
+        return sharePreferencesProvider.getString(Utils.FULL_NAME, "Vo Huy Thanh")!!
+    }
+
+
+    fun putIsDarkMode(isDarkMode: Boolean) {
+        sharePreferencesProvider.edit().putBoolean(Utils.IS_DARK_MODE, isDarkMode).apply()
+    }
+
+    fun getIsDarkMode(): Boolean {
+        return sharePreferencesProvider.getBoolean(Utils.IS_DARK_MODE, true)
     }
 }

@@ -5,6 +5,13 @@
 
     <data>
 
+        <variable
+            name="userInfo"
+            type="com.batdaulaptrinh.completlearningenglishapp.model.UserInfo" />
+
+        <variable
+            name="userSettings"
+            type="com.batdaulaptrinh.completlearningenglishapp.model.UserSettings" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,10 +50,10 @@
             android:id="@+id/avatar_cv"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             app:cardCornerRadius="75dp"
-            app:layout_constraintEnd_toStartOf="@id/name_txt"
-            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -79,39 +86,70 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/name_txt"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/name_example_dinh_dat_vi"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/avatar_cv"
-            app:layout_constraintTop_toTopOf="@+id/avatar_cv" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/location_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/example_location_vietnam"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/name_txt"
-            app:layout_constraintTop_toBottomOf="@+id/name_txt" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/joined_time_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/example_time_joined_09_2021"
-            android:textColor="@color/black"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/avatar_cv"
-            app:layout_constraintStart_toStartOf="@+id/location_txt"
-            app:layout_constraintTop_toBottomOf="@+id/location_txt" />
+            app:layout_constraintStart_toEndOf="@id/avatar_cv"
+            app:layout_constraintTop_toTopOf="@id/avatar_cv">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{userInfo.fullName}"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toTopOf="@id/appCompatTextView22"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Vo Huy" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location: "
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/appCompatTextView23"
+                app:layout_constraintStart_toStartOf="@+id/name_txt"
+                app:layout_constraintTop_toBottomOf="@+id/name_txt" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Joined Date: "
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/appCompatTextView22"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView22" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/location_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{userInfo.location}"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView22"
+                app:layout_constraintStart_toEndOf="@+id/appCompatTextView22"
+                app:layout_constraintTop_toTopOf="@+id/appCompatTextView22"
+                tools:text="Viet Nam" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/joined_time_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{userInfo.joinedDate}"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView23"
+                app:layout_constraintStart_toEndOf="@+id/appCompatTextView23"
+                app:layout_constraintTop_toTopOf="@+id/appCompatTextView23"
+                tools:text="10/10/2010" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/personal_info_cv"
@@ -183,11 +221,12 @@
                         android:gravity="center_vertical"
                         android:longClickable="false"
                         android:singleLine="true"
-                        android:text="@string/dinh_dat_vi_example"
+                        android:text="@{userInfo.fullName}"
                         android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Vo Huy Thanh" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/edit_name_btn"
@@ -218,13 +257,14 @@
                         android:backgroundTint="@color/white"
                         android:focusable="false"
                         android:singleLine="true"
-                        android:text="@string/phone_number_09323523324"
+                        android:text="@{userInfo.phoneNumber}"
                         android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="037009370" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/edit_phone_number_btn"
@@ -257,13 +297,14 @@
                         android:backgroundTint="@color/white"
                         android:focusable="false"
                         android:singleLine="true"
-                        android:text="@string/email_tvtrucnhu12_gmail_com"
+                        android:text="@{userInfo.email}"
                         android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="admin@batdaulaptrinh@gmail.com" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/edit_email_info_btn"
@@ -363,7 +404,6 @@
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
                         android:text="@string/prefer_accent_title"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -374,7 +414,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
                         android:entries="@array/prefer_accent_spinner"
-                        android:text="@string/us_example"
+                        preferAccent="@{userSettings}"
                         app:layout_constraintBottom_toBottomOf="@id/prefer_accent_txt"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/prefer_accent_txt" />
@@ -406,6 +446,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
+                        app:isDarkMode="@{userSettings}"
                         app:layout_constraintBottom_toBottomOf="@id/dark_mode_txt"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/dark_mode_txt" />

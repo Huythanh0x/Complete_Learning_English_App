@@ -27,18 +27,18 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
-            style="@style/Widget.MaterialComponents.BottomNavigationView"
             android:name="androidx.navigation.fragment.NavHostFragment"
+            style="@style/Widget.MaterialComponents.BottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/superLightPrimaryColor"
+            app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/navigation_menu" >
+            app:menu="@menu/navigation_menu">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

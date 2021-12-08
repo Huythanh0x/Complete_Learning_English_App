@@ -4,32 +4,64 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import android.widget.AdapterView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
+import com.batdaulaptrinh.completlearningenglishapp.model.UserInfo
+import com.batdaulaptrinh.completlearningenglishapp.model.UserSettings
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 
 class ProfileFragment : Fragment() {
-    private val CHOOSEIMAGECODE = 11123
-    lateinit var binding: FragmentProfileBinding
-
     companion object {
         val KEY_AVATAR = "KEY_AVATAR"
     }
 
+    private val CHOOSEIMAGECODE = 11123
+    lateinit var binding: FragmentProfileBinding
+    lateinit var profileViewModel: ProfileViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        val viewModelFactory = ProfileViewModelFactory(requireActivity().application)
+        profileViewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
+        profileViewModel.loadDataFromLocalMemory()
+        profileViewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
+            binding.userInfo = userInfo
+        }
+        profileViewModel.settings.observe(viewLifecycleOwner) { userSettings ->
+            binding.userSettings = userSettings
+            Log.d("SETTING TAG", userSettings.toString())
+        }
+        binding.preferAccentSp.onItemSelectedListener = object : AdapterView.OnItemClickListener,
+            AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                p1: View?,
+                position: Int,
+                p3: Long,
+            ) {
+                updateUserSettingFromUser()
+            }
+
+            override fun onItemClick(a: AdapterView<*>?, p1: View?, position: Int, id: Long) {}
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+        binding.darkModeSw.setOnCheckedChangeListener { switch, isCheck ->
+            updateUserSettingFromUser()
+        }
         binding.logoutImg.setOnClickListener {
             startActivity(Intent(context, MainLoginActivity::class.java))
             activity?.finish()
@@ -74,6 +106,7 @@ class ProfileFragment : Fragment() {
     private fun finishEditText(editText: androidx.appcompat.widget.AppCompatEditText) {
         editText.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                updateUserInfoFromUser()
                 editText.isFocusable = false
                 editText.isCursorVisible = false
                 val imm =
@@ -92,5 +125,22 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
     //TODO Personal goal
+    fun updateUserInfoFromUser() {
+        val newUserInfo = UserInfo(binding.nameInfoTxt.text.toString(),
+            binding.numberInfoTxt.text.toString(),
+            binding.emailInfoTxt.text.toString(),
+            binding.locationTxt.text.toString(),
+            binding.joinedTimeTxt.text.toString())
+        profileViewModel.updateInfoFromUser(newUserInfo)
+    }
+
+    fun updateUserSettingFromUser() {
+        val newSettings = UserSettings(
+            binding.preferAccentSp.selectedItem.toString(),
+            binding.darkModeSw.isChecked
+        )
+        profileViewModel.updateSettingFromUser(newSettings)
+    }
 }
