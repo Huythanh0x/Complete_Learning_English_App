@@ -25,6 +25,13 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         isDarkModeLiveData.postValue(sharedPreferencesProvider.getIsDarkMode())
     }
 
+    fun updateCurrentLocation(): String {
+        val location =
+            getApplication<Application>().resources.configuration.locale.displayLanguage
+        putLocation(location)
+        return location
+    }
+
     fun putFullName(fullName: String) {
         sharedPreferencesProvider.putFullName(fullName)
         fullNameLiveData.postValue(fullName)
@@ -60,5 +67,13 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     fun putDarMode(isDarkMode: Boolean) {
         sharedPreferencesProvider.putIsDarkMode(isDarkMode)
         isDarkModeLiveData.postValue(isDarkMode)
+    }
+
+    fun getPreferAccentPosition(): Int {
+        return when (preferAccentLiveData.value!!) {
+            "US" -> 0
+            "UK" -> 1
+            else -> 0
+        }
     }
 }

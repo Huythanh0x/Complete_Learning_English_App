@@ -41,16 +41,30 @@ class ProfileFragment : Fragment() {
         profileViewModel.apply {
             phoneNumberLiveData.observe(viewLifecycleOwner) {
                 binding.numberInfoTxt.setText(it)
-                Log.d("TAG PROFILE",it.toString())
+                Log.d("TAG PROFILE", it.toString())
             }
             fullNameLiveData.observe(viewLifecycleOwner) {
                 binding.nameInfoTxt.setText(it)
                 binding.nameTxt.text = it
-                Log.d("TAG PROFILE",it.toString())
+                Log.d("TAG PROFILE", it.toString())
             }
             emailLiveData.observe(viewLifecycleOwner) {
                 binding.emailInfoTxt.setText(it)
-                Log.d("TAG PROFILE",it.toString())
+                Log.d("TAG PROFILE", it.toString())
+            }
+            isDarkModeLiveData.observe(viewLifecycleOwner) {
+                binding.darkModeSw.isChecked = it
+            }
+            preferAccentLiveData.observe(viewLifecycleOwner) {
+                binding.preferAccentSp.setSelection(profileViewModel.getPreferAccentPosition())
+                Log.d("TAG PROFILE", it)
+            }
+            locationLiveData.observe(viewLifecycleOwner) {
+                binding.locationTxt.text = it
+                profileViewModel.updateCurrentLocation()
+            }
+            joinedDateLiveData.observe(viewLifecycleOwner) {
+                binding.joinedTimeTxt.text = it
             }
         }
         binding.logoutImg.setOnClickListener {
@@ -80,6 +94,7 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_profile_to_showFullSizeAvatar,
                 bundleOf(KEY_AVATAR to bitmap))
         }
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return binding.root
     }
 
@@ -102,7 +117,6 @@ class ProfileFragment : Fragment() {
                 val imm =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
                 imm!!.hideSoftInputFromWindow(editText.windowToken, 0)
-
                 profileViewModel.putEmail(binding.emailInfoTxt.text.toString())
                 profileViewModel.putPhoneNumber(binding.numberInfoTxt.text.toString())
                 profileViewModel.putFullName(binding.nameInfoTxt.text.toString())
@@ -126,7 +140,6 @@ class ProfileFragment : Fragment() {
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
-//            TODO("Not yet implemented")
         }
     }
 }

@@ -6,18 +6,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentDMChatBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom
+import com.batdaulaptrinh.completlearningenglishapp.model.Message
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.MessageRecyclerAdapter
-import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 
 class DMChatFragment : Fragment() {
     lateinit var binding: FragmentDMChatBinding
+    lateinit var dmChatViewModel: DMChatViewModel
+    lateinit var adapter: MessageRecyclerAdapter
 
     companion object {
         val KEY_CHAT_HEADER = "KEY_CHAT_HEADER"
@@ -26,9 +29,11 @@ class DMChatFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_d_m_chat, container, false)
-
+        val dmChatViewModelFactory = DMChatViewModelFactory(requireActivity().application)
+        dmChatViewModel =
+            ViewModelProvider(this, dmChatViewModelFactory)[DMChatViewModel::class.java]
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -36,26 +41,39 @@ class DMChatFragment : Fragment() {
             val chatRoom = it.get(KEY_CHAT_HEADER)
             if (chatRoom is ChatRoom) {
                 binding.titleToolBar.text = chatRoom.receiverId ?: "Dinh Son Pro"
-                binding.sendMessageImg.setOnClickListener {
-                    Toast.makeText(context,
-                        "Send message ${binding.messageInputEdt.text}",
-                        Toast.LENGTH_SHORT).show()
-                    binding.messageInputEdt.text?.clear()
-                }
             }
         }
-
+        adapter = MessageRecyclerAdapter(arrayListOf())
+        dmChatViewModel.getFakeListMessage()
+        dmChatViewModel.listMessage.observe(viewLifecycleOwner) { listMessage ->
+            Log.d("TAG NEW LIST UPDATE", listMessage.size.toString())
+            adapter.setList(listMessage)
+            binding.messagesRv.scrollToPosition(listMessage.size - 1)
+        }
+        binding.messagesRv.adapter = adapter
+        binding.sendMessageImg.setOnClickListener {
+            dmChatViewModel.addMessage(Message(null,
+                null,
+                null,
+                true,
+                null,
+                null,
+                null,
+                null,
+                null,
+                binding.messageInputEdt.text.toString(),
+                null,
+                null,
+                false))
+            binding.messageInputEdt.text?.clear()
+        }
         binding.sendPictureImg.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_PICK
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_CODE)
         }
-
-        //TODO FAKING HERE
-        val listMessage = Utils.getListMessage()
-        binding.messagesRc.adapter = MessageRecyclerAdapter(listMessage)
-        binding.messagesRc.scrollToPosition(listMessage.size - 1)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -63,10 +81,22 @@ class DMChatFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE) {
             if (data != null) {
-                Log.d("TAG IMAGE", data.data.toString())
+//                Log.d("TAG IMAGE", data.data.toString())
+                dmChatViewModel.addMessage(Message(null,
+                    null,
+                    null,
+                    true,
+                    null,
+                    data.dataString,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    false))
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data)
     }
 

@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,21 +53,44 @@ class MessageRecyclerAdapter(private val listMessage: ArrayList<Message>) :
             castHolder.bind(listMessage[position])
         }
     }
+
+    fun setList(newList: List<Message>) {
+        listMessage.clear()
+        listMessage.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun addMessage(newMessage: Message) {
+        listMessage.add(newMessage)
+        notifyItemInserted(listMessage.size - 1)
+    }
 }
 
 class SendMessageViewHolder(val binding: SendMessageRowBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(message: Message) {
-        binding.tvMessage.text = message.text
-        binding.imageMessage.visibility = View.GONE
+        //TODO FAKE URI NOT URL
+        if (message.text != null) {
+            binding.tvMessage.text = message.text
+            binding.imageMessage.visibility = View.GONE
+        } else {
+            binding.tvMessage.visibility = View.GONE
+            binding.imageMessage.setImageURI(Uri.parse(message.photoUrl))
+//            Log.d("TAG SEND MESSAGE", "message is not null")
+        }
     }
 }
 
 class ReceiveMessageViewHolder(val binding: ReceiveMessageRowBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(message: Message) {
-        binding.tvMessage.text = message.text
         binding.imageProfileImg.setImageResource(R.drawable.avatar_example)
-        binding.imageMessage.visibility = View.GONE
+        if (message.text != null) {
+            binding.tvMessage.text = message.text
+            binding.imageMessage.visibility = View.GONE
+        } else if (message.photoUrl != null) {
+            binding.tvMessage.visibility = View.GONE
+            binding.imageMessage.setImageURI(Uri.parse(message.photoUrl))
+        }
     }
 }

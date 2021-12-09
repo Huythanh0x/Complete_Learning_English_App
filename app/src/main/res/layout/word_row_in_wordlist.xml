@@ -79,16 +79,17 @@
             android:id="@+id/cefr_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/cefr_level_bg"
             android:paddingHorizontal="10dp"
             android:text="@{minimalWord.cefr}"
             android:textAllCaps="true"
-            android:textColor="@color/darkPrimaryColor"
+            android:textColor="@color/primaryColor"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/word_type_txt"
             app:layout_constraintEnd_toStartOf="@+id/is_favourite_star_img"
-            app:layout_constraintTop_toTopOf="@+id/is_favourite_star_img"
+            app:layout_constraintTop_toTopOf="@+id/en_word_text"
             tools:text="A1" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -100,7 +101,7 @@
             android:paddingHorizontal="5dp"
             android:text="@{minimalWord.type}"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/is_favourite_star_img"
+            app:layout_constraintBottom_toBottomOf="@+id/api_txt"
             app:layout_constraintEnd_toEndOf="@+id/cefr_txt"
             app:layout_constraintTop_toBottomOf="@+id/cefr_txt"
             tools:text="noun" />

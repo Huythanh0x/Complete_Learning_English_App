@@ -125,7 +125,7 @@
         <entry key="app/src/main/res/layout/fragment_choosing_mode.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_complete_introduction.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_connect_word.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/fragment_d_m_chat.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_d_m_chat.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_find_level.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_flash_card.xml" value="0.40429564118761846" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
@@ -139,7 +139,7 @@
         <entry key="app/src/main/res/layout/fragment_starting_find_level.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_test_tab.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_word_day_tab.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/fragment_word_detail.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_word_detail.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_word_list.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_your_word.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_your_word2.xml" value="0.3333333333333333" />
