@@ -64,7 +64,7 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
     private fun pauseAutoPlay() {
         timer.cancel()
         timer.purge()
-        isAutoPlay.value = false
+        isAutoPlay.postValue(false)
     }
 
     fun setCurrentPosition(newPosition: Int) {
