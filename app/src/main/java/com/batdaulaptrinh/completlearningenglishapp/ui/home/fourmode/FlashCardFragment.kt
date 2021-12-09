@@ -14,7 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
-import com.batdaulaptrinh.completlearningenglishapp.databinding.*
+import com.batdaulaptrinh.completlearningenglishapp.databinding.DelayBeforeMovingToNextWordDialogBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.FlashCardSettingsDialogBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentFlashCardBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.TurnOffAfterDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.FlashCardAdapter
@@ -49,17 +52,12 @@ class FlashCardFragment : Fragment() {
             moveToNextCallBack,
             moveToPreviousCallBack,
             clickPlaySoundCallBack)
-        binding.viewPager2.adapter = adapter
         flashCardViewModel.listWord.observe(viewLifecycleOwner,
             { listWord -> adapter.setList(listWord) })
         flashCardViewModel.currentPosition.observe(viewLifecycleOwner) { newPosition ->
-            if ((binding.viewPager2.currentItem != binding.progressSb.progress) || (flashCardViewModel.getCurrentPositionValue() != binding.progressSb.progress)) {
-                binding.progressSb.progress = newPosition
-                flashCardViewModel.autoPlaySound()
-                "${(newPosition + 1)}/${flashCardViewModel.listWord.value?.size}".also {
-                    binding.progressTxt.text = it
-                }
-            }
+            binding.viewPager2.currentItem = newPosition
+            binding.flashCardViewModel = flashCardViewModel
+            flashCardViewModel.changePositionPlaySound()
         }
         flashCardViewModel.isAutoPlay.observe(viewLifecycleOwner) { isAutoPlay ->
             when (isAutoPlay) {
@@ -67,12 +65,7 @@ class FlashCardFragment : Fragment() {
                 false -> binding.autoPlayStateImg.setImageResource(R.drawable.play_flash_card_ic)
             }
         }
-        flashCardViewModel.isFinish.observe(viewLifecycleOwner) {
-            if (it) {
-                createCompleteDialog()
-            }
-        }
-        binding.flashCardViewModel = flashCardViewModel
+        binding.viewPager2.adapter = adapter
         binding.viewPager2.registerOnPageChangeCallback(viewPagerChangeListener)
         binding.progressSb.setOnSeekBarChangeListener(seekBarChangeListener)
         binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
@@ -136,7 +129,7 @@ class FlashCardFragment : Fragment() {
         dialogBinding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             var timeToOff = 10
             when (checkedId) {
-                R.id.never -> timeToOff = 1000
+                R.id.a1000_minutes -> timeToOff = 1000
                 R.id.a5minutes -> timeToOff = 5
                 R.id.a10minutes -> timeToOff = 10
                 R.id.a15minutes -> timeToOff = 15
@@ -204,37 +197,16 @@ class FlashCardFragment : Fragment() {
 
     private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekbar: SeekBar?, position: Int, p2: Boolean) {
-            binding.viewPager2.currentItem = position
-            "${(position + 1)}/${flashCardViewModel.listWord.value?.size}".also {
-                binding.progressTxt.text = it
+            if (seekbar != null) {
+                flashCardViewModel.setCurrentPosition(seekbar.progress)
             }
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
         override fun onStopTrackingTouch(seekBar: SeekBar?) {
             if (seekBar != null) {
-                binding.viewPager2.currentItem = seekBar.progress
+                flashCardViewModel.setCurrentPosition(seekBar.progress)
             }
-            flashCardViewModel.clickSeekBarPlaySound()
         }
-    }
-
-    fun createCompleteDialog() {
-        val dialogBinding =
-            DataBindingUtil.inflate<CompleteFlashCardDialogBinding>(LayoutInflater.from(context),
-                R.layout.complete_flash_card_dialog,
-                null,
-                false)
-        val dialog = AlertDialog.Builder(requireContext()).setView(dialogBinding.root).create()
-
-        dialogBinding.flashAgainBtn.setOnClickListener {
-            flashCardViewModel.flashAgain()
-            dialog.dismiss()
-        }
-        dialogBinding.backToMenuFlashCardBtn.setOnClickListener {
-            dialog.dismiss()
-            findNavController().popBackStack()
-        }
-        dialog.show()
     }
 }

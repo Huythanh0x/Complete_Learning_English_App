@@ -79,7 +79,7 @@
             android:indeterminate="false"
             android:indeterminateOnly="false"
             android:max="19"
-            android:progress="12"
+            android:progress="@{flashCardViewModel.currentPosition}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/progress_txt"
             app:layout_constraintStart_toEndOf="@id/auto_play_state_img" />
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@{flashCardViewModel.currentPosition+``+flashCardViewModel.listWord.size()}"
+            android:text="@{(flashCardViewModel.currentPosition + 1)+`/`+flashCardViewModel.listWord.size()}"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/progress_sb"
             app:layout_constraintEnd_toStartOf="@+id/progress_sb"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/progress_sb"/>
+            app:layout_constraintTop_toTopOf="@+id/progress_sb" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

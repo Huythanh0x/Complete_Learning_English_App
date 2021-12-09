@@ -46,11 +46,11 @@
                     android:layout_height="match_parent">
 
                     <RadioButton
-                        android:id="@+id/never"
+                        android:id="@+id/a1000_minutes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="5dp"
-                        android:text="Never"
+                        android:text="1000 minutes"
                         android:textSize="18sp" />
 
                     <RadioButton

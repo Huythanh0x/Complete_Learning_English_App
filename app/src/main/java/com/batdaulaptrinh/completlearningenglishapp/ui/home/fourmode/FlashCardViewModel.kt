@@ -22,18 +22,19 @@ import java.util.*
 class FlashCardViewModel(val wordRepository: WordRepository, application: Application) :
     AndroidViewModel(application) {
     val listWord = MutableLiveData<List<Word>>()
-    val currentPosition = MutableLiveData<Int>()
-    var isAutoPlay = MutableLiveData<Boolean>(false)
-    private val sharePreferencesProvider = SharePreferencesProvider(getApplication())
-    private var timer = Timer()
     var setWordNth = 0
+    val lastPosition = MutableLiveData<Int>()
+    val currentPosition = MutableLiveData<Int>(1)
+    var isAutoPlay = MutableLiveData(false)
+    private val sharePreferencesProvider = SharePreferencesProvider(getApplication())
     val timeDelayLiveData = MutableLiveData(sharePreferencesProvider.getTimeDelay())
     val timeOffLiveData = MutableLiveData(sharePreferencesProvider.getTimeOff())
     val isAutoRepeatLiveData = MutableLiveData(sharePreferencesProvider.getIsAutoRepeat())
     val isPlaySoundLiveData = MutableLiveData(sharePreferencesProvider.getIsPlaySound())
+    private var timer = Timer()
     private var countDownTime = sharePreferencesProvider.getTimeOff() * 60
     private val mediaPlayer = MediaPlayer()
-    val isFinish = MutableLiveData<Boolean>(false)
+
     fun getSetWordNth(nTh: Int) {
         listWord.postValue(wordRepository.getFakeSetWord(nTh))
         setWordNth = nTh
@@ -60,35 +61,33 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
 
     }
 
-    fun pauseAutoPlay() {
+    private fun pauseAutoPlay() {
         timer.cancel()
         timer.purge()
-        isAutoPlay.postValue(false)
+        isAutoPlay.value = false
     }
 
     fun setCurrentPosition(newPosition: Int) {
-        currentPosition.postValue(newPosition)
-    }
-
-    fun getCurrentPositionValue(): Int {
-        return currentPosition.value!!
+        if (currentPosition.value!! != newPosition) {
+            lastPosition.postValue(currentPosition.value!!)
+            currentPosition.postValue(newPosition)
+        }
     }
 
     fun autoMoveToNextPosition() {
         val _currentPosition = currentPosition.value!!
-        val _maxPosition = listWord.value?.size?.minus(1)
+        val _maxPosition = listWord.value?.size ?: 20
         val _isLoop = sharePreferencesProvider.getIsAutoRepeat()
-        //TODO SHOULD OBSERVE CHANGE AND CALL PAUSE FROM FRAGMENT
         if (!isAutoPlay.value!!) {
             timer.cancel()
             timer.purge()
-        } else if (!_isLoop && _currentPosition < _maxPosition!!) {
-            currentPosition.postValue(_currentPosition + 1)
-        } else if (!_isLoop && _currentPosition >= _maxPosition!!) {
-            currentPosition.postValue(0)
+        } else if (_currentPosition + 1 < _maxPosition) {
+            setCurrentPosition(_currentPosition + 1)
+        } else if (!_isLoop && _currentPosition + 1 >= _maxPosition) {
+            setCurrentPosition(0)
             isAutoPlay.postValue(false)
         } else if (_isLoop) {
-            currentPosition.postValue((_currentPosition + 1) % _maxPosition!!)
+            setCurrentPosition((_currentPosition + 1) % _maxPosition)
         }
         countDownTime -= timeDelayLiveData.value!!
         if (countDownTime <= 0) {
@@ -98,35 +97,40 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
 
     fun moveToNextPosition() {
         val _currentPosition = currentPosition.value!!
-        val _maxPosition = listWord.value!!.size.minus(1)
-        val _isLoop = isAutoRepeatLiveData.value!!
-
-        Log.e("ERROR HERE CLICK TAG", "$_currentPosition $_maxPosition $_isLoop")
-        if (!_isLoop && _currentPosition < _maxPosition) {
-            currentPosition.postValue(_currentPosition + 1)
-        } else {
-            isFinish.postValue(true)
+        val _maxPosition = listWord.value?.size ?: 20
+        if (_currentPosition + 1 < _maxPosition) {
+            setCurrentPosition(_currentPosition + 1)
         }
     }
 
     fun moveToPreviousPosition() {
-        currentPosition.postValue(currentPosition.value?.minus(1))
+        val _currentPosition = currentPosition.value!!
+        setCurrentPosition(_currentPosition - 1)
     }
 
-    fun setIsAutoRepeat(isAutoRepeat: Boolean) {
-        isAutoRepeatLiveData.postValue(isAutoRepeat)
+    fun clickPlaySound() {
+        playCurrentSoundWord()
     }
 
-    fun setIsPlaySound(isPlaySound: Boolean) {
-        isPlaySoundLiveData.postValue(isPlaySound)
+    fun changePositionPlaySound() {
+        if (isPlaySoundLiveData.value!!) {
+            playCurrentSoundWord()
+        }
     }
 
-    fun setTimeOff(timeToOff: Int) {
-        timeOffLiveData.postValue(timeToOff)
-    }
-
-    fun setTimeDelay(timeToDelay: Int) {
-        timeDelayLiveData.postValue(timeToDelay)
+    private fun playCurrentSoundWord() {
+        val _currentPosition = currentPosition.value!!
+        val mp3Us = listWord.value?.get(_currentPosition)?.mp3_us ?: return
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                val base64String = getByteArrayFromImageURL(mp3Us)
+                if (base64String != null) {
+                    playAudio(base64String)
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("response", e.toString())
+        }
     }
 
     fun saveSettings() {
@@ -139,6 +143,19 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         }
     }
 
+    private fun updateSettingWhileAuto() {
+        timer.cancel()
+        timer.purge()
+        val timeDelay = (sharePreferencesProvider.getTimeDelay() * 1000).toLong()
+        val runnableSlide = object : TimerTask() {
+            override fun run() {
+                autoMoveToNextPosition()
+            }
+        }
+        timer = Timer()
+        timer.schedule(runnableSlide, timeDelay, timeDelay)
+    }
+
     fun discardSettings() {
         timeDelayLiveData.postValue(sharePreferencesProvider.getTimeDelay())
         timeOffLiveData.postValue(sharePreferencesProvider.getTimeOff())
@@ -146,35 +163,21 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         isPlaySoundLiveData.postValue(sharePreferencesProvider.getIsPlaySound())
     }
 
-    fun autoPlaySound() {
-        if ((isPlaySoundLiveData.value!! && isAutoPlay.value!!)) {
-            playCurrentSoundWord()
-        }
+
+    fun setIsAutoRepeat(isAutoRepeat: Boolean) {
+        isAutoRepeatLiveData.value = isAutoRepeat
     }
 
-    fun clickPlaySound() {
-        playCurrentSoundWord()
+    fun setIsPlaySound(isPlaySound: Boolean) {
+        isPlaySoundLiveData.value = isPlaySound
     }
 
-    fun clickSeekBarPlaySound() {
-        if (isPlaySoundLiveData.value!!) {
-            playCurrentSoundWord()
-        }
+    fun setTimeOff(timeToOff: Int) {
+        timeOffLiveData.value = timeToOff
     }
 
-    private fun playCurrentSoundWord() {
-        val _currentPosition = currentPosition.value!!
-        val mp3Us = listWord.value!![_currentPosition].mp3_us
-        try {
-            viewModelScope.launch(Dispatchers.IO) {
-                val base64String = getByteArrayFromImageURL(mp3Us)
-                if (base64String != null) {
-                    playAudio(base64String)
-                }
-            }
-        } catch (e: Exception) {
-            Log.e("response", e.toString())
-        }
+    fun setTimeDelay(timeToDelay: Int) {
+        timeDelayLiveData.value = timeToDelay
     }
 
     private fun getByteArrayFromImageURL(url: String): String? {
@@ -212,20 +215,5 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
         }
     }
 
-    private fun updateSettingWhileAuto() {
-        timer.cancel()
-        timer.purge()
-        val timeDelay = (sharePreferencesProvider.getTimeDelay() * 1000).toLong()
-        val runnableSlide = object : TimerTask() {
-            override fun run() {
-                autoMoveToNextPosition()
-            }
-        }
-        timer = Timer()
-        timer.schedule(runnableSlide, timeDelay, timeDelay)
-    }
 
-    fun flashAgain() {
-        isFinish.postValue(false)
-    }
 }
