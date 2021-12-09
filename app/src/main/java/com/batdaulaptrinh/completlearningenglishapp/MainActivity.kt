@@ -1,11 +1,17 @@
 package com.batdaulaptrinh.completlearningenglishapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -14,13 +20,13 @@ import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainBind
 
 
 class MainActivity : AppCompatActivity() {
+    private var doubleBackToExitPressedOnce = false
     lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment_container)
-
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
@@ -45,5 +51,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
+    }
+
+    @SuppressLint("RestrictedApi")
+    override fun onBackPressed() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        Log.d("FIRST TAG", "\n${navHostFragment.childFragmentManager.backStackEntryCount}")
+        if (binding.bottomNavigationView.selectedItemId == R.id.navigation_home && navHostFragment.childFragmentManager.backStackEntryCount == 0) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed()
+                return
+            }
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                doubleBackToExitPressedOnce = false
+            }, 2000)
+        } else {
+            super.onBackPressed()
+        }
+
     }
 }
