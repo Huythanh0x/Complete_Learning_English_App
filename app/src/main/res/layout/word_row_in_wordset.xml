@@ -8,6 +8,10 @@
         <variable
             name="word"
             type="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
+
+        <variable
+            name="preferAccent"
+            type="java.lang.String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,12 +68,13 @@
             android:id="@+id/play_sound_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:padding="5dp"
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/api_txt"
             app:layout_constraintStart_toEndOf="@+id/api_txt"
             app:layout_constraintTop_toTopOf="@+id/api_txt"
-            app:playSoundUs="@{word}" />
+            app:preferAccent="@{preferAccent}"
+            app:word="@{word}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/description_txt"

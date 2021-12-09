@@ -5,8 +5,7 @@ import android.media.MediaPlayer
 import android.util.Base64
 import android.util.Log
 import android.widget.ImageView
-import android.widget.Spinner
-import androidx.appcompat.widget.SwitchCompat
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import com.batdaulaptrinh.completlearningenglishapp.R
@@ -59,6 +58,45 @@ fun playSoundUs(imageView: ImageView, word: Word?) {
 
 }
 
+@BindingAdapter(value = ["word", "preferAccent"])
+fun playSoundFromXML(imageView: ImageView, word: Word?, preferAccent: String) {
+    if (preferAccent == "US") {
+        imageView.setImageResource(R.drawable.us_speaker_ic)
+    } else {
+        imageView.setImageResource(R.drawable.uk_speaker_ic)
+    }
+    imageView.setOnClickListener {
+        if (word != null) {
+            if (preferAccent == "US")
+                playSound(word.mp3_us)
+            else
+                playSound(word.mp3_uk)
+        }
+    }
+}
+
+@BindingAdapter(value = ["minimalWord", "preferAccent"])
+fun playSoundMinimalWordFromXML(
+    imageView: ImageView,
+    minimalWord: MinimalWord?,
+    preferAccent: String,
+) {
+    if (preferAccent == "US") {
+        imageView.setImageResource(R.drawable.us_speaker_ic)
+    } else {
+        imageView.setImageResource(R.drawable.uk_speaker_ic)
+    }
+    imageView.setOnClickListener {
+        if (minimalWord != null) {
+            if (preferAccent == "US")
+                playSound(minimalWord.mp3_us)
+            else
+                playSound(minimalWord.mp3_uk)
+        }
+    }
+}
+
+
 @BindingAdapter("setStarMinimal")
 fun setStarMinimal(imageView: ImageView, minimalWord: MinimalWord?) {
     if (minimalWord != null) {
@@ -81,7 +119,7 @@ fun playSoundUsMinimal(imageView: ImageView, minimalWord: MinimalWord?) {
 @BindingAdapter("playSoundUK")
 fun playSoundUK(imageView: ImageView, word: Word?) {
     imageView.setOnClickListener {
-        word?.let { it1 -> playSound(it1.mp3_us) }
+        word?.let { it1 -> playSound(it1.mp3_uk) }
     }
 
 }
@@ -97,6 +135,14 @@ fun setStatePlayImage(imageView: ImageView, isAutoPlay: LiveData<Boolean>) {
     }
 }
 
+@BindingAdapter("example")
+fun setExampleText(textView: TextView, word: Word?) {
+    if (word != null) {
+        var convertedText = word.examples.replace(";", "\n▪ ")
+        convertedText = "▪ $convertedText"
+        textView.text = convertedText
+    }
+}
 
 fun playSound(mp3Us: String) {
     try {
@@ -110,6 +156,7 @@ fun playSound(mp3Us: String) {
         Log.e("response", e.toString())
     }
 }
+
 
 private fun getByteArrayFromImageURL(url: String): String? {
     try {

@@ -120,10 +120,16 @@ class FlashCardViewModel(val wordRepository: WordRepository, application: Applic
 
     private fun playCurrentSoundWord() {
         val _currentPosition = currentPosition.value!!
-        val mp3Us = listWord.value?.get(_currentPosition)?.mp3_us ?: return
+        var mp3Url = ""
+        if (sharePreferencesProvider.getPreferAccent() == "US") {
+            mp3Url = listWord.value?.get(_currentPosition)?.mp3_us ?: return
+        } else {
+            mp3Url = listWord.value?.get(_currentPosition)?.mp3_uk ?: return
+        }
+
         try {
             viewModelScope.launch(Dispatchers.IO) {
-                val base64String = getByteArrayFromImageURL(mp3Us)
+                val base64String = getByteArrayFromImageURL(mp3Url)
                 if (base64String != null) {
                     playAudio(base64String)
                 }

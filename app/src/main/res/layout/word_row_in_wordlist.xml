@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="preferAccent"
+            type="java.lang.String" />
+
+        <variable
             name="minimalWord"
             type="com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord" />
     </data>
@@ -63,7 +67,8 @@
             app:layout_constraintDimensionRatio="W,1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/en_word_text"
-            app:playSoundUsMinimal="@{minimalWord}" />
+            app:minimalWord="@{minimalWord}"
+            app:preferAccent="@{preferAccent}" />
 
         <View
             android:id="@+id/divider_view"

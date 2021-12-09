@@ -9,6 +9,9 @@
             name="word"
             type="com.batdaulaptrinh.completlearningenglishapp.model.Word" />
 
+        <variable
+            name="preferAccent"
+            type="java.lang.String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,11 +22,11 @@
             android:id="@+id/flash_card_cv"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:autoFlipBack="false"
             app:cardCornerRadius="10dp"
             app:flipDuration="400"
             app:flipEnabled="true"
             app:flipFrom="right"
-            app:autoFlipBack="false"
             app:flipOnTouch="true"
             app:flipType="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -87,11 +90,12 @@
             android:id="@+id/speaker_flash_card_img"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/en_word_txt"
             app:layout_constraintEnd_toEndOf="@+id/flash_card_cv"
             app:layout_constraintStart_toEndOf="@+id/en_word_txt"
-            app:layout_constraintTop_toTopOf="@+id/en_word_txt" />
+            app:layout_constraintTop_toTopOf="@+id/en_word_txt"
+            app:preferAccent="@{preferAccent}"
+            app:word="@{word}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/type_word_txt"

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.databinding.SingleFlashCardItemBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 
@@ -12,13 +13,13 @@ class FlashCardAdapter(
     val listWord: ArrayList<Word>,
     val clickNextBtn: (position: Int) -> Unit,
     val clickPreviousBtn: (position: Int) -> Unit,
-    val clickPlaySound: () -> Unit,
 ) :
     RecyclerView.Adapter<FlashCardAdapter.MyViewHolder>() {
     class MyViewHolder(val binding: SingleFlashCardItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(word: Word) {
             binding.word = word
+            binding.preferAccent = SharePreferencesProvider(binding.root.context).getPreferAccent()
         }
 
     }
@@ -53,9 +54,6 @@ class FlashCardAdapter(
         }
         holder.binding.previousCardImg.setOnClickListener {
             clickPreviousBtn(position)
-        }
-        holder.binding.speakerFlashCardImg.setOnClickListener {
-            clickPlaySound()
         }
     }
 

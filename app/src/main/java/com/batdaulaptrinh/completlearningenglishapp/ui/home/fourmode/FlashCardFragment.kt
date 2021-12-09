@@ -50,8 +50,7 @@ class FlashCardFragment : Fragment() {
         }
         adapter = FlashCardAdapter(arrayListOf(),
             moveToNextCallBack,
-            moveToPreviousCallBack,
-            clickPlaySoundCallBack)
+            moveToPreviousCallBack)
         flashCardViewModel.listWord.observe(viewLifecycleOwner,
             { listWord -> adapter.setList(listWord) })
         flashCardViewModel.currentPosition.observe(viewLifecycleOwner) { newPosition ->

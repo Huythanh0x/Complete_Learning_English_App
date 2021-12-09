@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.databinding.WordRowInWordlistBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 
@@ -37,6 +38,7 @@ class WordListRecyclerAdapter(
                 }
                 starClickListener(minimalWord)
             }
+            binding.preferAccent = SharePreferencesProvider(binding.root.context).getPreferAccent()
         }
 
     }

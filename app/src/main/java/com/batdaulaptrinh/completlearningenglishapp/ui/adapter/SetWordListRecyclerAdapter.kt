@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.databinding.WordRowInWordsetBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
 
@@ -21,6 +22,9 @@ class SetWordListRecyclerAdapter(
             clickWordListener: (word: Word) -> Unit,
             clickStarListener: (word: Word) -> Unit,
         ) {
+            val sharePreferencesProvider = SharePreferencesProvider(binding.root.context)
+            val preferAccent = sharePreferencesProvider.getPreferAccent()
+            binding.preferAccent = preferAccent
             binding.word = word
             binding.root.setOnClickListener { clickWordListener(word) }
             binding.isFavouriteStarImg.setOnClickListener {

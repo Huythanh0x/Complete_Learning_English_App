@@ -99,28 +99,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:padding="5dp"
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toTopOf="@id/us_speaker_img"
             app:layout_constraintStart_toStartOf="@+id/en_word_txt"
             app:layout_constraintTop_toBottomOf="@+id/en_word_txt"
-            app:playSoundUK="@{word}" />
+            app:preferAccent="@{`UK`}"
+            app:word="@{word}" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/us_speaker_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:padding="5dp"
             android:src="@drawable/us_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/thumbnail_example_cv"
             app:layout_constraintStart_toStartOf="@+id/uk_speaker_img"
             app:layout_constraintTop_toBottomOf="@+id/uk_speaker_img"
-            app:playSoundUs="@{word}" />
+            app:preferAccent="@{`US`}"
+            app:word="@{word}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/uk_api_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:text="@{word.api_uk}"
             app:layout_constraintBottom_toBottomOf="@+id/uk_speaker_img"
             app:layout_constraintStart_toEndOf="@+id/uk_speaker_img"
@@ -191,9 +194,9 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/cefr_level_bg"
                     android:paddingHorizontal="10dp"
+                    android:text="@{word.cefr}"
                     android:textColor="@color/primaryColor"
                     android:textStyle="bold"
-                    android:text="@{word.cefr}"
                     app:layout_constraintStart_toStartOf="@+id/description_txt"
                     app:layout_constraintTop_toBottomOf="@+id/description_txt"
                     tools:text="B1" />
@@ -236,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="@{word.examples}"
+                    app:example="@{word}"
                     app:layout_constraintEnd_toEndOf="@+id/description_content_txt"
                     app:layout_constraintStart_toStartOf="@+id/example_txt"
                     app:layout_constraintTop_toBottomOf="@+id/example_txt"
