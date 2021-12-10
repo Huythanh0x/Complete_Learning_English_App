@@ -53,6 +53,12 @@
         <item name="uk">UK</item>
     </string-array>
 
+    <string-array name="daily_goal">
+        <item name="10">10 words</item>
+        <item name="20">20 words</item>
+        <item name="30">30 words</item>
+    </string-array>
+
     <string-array name="delay_before_moving_spinner">
         <item name="2s">2s</item>
         <item name="3s">3s</item>

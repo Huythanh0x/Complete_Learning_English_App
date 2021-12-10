@@ -41,23 +41,19 @@ class ProfileFragment : Fragment() {
         profileViewModel.apply {
             phoneNumberLiveData.observe(viewLifecycleOwner) {
                 binding.numberInfoTxt.setText(it)
-                Log.d("TAG PROFILE", it.toString())
             }
             fullNameLiveData.observe(viewLifecycleOwner) {
                 binding.nameInfoTxt.setText(it)
                 binding.nameTxt.text = it
-                Log.d("TAG PROFILE", it.toString())
             }
             emailLiveData.observe(viewLifecycleOwner) {
                 binding.emailInfoTxt.setText(it)
-                Log.d("TAG PROFILE", it.toString())
             }
             isDarkModeLiveData.observe(viewLifecycleOwner) {
                 binding.darkModeSw.isChecked = it
             }
             preferAccentLiveData.observe(viewLifecycleOwner) {
                 binding.preferAccentSp.setSelection(profileViewModel.getPreferAccentPosition())
-                Log.d("TAG PROFILE", it)
             }
             locationLiveData.observe(viewLifecycleOwner) {
                 binding.locationTxt.text = it
