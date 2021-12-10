@@ -36,23 +36,8 @@
                 android:text="SET MY GOAL"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
-
-            <!--        <androidx.appcompat.widget.AppCompatImageView-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_gravity="end|center_vertical"-->
-            <!--            android:layout_marginEnd="30dp"-->
-            <!--            android:src="@drawable/ic_baseline_login_24" />-->
         </androidx.appcompat.widget.Toolbar>
 
-        <!--    <androidx.appcompat.widget.AppCompatImageView-->
-        <!--        android:id="@+id/avatar_bg"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:src="@drawable/main_bg"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/toolbar" />-->
 
         <RadioGroup
             android:id="@+id/radioGroup1"
@@ -89,6 +74,7 @@
                         android:id="@+id/easy_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:background="@drawable/clicked_item_bg"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -130,6 +116,7 @@
                         <androidx.appcompat.widget.AppCompatRadioButton
                             android:id="@+id/easy_cb"
                             android:layout_width="wrap_content"
+                            android:checked="true"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -172,6 +159,7 @@
                         android:id="@+id/serious_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:background="@drawable/clicked_item_bg"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -255,6 +243,7 @@
                         android:id="@+id/intense_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:background="@drawable/clicked_item_bg"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

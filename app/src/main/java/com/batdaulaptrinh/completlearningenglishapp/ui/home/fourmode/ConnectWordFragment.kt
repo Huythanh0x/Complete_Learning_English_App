@@ -60,8 +60,6 @@ class ConnectWordFragment : Fragment() {
             }
             listEmptyLetter.add("")
         }
-        Log.d("TAG LIST SIZE PRIMARY", primaryListMissingLetter.toString())
-        Log.d("TAG LIST SIZE SECOND", secondaryListMissingLetter.toString())
         emptyLetterRecyclerAdapter =
             EmptyLetterRecyclerAdapter(listEmptyLetter,
                 primaryListMissingLetter,
@@ -126,7 +124,6 @@ class ConnectWordFragment : Fragment() {
     private fun shuffleString(string: String): String {
         val shuffledListCharacter = string.toList().shuffled()
         val shuffledString = shuffledListCharacter.joinToString("")
-        Log.d("TAG SHUFFLED STRING", shuffledString)
         return shuffledString
     }
 

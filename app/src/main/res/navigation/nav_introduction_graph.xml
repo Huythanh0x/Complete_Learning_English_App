@@ -17,6 +17,9 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_findLevelFragment_to_entranceTestFragment"
+            app:destination="@id/entranceTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/setGoalFragment"
@@ -36,4 +39,13 @@
         android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.CompleteIntroductionFragment"
         android:label="CompleteIntroductionFragment"
         tools:layout="@layout/fragment_complete_introduction" />
+    <fragment
+        android:id="@+id/entranceTestFragment"
+        android:name="com.batdaulaptrinh.completlearningenglishapp.ui.introduction.EntranceTestFragment"
+        android:label="EntranceTestFragment"
+        tools:layout="@layout/fragment_entrance_test">
+        <action
+            android:id="@+id/action_entranceTestFragment_to_setGoalFragment"
+            app:destination="@id/setGoalFragment" />
+    </fragment>
 </navigation>

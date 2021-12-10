@@ -109,4 +109,14 @@ class SharePreferencesProvider(val context: Context) {
     fun getIsDarkMode(): Boolean {
         return sharePreferencesProvider.getBoolean(Utils.IS_DARK_MODE, true)
     }
+
+    fun putCurrentLevel(currentLevel: String) {
+        sharePreferencesProvider.edit().putString(Utils.CURRENT_LEVEL, currentLevel).apply()
+    }
+
+    fun getCurrentLevel(): String {
+        return sharePreferencesProvider.getString(Utils.CURRENT_LEVEL, "BEGINNER")!!
+    }
+
+
 }

@@ -59,4 +59,7 @@ interface WordDAO {
 
     @Query("SELECT * FROM word_table WHERE set_nth != :nTh LIMIT 20")
     fun getFakeSetWord(nTh: Int): List<Word>
+
+    @Query("SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'A1' and LENGTH(en_word) < 9 ORDER BY RANDOM() LIMIT 10) UNION SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'A2' and LENGTH(en_word) < 9 ORDER BY RANDOM()  LIMIT 10) UNION SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'B1' and LENGTH(en_word) < 9 ORDER BY RANDOM() LIMIT 10) UNION SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'B2' and LENGTH(en_word) < 9 ORDER BY RANDOM() LIMIT 10) UNION SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'C1' and LENGTH(en_word) ORDER BY RANDOM() LIMIT 10) ")
+    fun getEntranceListWord(): List<MinimalWord>?
 }

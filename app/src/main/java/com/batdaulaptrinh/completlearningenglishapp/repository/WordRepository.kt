@@ -73,4 +73,8 @@ class WordRepository(private val wordDao: WordDAO) {
     fun getFakeSetWord(nTh: Int): List<Word> {
         return wordDao.getFakeSetWord(nTh)
     }
+
+    fun getEntranceListWord(): List<MinimalWord>? {
+        return wordDao.getEntranceListWord()
+    }
 }

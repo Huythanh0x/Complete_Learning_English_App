@@ -20,7 +20,7 @@ class FindLevelFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_level, container, false)
         binding.takeATestBtn.setOnClickListener{
-            Toast.makeText(context,"WILL UPDATE THIS FUNCTION LATER",Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_findLevelFragment_to_entranceTestFragment)
         }
         binding.iAmBeginnerBtn.setOnClickListener{
             findNavController().navigate(R.id.action_findLevelFragment_to_setGoalFragment)

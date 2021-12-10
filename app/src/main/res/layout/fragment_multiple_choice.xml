@@ -142,6 +142,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
+                android:focusable="true"
                 android:src="@drawable/clean_thumbnail_1"
                 android:tag="c"
                 app:cardCornerRadius="15dp"
@@ -151,11 +152,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/answer_a_txt"
                 app:layout_constraintWidth_percent=".35">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_c_img"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_2" />
+                    android:layout_margin="3dp"
+                    app:cardCornerRadius="15dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/answer_c_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/clean_thumbnail_2" />
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -163,6 +171,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:clickable="true"
+                android:focusable="true"
                 android:tag="d"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/answer_c_cv"
@@ -172,11 +181,18 @@
                 app:layout_constraintTop_toTopOf="@+id/answer_c_cv"
                 app:layout_constraintWidth_percent=".35">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_d_img"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_3" />
+                    android:layout_margin="3dp"
+                    app:cardCornerRadius="15dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/answer_d_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/clean_thumbnail_3" />
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -184,6 +200,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:tag="a"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -193,12 +211,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".35">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_a_img"
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_4" />
+                    android:layout_margin="3dp"
+                    app:cardCornerRadius="15dp">
 
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/answer_a_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/clean_thumbnail_4" />
+
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -222,6 +248,7 @@
                 android:layout_height="0dp"
                 android:clickable="true"
                 android:elevation="10dp"
+                android:focusable="true"
                 android:paddingHorizontal="10dp"
                 android:src="@drawable/clean_thumbnail_1"
                 android:tag="b"
@@ -234,11 +261,18 @@
                 app:layout_constraintTop_toTopOf="@+id/answer_a_cv"
                 app:layout_constraintWidth_percent=".35">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/answer_b_img"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/clean_thumbnail_1" />
+                    android:layout_margin="3dp"
+                    app:cardCornerRadius="15dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/answer_b_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/clean_thumbnail_1" />
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView

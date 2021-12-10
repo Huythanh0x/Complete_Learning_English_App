@@ -24,6 +24,7 @@ class Utils {
         const val IS_DARK_MODE = "IS_DARK_MODE"
         const val LOCATION = "LOCATION"
         const val JOINED_DATE = "JOINED_DATE"
+        const val CURRENT_LEVEL = "CURRENT_LEVEL"
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,
