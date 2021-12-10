@@ -15,34 +15,40 @@ import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainLogi
 class MainLoginActivity : AppCompatActivity() {
     private var doubleBackToExitPressedOnce = false
     lateinit var binding: ActivityMainLoginBinding
-    lateinit var navControler: NavController
+    lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_login)
         supportActionBar?.hide()
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        navControler = navHostFragment.navController
+        navController = navHostFragment.navController
 
 //        navController = findNavController(R.id.fragmentContainerView)
-        setupActionBarWithNavController(navControler)
+        setupActionBarWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp() || navControler.navigateUp()
+        return super.onSupportNavigateUp() || navController.navigateUp()
     }
 
     override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        if (navHostFragment.childFragmentManager.backStackEntryCount == 0) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed()
+                return
+            }
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                doubleBackToExitPressedOnce = false
+            }, 2000)
+
+        } else {
             super.onBackPressed()
-            return
         }
-        this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            doubleBackToExitPressedOnce = false
-        }, 2000)
-
     }
 }

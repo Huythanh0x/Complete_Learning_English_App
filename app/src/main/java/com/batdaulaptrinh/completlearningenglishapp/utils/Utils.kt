@@ -9,6 +9,7 @@ import kotlin.random.Random
 
 class Utils {
     companion object {
+        const val MY_GOAL = "MY_GOAL"
         const val SORT = "SORT"
         const val SEARCH = "SEARCH"
         const val NOTHING = "NOTHING"

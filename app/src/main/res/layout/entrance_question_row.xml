@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:text="english"
             app:layout_constraintBottom_toBottomOf="@id/answer_cb"
             app:layout_constraintStart_toEndOf="@id/answer_cb"
-            app:layout_constraintTop_toTopOf="@id/answer_cb"
-            tools:text="english" />
+            app:layout_constraintTop_toTopOf="@id/answer_cb" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

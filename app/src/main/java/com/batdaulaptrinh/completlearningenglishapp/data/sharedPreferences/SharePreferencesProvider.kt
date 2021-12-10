@@ -118,5 +118,9 @@ class SharePreferencesProvider(val context: Context) {
         return sharePreferencesProvider.getString(Utils.CURRENT_LEVEL, "BEGINNER")!!
     }
 
+    fun putPersonalGoal(myGoal: Int) {
+        sharePreferencesProvider.edit().putInt(Utils.MY_GOAL,myGoal).apply()
+    }
+
 
 }

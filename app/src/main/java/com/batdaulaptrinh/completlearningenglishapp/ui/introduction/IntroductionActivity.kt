@@ -33,16 +33,22 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
+        if (navHostFragment.childFragmentManager.backStackEntryCount == 0) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed()
+                return
+            }
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                doubleBackToExitPressedOnce = false
+            }, 2000)
+
+        }else{
             super.onBackPressed()
-            return
         }
-        this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            doubleBackToExitPressedOnce = false
-        }, 2000)
-
     }
 }

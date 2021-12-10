@@ -50,14 +50,6 @@ fun setStar(imageView: ImageView, word: Word?) {
     }
 }
 
-@BindingAdapter("playSoundUs")
-fun playSoundUs(imageView: ImageView, word: Word?) {
-    imageView.setOnClickListener {
-        word?.let { it1 -> playSound(it1.mp3_us) }
-    }
-
-}
-
 @BindingAdapter(value = ["word", "preferAccent"])
 fun playSoundFromXML(imageView: ImageView, word: Word?, preferAccent: String) {
     if (preferAccent == "US") {
@@ -104,33 +96,6 @@ fun setStarMinimal(imageView: ImageView, minimalWord: MinimalWord?) {
             imageView.setImageResource(R.drawable.ic_baseline_star_24)
         } else {
             imageView.setImageResource(R.drawable.ic_baseline_star_border_24)
-        }
-    }
-}
-
-@BindingAdapter("playSoundUsMinimal")
-fun playSoundUsMinimal(imageView: ImageView, minimalWord: MinimalWord?) {
-    imageView.setOnClickListener {
-        minimalWord?.let { it1 -> playSound(it1.mp3_us) }
-    }
-
-}
-
-@BindingAdapter("playSoundUK")
-fun playSoundUK(imageView: ImageView, word: Word?) {
-    imageView.setOnClickListener {
-        word?.let { it1 -> playSound(it1.mp3_uk) }
-    }
-
-}
-
-@BindingAdapter("setStatePlayImage")
-fun setStatePlayImage(imageView: ImageView, isAutoPlay: LiveData<Boolean>) {
-    imageView.setOnClickListener {
-        if (isAutoPlay.value == true) {
-            imageView.setImageResource(R.drawable.pause_flashcar_ic)
-        } else if (isAutoPlay.value == false) {
-            imageView.setImageResource(R.drawable.play_flash_card_ic)
         }
     }
 }
