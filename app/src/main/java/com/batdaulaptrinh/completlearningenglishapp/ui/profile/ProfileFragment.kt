@@ -6,13 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
-import android.widget.Spinner
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.SwitchCompat
+import android.widget.ImageView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -22,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
+
 
 class ProfileFragment : Fragment() {
     companion object {
@@ -39,30 +39,26 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         val viewModelFactory = ProfileViewModelFactory(requireActivity().application)
         profileViewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
+        binding.preferAccentSp.onItemSelectedListener = spinnerClickListener
+        binding.darkModeSw.setOnCheckedChangeListener { switch, isCheck ->
+            profileViewModel.putDarMode(isCheck)
+        }
         profileViewModel.apply {
             phoneNumberLiveData.observe(viewLifecycleOwner) {
-                Log.d("NUMBER TAG", it)
-                binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatEditText>(R.id.number_info_txt)
-                    .setText(it)
+                binding.numberInfoTxt.setText(it)
             }
             fullNameLiveData.observe(viewLifecycleOwner) {
-                Log.d("FULL NAME TAG", it)
-                binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatEditText>(R.id.name_info_txt)
-                    .setText(it)
+                binding.nameInfoTxt.setText(it)
                 binding.nameTxt.text = it
             }
             emailLiveData.observe(viewLifecycleOwner) {
-                Log.d("EMAIL TAG", it)
-                binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatEditText>(R.id.email_info_txt)
-                    .setText(it)
+                binding.emailInfoTxt.setText(it)
             }
             isDarkModeLiveData.observe(viewLifecycleOwner) {
-                binding.settingsExpandableLayout.secondLayout.findViewById<SwitchCompat>(R.id.dark_mode_sw).isChecked =
-                    it
+                binding.darkModeSw.isChecked = it
             }
             preferAccentLiveData.observe(viewLifecycleOwner) {
-                binding.settingsExpandableLayout.secondLayout.findViewById<Spinner>(R.id.prefer_accent_sp)
-                    .setSelection(profileViewModel.getPreferAccentPosition())
+                binding.preferAccentSp.setSelection(profileViewModel.getPreferAccentPosition())
             }
             locationLiveData.observe(viewLifecycleOwner) {
                 binding.locationTxt.text = it
@@ -71,66 +67,27 @@ class ProfileFragment : Fragment() {
             joinedDateLiveData.observe(viewLifecycleOwner) {
                 binding.joinedTimeTxt.text = it
             }
-            personalGoalLiveData.observe(viewLifecycleOwner){
-                binding.settingsExpandableLayout.secondLayout.findViewById<Spinner>(R.id.daily_goal_sp).setSelection(profileViewModel.getPersonalGoalPosition())
-            }
         }
         binding.logoutImg.setOnClickListener {
             startActivity(Intent(context, MainLoginActivity::class.java))
             activity?.finish()
         }
+        binding.editNameBtn.setOnClickListener {
+            startEditText(binding.nameInfoTxt)
+            finishEditText(binding.nameInfoTxt)
+        }
+        binding.editPhoneNumberBtn.setOnClickListener {
+            startEditText(binding.numberInfoTxt)
+            finishEditText(binding.numberInfoTxt)
+        }
+        binding.editEmailInfoBtn.setOnClickListener {
+            startEditText(binding.emailInfoTxt)
+            finishEditText(binding.emailInfoTxt)
+        }
         binding.editProfileCv.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, CHOOSEIMAGECODE)
-        }
-        binding.personalInfoExpandableLayout.parentLayout.setOnClickListener {
-            binding.personalInfoExpandableLayout.toggleLayout()
-        }
-        binding.personalInfoExpandableLayout.setOnExpandListener { isExpanded ->
-            if (isExpanded) {
-                binding.personalInfoExpandableLayout.parentLayout.background =
-                    AppCompatResources.getDrawable(requireContext(), R.drawable.solid_button_bg)
-                binding.personalInfoExpandableLayout.secondLayout.visibility = View.INVISIBLE
-            } else {
-                binding.settingsExpandableLayout.collapse()
-                binding.personalInfoExpandableLayout.parentLayout.background =
-                    AppCompatResources.getDrawable(requireContext(), R.drawable.solid_top_conner_bg)
-                binding.personalInfoExpandableLayout.secondLayout.visibility = View.VISIBLE
-            }
-        }
-        binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatImageView>(R.id.edit_name_btn)
-            .setOnClickListener {
-                startEditText(binding.personalInfoExpandableLayout.secondLayout.findViewById(R.id.name_info_txt))
-                finishEditText(binding.personalInfoExpandableLayout.secondLayout.findViewById(R.id.name_info_txt))
-            }
-
-        binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatImageView>(R.id.edit_email_info_btn)
-            .setOnClickListener {
-                startEditText(binding.personalInfoExpandableLayout.secondLayout.findViewById(R.id.email_info_txt))
-                finishEditText(binding.personalInfoExpandableLayout.secondLayout.findViewById(R.id.email_info_txt))
-            }
-        binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatImageView>(R.id.edit_phone_number_btn)
-            .setOnClickListener {
-                startEditText(binding.personalInfoExpandableLayout.secondLayout.findViewById(R.id.number_info_txt))
-                finishEditText(binding.personalInfoExpandableLayout.secondLayout.findViewById(R.id.number_info_txt))
-            }
-
-        binding.settingsExpandableLayout.parentLayout.setOnClickListener {
-            binding.settingsExpandableLayout.toggleLayout()
-        }
-
-        binding.settingsExpandableLayout.setOnExpandListener { isExpanded ->
-            if (isExpanded) {
-                binding.settingsExpandableLayout.parentLayout.background =
-                    AppCompatResources.getDrawable(requireContext(), R.drawable.solid_button_bg)
-                binding.settingsExpandableLayout.secondLayout.visibility = View.INVISIBLE
-            } else {
-                binding.personalInfoExpandableLayout.collapse()
-                binding.settingsExpandableLayout.parentLayout.background =
-                    AppCompatResources.getDrawable(requireContext(), R.drawable.solid_top_conner_bg)
-                binding.settingsExpandableLayout.secondLayout.visibility = View.VISIBLE
-            }
         }
 
         binding.avatarCv.setOnClickListener {
@@ -138,18 +95,34 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_profile_to_showFullSizeAvatar,
                 bundleOf(KEY_AVATAR to bitmap))
         }
-        binding.settingsExpandableLayout.secondLayout.findViewById<Spinner>(R.id.prefer_accent_sp).onItemSelectedListener =
-            preferAccentSpinnerClickListener
-        binding.settingsExpandableLayout.secondLayout.findViewById<SwitchCompat>(R.id.dark_mode_sw)
-            .setOnCheckedChangeListener { switch, isCheck ->
-                profileViewModel.putDarMode(isCheck)
+        binding.personalInfoArrowImg.setOnClickListener {
+            Log.d("TAG IS EXPAND", binding.personalInfoExpandableLayout.isExpanded.toString())
+            if (!binding.personalInfoExpandableLayout.isExpanded) {
+                binding.personalInfoExpandableLayout.expand()
+                binding.settingsExpandableLayout.collapse()
+                rotateImage(binding.personalInfoArrowImg, true)
+            } else {
+                binding.personalInfoExpandableLayout.collapse()
+                rotateImage(binding.personalInfoArrowImg, false)
             }
-        binding.settingsExpandableLayout.secondLayout.findViewById<Spinner>(R.id.daily_goal_sp).onItemSelectedListener = dailyGoalSpinnerClickListener
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        }
+
+        binding.settingsArrowImg.setOnClickListener {
+            if (!binding.settingsExpandableLayout.isExpanded) {
+                binding.settingsExpandableLayout.expand()
+                binding.personalInfoExpandableLayout.collapse()
+                rotateImage(binding.settingsArrowImg, true)
+            } else {
+                binding.settingsExpandableLayout.collapse()
+                rotateImage(binding.settingsArrowImg, false)
+            }
+        }
+
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         return binding.root
     }
 
-    private fun startEditText(editText: AppCompatEditText) {
+    private fun startEditText(editText: androidx.appcompat.widget.AppCompatEditText) {
         editText.isFocusable = true
         editText.isCursorVisible = true
         editText.isFocusableInTouchMode = true
@@ -160,7 +133,7 @@ class ProfileFragment : Fragment() {
         imm!!.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    private fun finishEditText(editText: AppCompatEditText) {
+    private fun finishEditText(editText: androidx.appcompat.widget.AppCompatEditText) {
         editText.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 editText.isFocusable = false
@@ -168,16 +141,32 @@ class ProfileFragment : Fragment() {
                 val imm =
                     activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
                 imm!!.hideSoftInputFromWindow(editText.windowToken, 0)
-                profileViewModel.putEmail(binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatEditText>(
-                    R.id.email_info_txt).text.toString())
-                profileViewModel.putPhoneNumber(binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatEditText>(
-                    R.id.number_info_txt).text.toString())
-                profileViewModel.putFullName(binding.personalInfoExpandableLayout.secondLayout.findViewById<AppCompatEditText>(
-                    R.id.name_info_txt).text.toString())
+                profileViewModel.putEmail(binding.emailInfoTxt.text.toString())
+                profileViewModel.putPhoneNumber(binding.numberInfoTxt.text.toString())
+                profileViewModel.putFullName(binding.nameInfoTxt.text.toString())
                 return@OnKeyListener true
             }
             false
         })
+    }
+
+    fun rotateImage(imageView: ImageView, isCollapsed: Boolean) {
+        var fromDegree = 0f
+        var toDegree = 180f
+        if (isCollapsed) {
+            fromDegree = 180f
+            toDegree = 0f
+        }
+        val rotate = RotateAnimation(fromDegree,
+            toDegree,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f)
+        rotate.duration = 300
+        rotate.fillAfter = true
+        rotate.interpolator = LinearInterpolator()
+        imageView.startAnimation(rotate)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -188,18 +177,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private val preferAccentSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
+    private val spinnerClickListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
             profileViewModel.putPreferAccent(position)
-        }
-
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-        }
-    }
-
-    private val dailyGoalSpinnerClickListener = object: AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-            profileViewModel.putPersonalGoal(position)
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
