@@ -119,8 +119,11 @@ class SharePreferencesProvider(val context: Context) {
     }
 
     fun putPersonalGoal(myGoal: Int) {
-        sharePreferencesProvider.edit().putInt(Utils.MY_GOAL,myGoal).apply()
+        sharePreferencesProvider.edit().putInt(Utils.MY_GOAL, myGoal).apply()
     }
 
+    fun getPersonalGoal(): Int {
+        return sharePreferencesProvider.getInt(Utils.MY_GOAL, 20)
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.profile
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
@@ -14,6 +15,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     val joinedDateLiveData = MutableLiveData(sharedPreferencesProvider.getJoinedDate())
     val preferAccentLiveData = MutableLiveData(sharedPreferencesProvider.getPreferAccent())
     val isDarkModeLiveData = MutableLiveData(sharedPreferencesProvider.getIsDarkMode())
+    val personalGoalLiveData = MutableLiveData(sharedPreferencesProvider.getPersonalGoal())
 
     fun fetchDataFromLocalMemory() {
         fullNameLiveData.postValue(sharedPreferencesProvider.getFullName())
@@ -69,11 +71,31 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         isDarkModeLiveData.postValue(isDarkMode)
     }
 
+    fun putPersonalGoal(position: Int) {
+        var personalGoal = 20
+        when (position) {
+            0 -> personalGoal = 10
+            1 -> personalGoal = 20
+            2 -> personalGoal = 30
+        }
+        sharedPreferencesProvider.putPersonalGoal(personalGoal)
+        personalGoalLiveData.postValue(personalGoal)
+    }
+
     fun getPreferAccentPosition(): Int {
         return when (preferAccentLiveData.value!!) {
             "US" -> 0
             "UK" -> 1
             else -> 0
+        }
+    }
+
+    fun getPersonalGoalPosition(): Int {
+        return when (personalGoalLiveData.value!!) {
+            10 -> 0
+            20 -> 1
+            30 -> 2
+            else -> 20
         }
     }
 }

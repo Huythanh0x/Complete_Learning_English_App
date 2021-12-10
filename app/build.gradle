@@ -73,8 +73,11 @@ dependencies {
     // Architecture
     implementation("androidx.appcompat:appcompat:1.4.0")
 
-    def room_version = "2.3.0"
+    //expandable layout
 
+    implementation "com.github.skydoves:expandablelayout:1.0.7"
+
+    def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation("androidx.room:room-ktx:$room_version")
