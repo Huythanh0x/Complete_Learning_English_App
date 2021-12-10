@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
@@ -39,7 +38,8 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         val viewModelFactory = ProfileViewModelFactory(requireActivity().application)
         profileViewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
-        binding.preferAccentSp.onItemSelectedListener = spinnerClickListener
+        binding.preferAccentSp.onItemSelectedListener = preferAccentSpinnerClickListener
+        binding.dailyGoalSp.onItemSelectedListener = personalGoalSpinnerClickListener
         binding.darkModeSw.setOnCheckedChangeListener { switch, isCheck ->
             profileViewModel.putDarMode(isCheck)
         }
@@ -67,7 +67,30 @@ class ProfileFragment : Fragment() {
             joinedDateLiveData.observe(viewLifecycleOwner) {
                 binding.joinedTimeTxt.text = it
             }
+            personalGoalLiveData.observe(viewLifecycleOwner) {
+                binding.dailyGoalSp.setSelection(profileViewModel.getPersonalGoalPosition())
+            }
+
+            isSettingsExpanded.observe(viewLifecycleOwner) {
+                rotateImage(binding.settingsArrowImg, !it)
+                if (it) {
+                    binding.settingsExpandableLayout.expand()
+                } else {
+                    binding.settingsExpandableLayout.collapse()
+                }
+            }
+
+            isPersonalExpanded.observe(viewLifecycleOwner) {
+                rotateImage(binding.personalInfoArrowImg, !it)
+                if (it) {
+                    binding.personalInfoExpandableLayout.expand()
+                } else {
+                    binding.personalInfoExpandableLayout.collapse()
+                }
+            }
         }
+
+
         binding.logoutImg.setOnClickListener {
             startActivity(Intent(context, MainLoginActivity::class.java))
             activity?.finish()
@@ -96,25 +119,18 @@ class ProfileFragment : Fragment() {
                 bundleOf(KEY_AVATAR to bitmap))
         }
         binding.personalInfoArrowImg.setOnClickListener {
-            Log.d("TAG IS EXPAND", binding.personalInfoExpandableLayout.isExpanded.toString())
-            if (!binding.personalInfoExpandableLayout.isExpanded) {
-                binding.personalInfoExpandableLayout.expand()
-                binding.settingsExpandableLayout.collapse()
-                rotateImage(binding.personalInfoArrowImg, true)
+            if (binding.personalInfoExpandableLayout.isExpanded) {
+                profileViewModel.collapsePersonalInfo()
             } else {
-                binding.personalInfoExpandableLayout.collapse()
-                rotateImage(binding.personalInfoArrowImg, false)
+                profileViewModel.expandPersonalInfo()
             }
         }
 
         binding.settingsArrowImg.setOnClickListener {
-            if (!binding.settingsExpandableLayout.isExpanded) {
-                binding.settingsExpandableLayout.expand()
-                binding.personalInfoExpandableLayout.collapse()
-                rotateImage(binding.settingsArrowImg, true)
+            if (binding.settingsExpandableLayout.isExpanded) {
+                profileViewModel.collapseSetting()
             } else {
-                binding.settingsExpandableLayout.collapse()
-                rotateImage(binding.settingsArrowImg, false)
+                profileViewModel.expandSetting()
             }
         }
 
@@ -150,10 +166,10 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    fun rotateImage(imageView: ImageView, isCollapsed: Boolean) {
+    private fun rotateImage(imageView: ImageView, isExpanded: Boolean) {
         var fromDegree = 0f
         var toDegree = 180f
-        if (isCollapsed) {
+        if (isExpanded) {
             fromDegree = 180f
             toDegree = 0f
         }
@@ -177,9 +193,18 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private val spinnerClickListener = object : AdapterView.OnItemSelectedListener {
+    private val preferAccentSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
             profileViewModel.putPreferAccent(position)
+        }
+
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+        }
+    }
+
+    private val personalGoalSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+            profileViewModel.putPersonalGoal(position)
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {

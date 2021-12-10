@@ -1,7 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.profile
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
@@ -16,6 +15,8 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     val preferAccentLiveData = MutableLiveData(sharedPreferencesProvider.getPreferAccent())
     val isDarkModeLiveData = MutableLiveData(sharedPreferencesProvider.getIsDarkMode())
     val personalGoalLiveData = MutableLiveData(sharedPreferencesProvider.getPersonalGoal())
+    val isPersonalExpanded = MutableLiveData<Boolean>(false)
+    val isSettingsExpanded = MutableLiveData<Boolean>(false)
 
     fun fetchDataFromLocalMemory() {
         fullNameLiveData.postValue(sharedPreferencesProvider.getFullName())
@@ -96,6 +97,27 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             20 -> 1
             30 -> 2
             else -> 20
+        }
+    }
+
+    fun collapsePersonalInfo(){
+        isPersonalExpanded.postValue(false)
+    }
+
+    fun expandPersonalInfo(){
+        isPersonalExpanded.postValue(true)
+        if(isSettingsExpanded.value!!){
+            collapseSetting()
+        }
+    }
+    fun collapseSetting(){
+        isSettingsExpanded.postValue(false)
+    }
+
+    fun expandSetting(){
+        isSettingsExpanded.postValue(true)
+        if(isPersonalExpanded.value!!){
+            collapsePersonalInfo()
         }
     }
 }
