@@ -6,8 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.ImageView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -17,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
+
 
 class ProfileFragment : Fragment() {
     companion object {
@@ -90,7 +95,30 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_profile_to_showFullSizeAvatar,
                 bundleOf(KEY_AVATAR to bitmap))
         }
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        binding.personalInfoArrowImg.setOnClickListener {
+            Log.d("TAG IS EXPAND", binding.personalInfoExpandableLayout.isExpanded.toString())
+            if (!binding.personalInfoExpandableLayout.isExpanded) {
+                binding.personalInfoExpandableLayout.expand()
+                binding.settingsExpandableLayout.collapse()
+                rotateImage(binding.personalInfoArrowImg, true)
+            } else {
+                binding.personalInfoExpandableLayout.collapse()
+                rotateImage(binding.personalInfoArrowImg, false)
+            }
+        }
+
+        binding.settingsArrowImg.setOnClickListener {
+            if (!binding.settingsExpandableLayout.isExpanded) {
+                binding.settingsExpandableLayout.expand()
+                binding.personalInfoExpandableLayout.collapse()
+                rotateImage(binding.settingsArrowImg, true)
+            } else {
+                binding.settingsExpandableLayout.collapse()
+                rotateImage(binding.settingsArrowImg, false)
+            }
+        }
+
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         return binding.root
     }
 
@@ -120,6 +148,25 @@ class ProfileFragment : Fragment() {
             }
             false
         })
+    }
+
+    fun rotateImage(imageView: ImageView, isCollapsed: Boolean) {
+        var fromDegree = 0f
+        var toDegree = 180f
+        if (isCollapsed) {
+            fromDegree = 180f
+            toDegree = 0f
+        }
+        val rotate = RotateAnimation(fromDegree,
+            toDegree,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f)
+        rotate.duration = 300
+        rotate.fillAfter = true
+        rotate.interpolator = LinearInterpolator()
+        imageView.startAnimation(rotate)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

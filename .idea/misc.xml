@@ -89,6 +89,7 @@
         <entry key="app/src/main/res/drawable/ic_send.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/menu_bottom_sheet.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/online_friend_in_chat.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/outline_bottom_coner_bg.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/outline_button_bg.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/p_center.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/p_independent.xml" value="0.3494791666666667" />
@@ -101,6 +102,7 @@
         <entry key="app/src/main/res/drawable/send_message_ic.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/show_password_selector.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/solid_button_bg.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/solid_top_conner_bg.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/speaker_ic.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/statistics_learning_card_view_bg.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/top_rounded_bg.xml" value="0.3494791666666667" />
@@ -140,7 +142,7 @@
         <entry key="app/src/main/res/layout/fragment_learning.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_main_login.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_multiple_choice.xml" value="0.67" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_set_goal.xml" value="0.33350703491401773" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.3333333333333333" />
@@ -155,14 +157,19 @@
         <entry key="app/src/main/res/layout/front_card_layout.xml" value="0.5" />
         <entry key="app/src/main/res/layout/incorrect_anwser_missing_word_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/item_chat_me.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/layout_parent.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/layout_second.xml" value="0.75" />
         <entry key="app/src/main/res/layout/message_row.xml" value="0.33" />
         <entry key="app/src/main/res/layout/missing_letter_row.xml" value="0.75" />
         <entry key="app/src/main/res/layout/one_word_4_images.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/online_friend_in_chat.xml" value="0.4976671850699845" />
         <entry key="app/src/main/res/layout/online_user_row.xml" value="0.9" />
+        <entry key="app/src/main/res/layout/personal_info_layout_parent.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/pratice_listening_tflat.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/receive_message_row.xml" value="0.25" />
         <entry key="app/src/main/res/layout/send_message_row.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/settings_layout_parent.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/settings_layout_second.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/sign_up_successfully_dialog.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/single_card_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/single_flash_card_item.xml" value="0.25" />
