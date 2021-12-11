@@ -10,18 +10,19 @@ import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 
 class EntranceQuestionRecyclerAdapter(
     val listWord: ArrayList<MinimalWord>,
-    val checkBoxListener: (position: Int, isCheck: Boolean) -> Unit,
+    private val listAnswer: ArrayList<Boolean>,
+    private val checkBoxListener: (position: Int, isCheck: Boolean) -> Unit,
 ) :
     RecyclerView.Adapter<EntranceQuestionRecyclerAdapter.MyViewHolder>() {
     class MyViewHolder(val binding: EntranceQuestionRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             minimalWord: MinimalWord,
+            listAnswer: ArrayList<Boolean>,
+            position: Int,
         ) {
             binding.answerTxt.text = minimalWord.en_word
-            binding.answerTxt.setOnClickListener {
-                binding.answerCb.isChecked = !binding.answerCb.isChecked
-            }
+            binding.answerCb.isChecked = listAnswer[position]
         }
     }
 
@@ -33,19 +34,29 @@ class EntranceQuestionRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(listWord[position])
-        holder.binding.answerCb.setOnCheckedChangeListener { _, isCheck ->
-            checkBoxListener(position, isCheck)
+        holder.bind(listWord[position], listAnswer, position)
+        holder.binding.answerCb.setOnClickListener {
+            checkBoxListener(position, holder.binding.answerCb.isChecked)
+        }
+        holder.binding.answerTxt.setOnClickListener {
+            holder.binding.answerCb.isChecked = true
+            checkBoxListener(position, holder.binding.answerCb.isChecked)
         }
     }
 
     override fun getItemCount(): Int = listWord.size
 
-    fun setList(newListWord: List<MinimalWord>?) {
+    fun setListWord(newListWord: List<MinimalWord>?) {
         if (newListWord != null) {
             listWord.clear()
             listWord.addAll(newListWord)
             notifyDataSetChanged()
         }
+    }
+
+    fun setListAnswer(newListAnswer: List<Boolean>) {
+        listAnswer.clear()
+        listAnswer.addAll(newListAnswer)
+        notifyDataSetChanged()
     }
 }

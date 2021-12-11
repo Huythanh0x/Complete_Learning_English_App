@@ -34,9 +34,10 @@ class EntranceTestFragment : Fragment() {
         entranceTestViewModel =
             ViewModelProvider(this, entranceTestViewModelFactory)[EntranceTestViewModel::class.java]
         entranceTestViewModel.getListWord()
-        adapter = EntranceQuestionRecyclerAdapter(arrayListOf()) { position, isCheck ->
-            entranceTestViewModel.checkAt(position, isCheck)
-        }
+        adapter =
+            EntranceQuestionRecyclerAdapter(arrayListOf(), arrayListOf()) { position, isCheck ->
+                entranceTestViewModel.checkAt(position, isCheck)
+            }
         entranceTestViewModel.listWord.observe(viewLifecycleOwner) { listMinimalWord ->
             if (listMinimalWord.isEmpty()) {
                 binding.progressCl.visibility = View.VISIBLE
@@ -44,11 +45,11 @@ class EntranceTestFragment : Fragment() {
             } else {
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.progressCl.visibility = View.GONE
-                adapter.setList(listMinimalWord)
+                adapter.setListWord(listMinimalWord)
             }
         }
-        entranceTestViewModel.listAnswer.observe(viewLifecycleOwner) {
-//            Log.d("LIST ANSWER TAG", it.toString())
+        entranceTestViewModel.listAnswer.observe(viewLifecycleOwner) { listAnswer ->
+            adapter.setListAnswer(listAnswer)
         }
         binding.backwardImg.setOnClickListener {
             findNavController().popBackStack()
