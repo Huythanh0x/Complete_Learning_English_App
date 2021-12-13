@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
@@ -11,6 +12,7 @@ import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -42,6 +44,12 @@ class ProfileFragment : Fragment() {
         binding.dailyGoalSp.onItemSelectedListener = personalGoalSpinnerClickListener
         binding.darkModeSw.setOnCheckedChangeListener { switch, isCheck ->
             profileViewModel.putDarMode(isCheck)
+            Log.d("tesst", isCheck.toString());
+            if (isCheck) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
         profileViewModel.apply {
             phoneNumberLiveData.observe(viewLifecycleOwner) {
