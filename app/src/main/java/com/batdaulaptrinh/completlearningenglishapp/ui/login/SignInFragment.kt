@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -8,13 +9,15 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentSignInBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.introduction.IntroductionActivity
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 
 class SignInFragment : Fragment() {
@@ -38,18 +41,43 @@ class SignInFragment : Fragment() {
         }
         binding.signInBtn.setOnClickListener {
             if (!isValidEmail(binding.emailEdt.text.toString())) {
-                Toast.makeText(context, "Invalid email format", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Login fail",
+                    "Invalid email format",
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
                 return@setOnClickListener
             } else if (binding.passwordEdt.text.toString().length < 6) {
-                Toast.makeText(context,
-                    "Need at least 6 characters for password",
-                    Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Login fail",
+                    "Password need at least 6 letters",
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
+
+
                 return@setOnClickListener
             } else if (binding.emailEdt.text.toString() == "team6@10diem.com" && binding.passwordEdt.text.toString() == "camonco") {
+                Thread.sleep(1000)
                 startActivity(Intent(context, IntroductionActivity::class.java))
                 activity?.finish()
-            }else{
-                Toast.makeText(context, "Wrong email or password", Toast.LENGTH_SHORT).show()
+            } else {
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Login fail",
+                    "Wrong email or password",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
             }
         }
         return binding.root

@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.login
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
@@ -10,12 +11,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentSignUpBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.SignUpSuccessfullyDialogBinding
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class SignUpFragment : Fragment() {
     private val CHOOSEIMAGECODE = 11123
@@ -29,18 +33,40 @@ class SignUpFragment : Fragment() {
         binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
         binding.signUpTxt.setOnClickListener {
             if (!isValidEmail(binding.emailEdt.text.toString())) {
-                Toast.makeText(context, "Invalid email format", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Signup fail",
+                    "Invalid email format",
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
                 return@setOnClickListener
             } else if (binding.nameEdt.text.toString().isEmpty()) {
                 Toast.makeText(context, "Name can't be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             } else if (binding.passwordEdt.text.toString().length < 6) {
-                Toast.makeText(context,
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Signup fail",
                     "Need at least 6 characters for password",
-                    Toast.LENGTH_SHORT).show()
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
                 return@setOnClickListener
             } else if (binding.passwordEdt.text.toString() != binding.confirmPasswordEdt.text.toString()) {
-                Toast.makeText(context, "confirm password is not match", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Signup fail",
+                    "Confirm password is not match",
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
                 return@setOnClickListener
             }
             createSignUpSuccessfullyDialog()
