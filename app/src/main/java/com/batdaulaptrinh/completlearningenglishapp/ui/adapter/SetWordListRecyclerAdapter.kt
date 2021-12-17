@@ -29,11 +29,13 @@ class SetWordListRecyclerAdapter(
             binding.root.setOnClickListener { clickWordListener(word) }
             binding.isFavouriteStarImg.setOnClickListener {
                 if (word.is_favourite == 0) {
-                    binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_24)
+                    binding.isFavouriteStarImg.isChecked = true
                     word.is_favourite = 1
+                    binding.isFavouriteStarImg.playAnimation()
                 } else {
                     word.is_favourite = 0
-                    binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_border_24)
+                    binding.isFavouriteStarImg.isChecked = false
+                    binding.isFavouriteStarImg.playAnimation()
                 }
                 clickStarListener(word)
             }
@@ -46,10 +48,12 @@ class SetWordListRecyclerAdapter(
         viewType: Int,
     ): MyViewHolder {
         val binding =
-            DataBindingUtil.inflate<WordRowInWordsetBinding>(LayoutInflater.from(parent.context),
+            DataBindingUtil.inflate<WordRowInWordsetBinding>(
+                LayoutInflater.from(parent.context),
                 R.layout.word_row_in_wordset,
                 parent,
-                false)
+                false
+            )
         return MyViewHolder(binding)
     }
 

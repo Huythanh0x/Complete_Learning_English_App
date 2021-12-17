@@ -31,10 +31,12 @@ class WordListRecyclerAdapter(
             binding.isFavouriteStarImg.setOnClickListener {
                 if (minimalWord.is_favourite == 0) {
                     minimalWord.is_favourite = 1
-                    binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_24)
+                    binding.isFavouriteStarImg.isChecked = true
+                    binding.isFavouriteStarImg.playAnimation()
                 } else {
                     minimalWord.is_favourite = 0
-                    binding.isFavouriteStarImg.setImageResource(R.drawable.ic_baseline_star_border_24)
+                    binding.isFavouriteStarImg.isChecked = false
+//                    binding.isFavouriteStarImg.playAnimation()
                 }
                 starClickListener(minimalWord)
             }

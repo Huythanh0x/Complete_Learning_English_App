@@ -51,14 +51,18 @@ class AllWordTabFragment : Fragment() {
         allWordViewModel =
             ViewModelProvider(this, allWordViewModelFactory)[AllWordViewModel::class.java]
         adapter = WordListRecyclerAdapter(arrayListOf(), { word ->
-            findNavController().navigate(R.id.action_navigation_learning_to_wordDetailFragment,
-                bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word))
+            findNavController().navigate(
+                R.id.action_navigation_learning_to_wordDetailFragment,
+                bundleOf(WordDetailFragment.DETAIL_WORK_KEY to word)
+            )
         }) { word ->
             if (word.is_favourite == 1) {
                 allWordViewModel.insertFavouriteWord(word._id)
-                Toast.makeText(requireContext(),
+                Toast.makeText(
+                    requireContext(),
                     "${word.en_word} was added to your word list",
-                    Toast.LENGTH_LONG).show()
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
                 allWordViewModel.deleteFavouriteWord(word._id)
             }
@@ -134,7 +138,8 @@ class AllWordTabFragment : Fragment() {
             layoutInflater,
             R.layout.all_words_sort_bottom_sheet,
             null,
-            false)
+            false
+        )
         val realBottomSheet = BottomSheetDialog(requireContext())
         realBottomSheet.setContentView(bindingBottomSheet.root)
         bindingBottomSheet.sortByAZTxt.setOnClickListener {

@@ -110,6 +110,8 @@ dependencies {
     implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
     //motion toast
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
+    //spark button
+    implementation 'com.github.varunest:sparkbutton:1.0.6'
 
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'androidx.core:core-ktx:1.7.0'

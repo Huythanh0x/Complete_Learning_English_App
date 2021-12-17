@@ -39,17 +39,6 @@ fun setImage(imageView: ImageView, word: Word?) {
     }
 }
 
-@BindingAdapter("setStar")
-fun setStar(imageView: ImageView, word: Word?) {
-    if (word != null) {
-        if (word.is_favourite == 1) {
-            imageView.setImageResource(R.drawable.ic_baseline_star_24)
-        } else {
-            imageView.setImageResource(R.drawable.ic_baseline_star_border_24)
-        }
-    }
-}
-
 @BindingAdapter(value = ["word", "preferAccent"])
 fun playSoundFromXML(imageView: ImageView, word: Word?, preferAccent: String) {
     if (preferAccent == "US") {
@@ -89,14 +78,17 @@ fun playSoundMinimalWordFromXML(
 }
 
 
+@BindingAdapter("setStar")
+fun setStar(imageView: com.varunest.sparkbutton.SparkButton, word: Word?) {
+    if (word != null) {
+        imageView.isChecked = word.is_favourite == 1
+    }
+}
+
 @BindingAdapter("setStarMinimal")
-fun setStarMinimal(imageView: ImageView, minimalWord: MinimalWord?) {
+fun setStarMinimal(imageView: com.varunest.sparkbutton.SparkButton, minimalWord: MinimalWord?) {
     if (minimalWord != null) {
-        if (minimalWord.is_favourite == 1) {
-            imageView.setImageResource(R.drawable.ic_baseline_star_24)
-        } else {
-            imageView.setImageResource(R.drawable.ic_baseline_star_border_24)
-        }
+        imageView.isChecked = minimalWord.is_favourite == 1
     }
 }
 
