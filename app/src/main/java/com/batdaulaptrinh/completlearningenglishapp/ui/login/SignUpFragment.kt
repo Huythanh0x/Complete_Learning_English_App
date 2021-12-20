@@ -78,7 +78,6 @@ class SignUpFragment : Fragment() {
                 return@setOnClickListener
             }
             performRegister()
-            createSignUpSuccessfullyDialog()
         }
         binding.avatarCv.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -128,27 +127,36 @@ class SignUpFragment : Fragment() {
         if (Email.isEmpty() || Password.isEmpty()) {
             Toast.makeText(activity, "Please enter your email or password", Toast.LENGTH_SHORT).show()
             return
-        }
+        } else if(selectedPhotoUri == null){
+            Toast.makeText(activity, "Please choose image", Toast.LENGTH_SHORT).show()
+            return
+        }else{
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(Email, Password)
+                .addOnCompleteListener {
+                    if (!it.isSuccessful) {
+                        return@addOnCompleteListener
+                    }
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(Email, Password)
-            .addOnCompleteListener {
-                if (!it.isSuccessful) {
-                    Toast.makeText(activity, "fail", Toast.LENGTH_SHORT).show()
+                    uploadImageToFirebase()
+
+                    Toast.makeText(activity, "successfully", Toast.LENGTH_SHORT).show()
                     return@addOnCompleteListener
                 }
+                .addOnFailureListener {
+                    Toast.makeText(activity, "Failed to create user", Toast.LENGTH_SHORT).show()
 
-                uploadImageToFirebase()
+                }
+            createSignUpSuccessfullyDialog()
+        }
 
-                Toast.makeText(activity, "successfully", Toast.LENGTH_SHORT).show()
-                return@addOnCompleteListener
-            }
-            .addOnFailureListener {
-            }
+
+
     }
 
 
 
     private fun uploadImageToFirebase() {
+
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/image/$filename")
 
