@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "552241534654",
+    "firebase_url": "https://cuoikine-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cuoikine",
+    "storage_bucket": "cuoikine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552241534654:android:156c708f84138ddc16b0ef",
+        "android_client_info": {
+          "package_name": "com.batdaulaptrinh.completlearningenglishapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552241534654-v2mq036m2j8egn29k7nf6if5upoh801b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2ncw5ueDM0v3da49idFS-LJYXp5OigeQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552241534654-v2mq036m2j8egn29k7nf6if5upoh801b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

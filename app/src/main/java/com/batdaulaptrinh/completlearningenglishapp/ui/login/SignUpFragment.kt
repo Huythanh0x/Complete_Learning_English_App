@@ -4,8 +4,10 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +20,13 @@ import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentSignUpBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.SignUpSuccessfullyDialogBinding
+import com.batdaulaptrinh.completlearningenglishapp.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+import java.util.*
 
 class SignUpFragment : Fragment() {
     private val CHOOSEIMAGECODE = 11123
@@ -28,6 +35,7 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
         binding.backwardImg.setOnClickListener { findNavController().popBackStack() }
@@ -69,6 +77,7 @@ class SignUpFragment : Fragment() {
                 )
                 return@setOnClickListener
             }
+            performRegister()
             createSignUpSuccessfullyDialog()
         }
         binding.avatarCv.setOnClickListener {
@@ -99,11 +108,72 @@ class SignUpFragment : Fragment() {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
+    var selectedPhotoUri: Uri? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK) {
             data?.let {
                 binding.avatarImg.setImageURI(data.data)
+                selectedPhotoUri = data.data
             }
         }
+
+    }
+
+
+    private fun performRegister() {
+
+        val Email = binding.emailEdt.text.toString()
+        val Password = binding.passwordEdt.text.toString()
+
+        if (Email.isEmpty() || Password.isEmpty()) {
+            Toast.makeText(activity, "Please enter your email or password", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(Email, Password)
+            .addOnCompleteListener {
+                if (!it.isSuccessful) {
+                    Toast.makeText(activity, "fail", Toast.LENGTH_SHORT).show()
+                    return@addOnCompleteListener
+                }
+
+                uploadImageToFirebase()
+
+                Toast.makeText(activity, "successfully", Toast.LENGTH_SHORT).show()
+                return@addOnCompleteListener
+            }
+            .addOnFailureListener {
+            }
+    }
+
+
+
+    private fun uploadImageToFirebase() {
+        val filename = UUID.randomUUID().toString()
+        val ref = FirebaseStorage.getInstance().getReference("/image/$filename")
+
+        ref.putFile(selectedPhotoUri!!)
+            .addOnSuccessListener {
+                Toast.makeText(activity, "successful for up image", Toast.LENGTH_SHORT).show()
+
+                ref.downloadUrl.addOnSuccessListener {
+                    // save user edittext \
+                    saveUserFirebaseDatabase(it.toString())
+                }
+            }
+            .addOnFailureListener{
+                Log.e("aaa",it.toString())
+            }
+    }
+
+    private fun saveUserFirebaseDatabase(profileImageUrl: String) {
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        val ref = FirebaseDatabase.getInstance("https://cuoikine-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("/users/$uid")
+        val user = User(uid, binding.nameEdt.text.toString(), profileImageUrl)
+
+        ref.setValue(user)
     }
 }
+
+
+class User (var uid: String, val username: String, val profilenImageUrl: String)
