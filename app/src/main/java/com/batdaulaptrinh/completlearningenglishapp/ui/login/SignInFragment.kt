@@ -1,6 +1,7 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.login
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,14 +10,12 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
-import com.batdaulaptrinh.completlearningenglishapp.databinding.CompleteFlashCardDialogBindingImpl
 import com.batdaulaptrinh.completlearningenglishapp.databinding.DialogForgotPasswordBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentSignInBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.introduction.IntroductionActivity
@@ -78,79 +77,110 @@ class SignInFragment : Fragment() {
                     .addOnCompleteListener {
                         if (!it.isSuccessful) return@addOnCompleteListener
                         Toast.makeText(activity, "successful", Toast.LENGTH_LONG).show()
+                        MotionToast.createColorToast(
+                            context as Activity,
+                            "Login Successfully",
+                            "You had successfully Signed in",
+                            MotionToastStyle.SUCCESS,
+                            MotionToast.GRAVITY_TOP,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                        )
+
                         startActivity(Intent(context, IntroductionActivity::class.java))
                         activity?.finish()
 
                     }
                     .addOnFailureListener {
-                        Toast.makeText(activity, "Please try again", Toast.LENGTH_LONG).show()
+                        MotionToast.createColorToast(
+                            context as Activity,
+                            "Sign in fail",
+                            "${it.message}",
+                            MotionToastStyle.WARNING,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                        )
+                        Log.e("LOGIN TAG", "${it.message}")
                     }
             }
         }
 
         binding.forgotPasswordTxt.setOnClickListener {
-//            val builder = AlertDialog.Builder(requireContext())
-//            builder.setTitle("Forgot password")
-//            val view = layoutInflater.inflate(R.layout.dialog_forgotpass, null)
-//            val username = view.findViewById<EditText>(R.id.et_username)
-//            builder.setView(view)
-//
-//            builder.setPositiveButton("Reset", DialogInterface.OnClickListener {_,_ ->
-//                forgotpassword(username)
-//            })
-//            builder.setNegativeButton("Back", DialogInterface.OnClickListener {_,_ ->
-//
-//            })
-//            builder.show()
-
-
-            val dialogBinding = DataBindingUtil.inflate<DialogForgotPasswordBinding>(
-                LayoutInflater.from(requireContext()),
-                R.layout.dialog_forgot_password,
-                null,
-                false
-            )
-            val dialog = android.app.AlertDialog.Builder(requireContext()).setView(dialogBinding.root).create()
-
-            dialogBinding.buttonBack.setOnClickListener {
-                dialog.dismiss()
-            }
-
-            dialogBinding.btnReset.setOnClickListener {
-                val email = dialogBinding.edtEmail.editText?.text.toString()
-                forgotpassword(email, dialogBinding)
-            }
-
-            dialog.show()
-
+            createForgotPasswordDialog()
         }
-
-
         return binding.root
     }
 
-    private fun forgotpassword(email: String, dialogbinding: DialogForgotPasswordBinding ) {
-        if (email.isEmpty()) {
-            return
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(activity, "email don't invalid", Toast.LENGTH_SHORT).show()
-            dialogbinding.edtEmail.editText?.text?.clear()
+    private fun createForgotPasswordDialog() {
+        val dialogBinding = DataBindingUtil.inflate<DialogForgotPasswordBinding>(
+            LayoutInflater.from(requireContext()),
+            R.layout.dialog_forgot_password,
+            null,
+            false
+        )
+        val dialog =
+            android.app.AlertDialog.Builder(requireContext()).setView(dialogBinding.root)
+                .create()
 
-        } else {
-
-            FirebaseAuth.getInstance().sendPasswordResetEmail(email)
-                .addOnCompleteListener {
-                    if (!it.isSuccessful) return@addOnCompleteListener
-
-                    Toast.makeText(activity, "Email send", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener() {
-                    Toast.makeText(activity, "Email doesn't exits", Toast.LENGTH_SHORT).show()
-                    return@addOnFailureListener
-                }
+        dialogBinding.buttonBack.setOnClickListener {
+            dialog.dismiss()
         }
 
+        dialogBinding.btnReset.setOnClickListener {
+            dialogBinding.edtEmail.editText?.text?.let {
+                forgotPassword(dialog, dialogBinding)
+            }
+        }
+        dialog.show()
+    }
 
+    private fun forgotPassword(dialog: AlertDialog, dialogBinding: DialogForgotPasswordBinding) {
+        val email = dialogBinding.emailEdt.text.toString()
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            MotionToast.createColorToast(
+                context as Activity,
+                "Reset password failed",
+                "Invalid email format",
+                MotionToastStyle.WARNING,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+            )
+            return
+        }
+        dialogBinding.progressContainerCl.visibility = View.VISIBLE
+        dialogBinding.dialogRoot.alpha = 0.3f
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+            .addOnCompleteListener {
+                if (!it.isSuccessful) return@addOnCompleteListener
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Reset password successfully",
+                    "Check your email for resetting",
+                    MotionToastStyle.SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
+                dialogBinding.progressContainerCl.visibility = View.GONE
+                dialogBinding.dialogRoot.alpha = 1f
+                dialog.dismiss()
+            }
+            .addOnFailureListener() {
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "Reset password failed",
+                    "${it.message.toString()}",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
+                dialogBinding.progressContainerCl.visibility = View.GONE
+                dialogBinding.dialogRoot.alpha = 1f
+                return@addOnFailureListener
+            }
     }
 
     private fun isValidEmail(target: String?): Boolean {

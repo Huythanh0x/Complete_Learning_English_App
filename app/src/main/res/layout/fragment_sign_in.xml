@@ -77,9 +77,9 @@
                 android:id="@+id/email_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:background="@drawable/outline_button_bg"
-                android:hint="email" />
+                android:hint="email"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -96,10 +96,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_edt"
                 android:layout_width="match_parent"
-                android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:background="@drawable/outline_button_bg"
-                android:hint="password" />
+                android:hint="password"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
