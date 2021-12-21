@@ -122,6 +122,7 @@ class SignUpFragment : Fragment() {
 
     private fun performRegister() {
         binding.progressContainerCl.visibility = View.VISIBLE
+        binding.mainContainerCl.alpha = 0.3f
         val email = binding.emailEdt.text.toString()
         val password = binding.passwordEdt.text.toString()
         if (email.isEmpty() || password.isEmpty()) {
@@ -147,6 +148,8 @@ class SignUpFragment : Fragment() {
                 .addOnFailureListener {
                     Log.e("CREATE ACCOUNT TAG", "$it")
                     binding.progressContainerCl.visibility = View.GONE
+                    binding.mainContainerCl.alpha = 1f
+                    binding.root.alpha = 1f
                     MotionToast.createColorToast(
                         context as Activity,
                         "Sign up fail",
@@ -186,6 +189,7 @@ class SignUpFragment : Fragment() {
         ref.putFile(selectedPhotoUri!!)
             .addOnSuccessListener {
                 binding.progressContainerCl.visibility = View.GONE
+                binding.mainContainerCl.alpha = 1f
                 try {
                     createSignUpSuccessfullyDialog()
                 } catch (e: Exception) {

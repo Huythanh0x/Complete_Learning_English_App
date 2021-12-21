@@ -10,7 +10,6 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -71,12 +70,13 @@ class SignInFragment : Fragment() {
 
                 return@setOnClickListener
             } else {
+                binding.progressContainerCl.visibility = View.VISIBLE
+                binding.mainContainerCl.alpha = 0.3f
                 val email = binding.emailEdt.text.toString()
                 val pass = binding.passwordEdt.text.toString()
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener {
                         if (!it.isSuccessful) return@addOnCompleteListener
-                        Toast.makeText(activity, "successful", Toast.LENGTH_LONG).show()
                         MotionToast.createColorToast(
                             context as Activity,
                             "Login Successfully",
@@ -92,6 +92,8 @@ class SignInFragment : Fragment() {
 
                     }
                     .addOnFailureListener {
+                        binding.progressContainerCl.visibility = View.GONE
+                        binding.mainContainerCl.alpha = 1f
                         MotionToast.createColorToast(
                             context as Activity,
                             "Sign in fail",
@@ -120,7 +122,7 @@ class SignInFragment : Fragment() {
             false
         )
         val dialog =
-            android.app.AlertDialog.Builder(requireContext()).setView(dialogBinding.root)
+            AlertDialog.Builder(requireContext()).setView(dialogBinding.root)
                 .create()
 
         dialogBinding.buttonBack.setOnClickListener {
@@ -167,11 +169,11 @@ class SignInFragment : Fragment() {
                 dialogBinding.dialogRoot.alpha = 1f
                 dialog.dismiss()
             }
-            .addOnFailureListener() {
+            .addOnFailureListener {
                 MotionToast.createColorToast(
                     context as Activity,
                     "Reset password failed",
-                    "${it.message.toString()}",
+                    it.message.toString(),
                     MotionToastStyle.ERROR,
                     MotionToast.GRAVITY_BOTTOM,
                     MotionToast.LONG_DURATION,
@@ -184,6 +186,6 @@ class SignInFragment : Fragment() {
     }
 
     private fun isValidEmail(target: String?): Boolean {
-        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        return !(TextUtils.isEmpty(target) || !Patterns.EMAIL_ADDRESS.matcher(target.toString()).matches())
     }
 }

@@ -47,6 +47,7 @@
     <string name="_19s">19s</string>
     <string name="_20s">20s</string>
     <string name="delay_before_moving_to_next_word">Delay before moving to next word</string>
+    <string name="signing_up">SIGNING UP</string>
 
     <string-array name="prefer_accent_spinner">
         <item name="us">US</item>
