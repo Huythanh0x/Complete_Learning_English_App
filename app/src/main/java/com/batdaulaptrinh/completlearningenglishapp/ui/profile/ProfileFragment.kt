@@ -22,13 +22,14 @@ import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 
 
 class ProfileFragment : Fragment() {
     companion object {
         val KEY_AVATAR = "KEY_AVATAR"
     }
-
     private val CHOOSEIMAGECODE = 11123
     lateinit var binding: FragmentProfileBinding
     lateinit var profileViewModel: ProfileViewModel
@@ -100,6 +101,7 @@ class ProfileFragment : Fragment() {
 
 
         binding.logoutImg.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
             startActivity(Intent(context, MainLoginActivity::class.java))
             activity?.finish()
         }

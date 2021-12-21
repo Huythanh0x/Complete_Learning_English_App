@@ -1,6 +1,7 @@
 package com.batdaulaptrinh.completlearningenglishapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -18,6 +18,8 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainBinding
+import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +33,10 @@ class MainActivity : AppCompatActivity() {
 //            setTheme(R.style.AppTheme)
 //        }
         super.onCreate(savedInstanceState)
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            startActivity(Intent(this, MainLoginActivity::class.java))
+            finish()
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment_container)
         val appBarConfiguration = AppBarConfiguration(
