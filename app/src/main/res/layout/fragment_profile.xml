@@ -44,7 +44,7 @@
                 android:id="@+id/avatar_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/profile_bg"
+                android:src="@drawable/main_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -54,6 +54,7 @@
                 android:id="@+id/avatar_cv"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_marginTop="20dp"
                 app:cardCornerRadius="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
