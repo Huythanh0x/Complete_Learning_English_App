@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordMoreDetailBinding
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
@@ -27,8 +28,11 @@ class WordMoreDetailFragment : Fragment() {
         arguments?.let { bundle ->
             val word = bundle.get(KEY_MORE_DETAIL)
             if (word is Word) {
-                binding.webView.loadUrl(word.clean_word_url)
+                binding.webView.loadUrl("${word.clean_word_url}#main-container")
             }
+        }
+        binding.backwardImg.setOnClickListener{
+            findNavController().popBackStack()
         }
         return binding.root
     }

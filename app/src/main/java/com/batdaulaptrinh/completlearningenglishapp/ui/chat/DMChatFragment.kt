@@ -73,7 +73,7 @@ class DMChatFragment : Fragment() {
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_CODE)
         }
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         // Inflate the layout for this fragment
         return binding.root
     }

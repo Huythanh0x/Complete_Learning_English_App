@@ -76,7 +76,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="40dp"
-            android:background="@drawable/solid_button_bg"
+            android:background="@drawable/gradient_ripple_effect"
             android:text="Start"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

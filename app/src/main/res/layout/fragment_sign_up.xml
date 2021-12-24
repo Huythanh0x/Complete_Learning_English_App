@@ -30,13 +30,16 @@
                     android:id="@+id/backward_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:paddingVertical="10dp"
+                    android:paddingEnd="10dp"
                     android:src="@drawable/backward_ic" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/title_tool_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="10dp"
                     android:text="SIGN UP"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
@@ -67,6 +70,7 @@
                     android:id="@+id/avatar_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="?selectableItemBackgroundBorderless"
                     android:scaleType="centerCrop"
                     android:src="@drawable/place_holder_avatar_img" />
             </androidx.cardview.widget.CardView>
@@ -158,7 +162,7 @@
                 android:id="@+id/sign_up_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/solid_button_bg"
+                android:background="@drawable/gradient_ripple_effect"
                 android:paddingHorizontal="50dp"
                 android:text="SIGN UP"
                 android:textColor="@color/white"

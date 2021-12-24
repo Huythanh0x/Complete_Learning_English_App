@@ -10,8 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
-import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordDayTabBinding
-import com.batdaulaptrinh.completlearningenglishapp.databinding.StatisticStreakDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.others.EventDecorator
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordSetRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.MultipleChoiceFragment
@@ -28,7 +26,7 @@ class WordDayTabFragment : Fragment() {
         val KEY_AGRS_SET = "WORD_SET"
     }
 
-    lateinit var binding: FragmentWordDayTabBinding
+    lateinit var binding: com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentWordDayTabBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -37,14 +35,18 @@ class WordDayTabFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_word_day_tab, container, false)
 
-        binding.experiencePointCv.setOnClickListener {
+        binding.experiencePointCv.setOnClickListener { cardView ->
+//            val animation = AnimationUtils.loadAnimation(context, R.anim.press_sound_btn)
+//            cardView.startAnimation(animation)
             val dialog =
                 AlertDialog.Builder(requireContext()).setView(R.layout.statistic_experience_dialog)
                     .create()
             dialog.show()
         }
 
-        binding.learningDayCv.setOnClickListener {
+        binding.learningDayCv.setOnClickListener { cardView ->
+//            val animation = AnimationUtils.loadAnimation(context, R.anim.press_sound_btn)
+//            cardView.startAnimation(animation)
             createStreakDialog()
         }
         //TODO fake here
@@ -72,12 +74,13 @@ class WordDayTabFragment : Fragment() {
     lateinit var calendarView: MaterialCalendarView
 
     private fun createStreakDialog() {
-        val dialogBinding = DataBindingUtil.inflate<StatisticStreakDialogBinding>(
-            layoutInflater,
-            R.layout.statistic_streak_dialog,
-            null,
-            false
-        )
+        val dialogBinding =
+            DataBindingUtil.inflate<com.batdaulaptrinh.completlearningenglishapp.databinding.StatisticStreakDialogBinding>(
+                layoutInflater,
+                R.layout.statistic_streak_dialog,
+                null,
+                false
+            )
         calendarView = dialogBinding.calendarView
         dialogBinding.calendarView.showOtherDates = MaterialCalendarView.SHOW_ALL
 

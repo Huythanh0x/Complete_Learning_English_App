@@ -29,95 +29,134 @@
             android:id="@+id/list_chooser_sc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:fillViewport="true"
+            android:paddingHorizontal="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settings_title">
 
-            <LinearLayout
+            <RadioGroup
+                android:id="@+id/radio_group"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <RadioGroup
-                    android:id="@+id/radio_group"
+                <RadioButton
+                    android:id="@+id/a1000_minutes"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="1000 minutes"
+                    android:textSize="18sp" />
 
-                    <RadioButton
-                        android:id="@+id/a1000_minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="1000 minutes"
-                        android:textSize="18sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
 
-                    <RadioButton
-                        android:id="@+id/a5minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="5 minutes"
-                        android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/a5minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="5 minutes"
+                    android:textSize="18sp" />
 
-                    <RadioButton
-                        android:id="@+id/a10minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="10 minutes"
-                        android:textSize="18sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
 
-                    <RadioButton
-                        android:id="@+id/a15minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="15 minutes"
-                        android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/a10minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="10 minutes"
+                    android:textSize="18sp" />
 
-                    <RadioButton
-                        android:id="@+id/a20minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="20 minutes"
-                        android:textSize="18sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
 
-                    <RadioButton
-                        android:id="@+id/a30minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="30 minutes"
-                        android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/a15minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="15 minutes"
+                    android:textSize="18sp" />
 
-                    <RadioButton
-                        android:id="@+id/a40minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="40 minutes"
-                        android:textSize="18sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
 
-                    <RadioButton
-                        android:id="@+id/a50minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="50 minutes"
-                        android:textSize="18sp" />
+                <RadioButton
+                    android:id="@+id/a20minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="20 minutes"
+                    android:textSize="18sp" />
 
-                    <RadioButton
-                        android:id="@+id/a60minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="60 minutes"
-                        android:textSize="18sp" />
-                </RadioGroup>
-            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
+
+                <RadioButton
+                    android:id="@+id/a30minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="30 minutes"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
+
+                <RadioButton
+                    android:id="@+id/a40minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="40 minutes"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
+
+                <RadioButton
+                    android:id="@+id/a50minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="50 minutes"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
+
+                <RadioButton
+                    android:id="@+id/a60minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:text="60 minutes"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
+            </RadioGroup>
 
         </ScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>

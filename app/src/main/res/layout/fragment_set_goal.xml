@@ -25,14 +25,15 @@
                 android:id="@+id/backward_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_tool_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:text="SET MY GOAL"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -74,7 +75,7 @@
                         android:id="@+id/easy_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/clicked_item_bg"
+                        android:background="@drawable/white_ripple_effect"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -85,6 +86,7 @@
                             android:id="@+id/view3"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="5dp"
                             android:background="@android:color/darker_gray"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -116,9 +118,9 @@
                         <androidx.appcompat.widget.AppCompatRadioButton
                             android:id="@+id/easy_cb"
                             android:layout_width="wrap_content"
-                            android:checked="true"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
+                            android:checked="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -126,6 +128,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
                             android:background="@android:color/darker_gray"
@@ -159,7 +162,7 @@
                         android:id="@+id/serious_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/clicked_item_bg"
+                        android:background="@drawable/white_ripple_effect"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -170,6 +173,7 @@
                             android:id="@+id/view4"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="5dp"
                             android:background="@android:color/darker_gray"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -210,6 +214,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
                             android:background="@android:color/darker_gray"
@@ -243,7 +248,7 @@
                         android:id="@+id/intense_mode_cl"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/clicked_item_bg"
+                        android:background="@drawable/white_ripple_effect"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -254,6 +259,7 @@
                             android:id="@+id/view2"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="5dp"
                             android:background="@android:color/darker_gray"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -294,6 +300,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
                             android:background="@android:color/darker_gray"

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/clicked_item_bg">
+        android:background="@drawable/white_ripple_effect">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/wrong_answer_txt"
@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="5dp"
+            android:clickable="true"
             android:text="1. beginner"
             android:textColor="@color/black"
             android:textSize="20sp"

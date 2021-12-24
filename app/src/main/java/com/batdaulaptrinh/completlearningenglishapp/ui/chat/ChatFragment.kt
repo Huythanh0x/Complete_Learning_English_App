@@ -1,9 +1,11 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,17 +29,25 @@ class ChatFragment : Fragment() {
         //TODO faking here
         binding.listChatRoomRv.adapter =
             ChatRoomRecyclerAdapter(Utils.getListChatRoom()) { chatRoom: ChatRoom ->
-                findNavController().navigate(R.id.action_navigation_chat_to_DMChatFragment,
+                findNavController().navigate(
+                    R.id.action_navigation_chat_to_DMChatFragment,
                     bundleOf(
-                        DMChatFragment.KEY_CHAT_HEADER to chatRoom))
+                        DMChatFragment.KEY_CHAT_HEADER to chatRoom
+                    )
+                )
 
             }
         binding.onlineUserListRv.adapter =
             OnlineUserRecyclerAdapter(Utils.getListChatRoom()) { chatRoom ->
-                findNavController().navigate(R.id.action_navigation_chat_to_DMChatFragment,
+                findNavController().navigate(
+                    R.id.action_navigation_chat_to_DMChatFragment,
                     bundleOf(
-                        DMChatFragment.KEY_CHAT_HEADER to chatRoom))
+                        DMChatFragment.KEY_CHAT_HEADER to chatRoom
+                    )
+                )
             }
+
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         //TODO("new fragment and show suggestion")
         return binding.root
     }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -32,20 +33,26 @@ class TestTabFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_test_tab, container, false)
 
-        binding.experiencePointCv.setOnClickListener {
+        binding.experiencePointCv.setOnClickListener { cardView ->
+            val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+            cardView.startAnimation(animation)
             val dialog =
                 AlertDialog.Builder(requireContext()).setView(R.layout.statistic_experience_dialog)
                     .create()
             dialog.show()
         }
 
-        binding.learningDayCv.setOnClickListener {
+        binding.learningDayCv.setOnClickListener { cardView ->
+            val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+            cardView.startAnimation(animation)
             createStreakDialog()
         }
         //TODO faking here
         binding.recyclerView.adapter = WordTestRecyclerViewAdapter(Utils.getWordSet()) { wordSet ->
-            findNavController().navigate(R.id.action_navigation_home_to_multipleChoiceFragment,
-                bundleOf(MultipleChoiceFragment.KEY_AGRS_SET to wordSet))
+            findNavController().navigate(
+                R.id.action_navigation_home_to_multipleChoiceFragment,
+                bundleOf(MultipleChoiceFragment.KEY_AGRS_SET to wordSet)
+            )
         }
 
         return binding.root

@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -20,6 +21,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,8 +79,16 @@ class MainActivity : AppCompatActivity() {
                 return
             }
             this.doubleBackToExitPressedOnce = true
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
 
+            MotionToast.createColorToast(
+                this,
+                "WARNING",
+                "Please click BACK again to exit",
+                MotionToastStyle.WARNING,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(this, R.font.helvetica_regular)
+            )
             Handler(Looper.getMainLooper()).postDelayed({
                 doubleBackToExitPressedOnce = false
             }, 2000)

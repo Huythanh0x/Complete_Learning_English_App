@@ -17,7 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/clicked_item_bg">
+        android:background="@drawable/white_ripple_effect"
+        android:paddingHorizontal="10dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/thumbnail_img"
@@ -31,14 +32,14 @@
             tools:setImage="@{word}"
             tools:src="@drawable/clean_thumbnail_1" />
 
-<!--        <androidx.appcompat.widget.AppCompatImageView-->
-<!--            android:id="@+id/is_favourite_star_img"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/thumbnail_img"-->
-<!--            tools:setStar="@{word}"-->
-<!--            tools:src="@drawable/ic_baseline_star_24" />-->
+        <!--        <androidx.appcompat.widget.AppCompatImageView-->
+        <!--            android:id="@+id/is_favourite_star_img"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/thumbnail_img"-->
+        <!--            tools:setStar="@{word}"-->
+        <!--            tools:src="@drawable/ic_baseline_star_24" />-->
 
 
         <com.varunest.sparkbutton.SparkButton
@@ -83,6 +84,7 @@
             android:id="@+id/play_sound_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?selectableItemBackgroundBorderless"
             android:padding="5dp"
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/api_txt"

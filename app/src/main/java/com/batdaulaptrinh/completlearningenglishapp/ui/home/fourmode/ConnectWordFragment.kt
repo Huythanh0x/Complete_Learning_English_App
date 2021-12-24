@@ -1,13 +1,14 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -17,8 +18,10 @@ import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.EmptyLetterRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.MissingLetterRecyclerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.util.*
-
+const val SUPER_SHORT_DURATION = 1000L
 class ConnectWordFragment : Fragment() {
     lateinit var binding: FragmentConnectWordBinding
     private val listEmptyLetter = arrayListOf<String>()
@@ -61,9 +64,11 @@ class ConnectWordFragment : Fragment() {
             listEmptyLetter.add("")
         }
         emptyLetterRecyclerAdapter =
-            EmptyLetterRecyclerAdapter(listEmptyLetter,
+            EmptyLetterRecyclerAdapter(
+                listEmptyLetter,
                 primaryListMissingLetter,
-                secondaryListMissingLetter) { clickedLetter, position ->
+                secondaryListMissingLetter
+            ) { clickedLetter, position ->
 //                Toast.makeText(context, "EMPTY LIST STRING IS $listEmptyLetter", Toast.LENGTH_SHORT)
 //                    .show()
                 if (clickedLetter == " " || clickedLetter == "") {
@@ -113,9 +118,26 @@ class ConnectWordFragment : Fragment() {
         binding.secondaryListMissingLetterRc.adapter = secondaryListMissingLetterRecyclerAdapter
         binding.checkBtn.setOnClickListener {
             if (listEmptyLetter.joinToString().replace(",", "").replace(" ", "") == originWord) {
-                Toast.makeText(context, "CORRECT", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "CORRECT",
+                    "the answer are ${originWord.uppercase()}",
+                    MotionToastStyle.SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
+
             } else {
-                Toast.makeText(context, "INCORRECT", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(
+                    context as Activity,
+                    "INCORRECT",
+                    "Try again",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    SUPER_SHORT_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
             }
         }
         return binding.root

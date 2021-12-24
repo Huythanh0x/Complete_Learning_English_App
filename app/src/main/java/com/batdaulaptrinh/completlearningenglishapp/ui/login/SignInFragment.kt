@@ -10,6 +10,8 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -109,7 +111,17 @@ class SignInFragment : Fragment() {
         }
 
         binding.forgotPasswordTxt.setOnClickListener {
-            createForgotPasswordDialog()
+            val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+            animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(p0: Animation?) {}
+
+                override fun onAnimationEnd(p0: Animation?) {
+                    createForgotPasswordDialog()
+                }
+
+                override fun onAnimationRepeat(p0: Animation?) {}
+            })
+            it.startAnimation(animation)
         }
         return binding.root
     }
@@ -186,6 +198,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun isValidEmail(target: String?): Boolean {
-        return !(TextUtils.isEmpty(target) || !Patterns.EMAIL_ADDRESS.matcher(target.toString()).matches())
+        return !(TextUtils.isEmpty(target) || !Patterns.EMAIL_ADDRESS.matcher(target.toString())
+            .matches())
     }
 }

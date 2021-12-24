@@ -11,4 +11,9 @@
             android:gravity="bottom"
             android:src="@drawable/big_product_by" />
     </item>
+    <item android:top="0dp">
+        <bitmap
+            android:gravity="top"
+            android:src="@drawable/main_bg" />
+    </item>
 </layer-list>

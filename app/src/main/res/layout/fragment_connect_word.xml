@@ -25,14 +25,15 @@
                 android:id="@+id/backward_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_tool_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:text="YOUR PROFILE"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -41,10 +42,10 @@
                 android:id="@+id/settings_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/ic_baseline_settings_24" />
+                android:src="@drawable/ic_baseline_settings_24"
+                android:visibility="gone" />
         </androidx.appcompat.widget.Toolbar>
 
 

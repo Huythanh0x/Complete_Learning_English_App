@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
@@ -42,17 +44,21 @@ class MultipleChoiceFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate<FragmentMultipleChoiceBinding>(layoutInflater,
+        binding = DataBindingUtil.inflate<FragmentMultipleChoiceBinding>(
+            layoutInflater,
             R.layout.fragment_multiple_choice,
             container,
-            false)
+            false
+        )
 
         val wordDao = LearningAppDatabase.getInstance(requireContext()).wordDao
         LearningAppDatabase.getInstance(requireContext()).learnedDateDAO
         val wordRepository = WordRepository(wordDao)
         val multipleChoiceViewModelFactory = MultipleChoiceViewModelFactory(wordRepository)
-        multipleChoiceViewModel = ViewModelProvider(this,
-            multipleChoiceViewModelFactory)[MultipleChoiceViewModel::class.java]
+        multipleChoiceViewModel = ViewModelProvider(
+            this,
+            multipleChoiceViewModelFactory
+        )[MultipleChoiceViewModel::class.java]
         adapter = WrongWordListRecyclerAdapter(arrayListOf())
         arguments?.let {
             val setWord = it.get(ChoosingModeFragment.KEY_ARGS_SET)
@@ -81,14 +87,24 @@ class MultipleChoiceFragment : Fragment() {
             val nextChild = (binding.answerConstraintLayout as ViewGroup).getChildAt(index)
             if (nextChild.tag.toString() == "a" || nextChild.tag.toString() == "b" || nextChild.tag.toString() == "c" || nextChild.tag.toString() == "d")
                 nextChild.setOnClickListener {
-                    adjustMarginTopOfRoot(-550)
-                    showIncorrectAnswer(it.tag.toString())
-                    showCorrectAnswer(correctAnswer)
                     if (it.tag.toString().uppercase() == correctAnswer) {
                         createCorrectNextBottomSheet()
                     } else {
                         createIncorrectNextBottomSheet(correctAnswer)
                     }
+                    val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+                    animation.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(p0: Animation?) {}
+
+                        override fun onAnimationEnd(p0: Animation?) {
+                            adjustMarginTopOfRoot(-550)
+                            showIncorrectAnswer(it.tag.toString())
+                            showCorrectAnswer(correctAnswer)
+                        }
+
+                        override fun onAnimationRepeat(p0: Animation?) {}
+                    })
+                    it.startAnimation(animation)
                 }
         }
     }
@@ -132,10 +148,12 @@ class MultipleChoiceFragment : Fragment() {
     }
 
     private fun createCorrectNextBottomSheet() {
-        val dialogBinding = DataBindingUtil.inflate<CorrectAnswerNextDialogBinding>(layoutInflater,
+        val dialogBinding = DataBindingUtil.inflate<CorrectAnswerNextDialogBinding>(
+            layoutInflater,
             R.layout.correct_answer_next_dialog,
             null,
-            false)
+            false
+        )
         val dialog = BottomSheetDialog(requireContext())
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.setCancelable(false)
@@ -152,14 +170,16 @@ class MultipleChoiceFragment : Fragment() {
 
     private fun createIncorrectNextBottomSheet(correctAnswer: String) {
         val dialogBinding =
-            DataBindingUtil.inflate<IncorrectAnswerNextDialogBinding>(layoutInflater,
+            DataBindingUtil.inflate<IncorrectAnswerNextDialogBinding>(
+                layoutInflater,
                 R.layout.incorrect_answer_next_dialog,
                 null,
-                false)
+                false
+            )
         val dialog = BottomSheetDialog(requireContext())
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.setCancelable(false)
-        dialogBinding.correctAnswerTxt.text = correctAnswer
+//        dialogBinding.correctAnswerTxt.text = correctAnswer
         dialog.setContentView(dialogBinding.root)
         dialogBinding.nextBtn.setOnClickListener {
             dialog.dismiss()
@@ -173,10 +193,12 @@ class MultipleChoiceFragment : Fragment() {
 
     private fun createCompleteDialog() {
         val dialogBinding =
-            DataBindingUtil.inflate<CompleteGameDialogBinding>(LayoutInflater.from(requireContext()),
+            DataBindingUtil.inflate<CompleteGameDialogBinding>(
+                LayoutInflater.from(requireContext()),
                 R.layout.complete_game_dialog,
                 null,
-                false)
+                false
+            )
         val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
         dialog.window?.setDimAmount(0.5f)
         dialog.setCancelable(false)
@@ -184,12 +206,15 @@ class MultipleChoiceFragment : Fragment() {
         dialogBinding.tryAgainGameCardBtn.setOnClickListener {
             dialog.dismiss()
         }
-        dialogBinding.correctAnswerTxt.text = ((multipleChoiceViewModel.listWord.value?.size ?: 0) - adapter.itemCount).toString()
+        dialogBinding.correctAnswerTxt.text =
+            ((multipleChoiceViewModel.listWord.value?.size ?: 0) - adapter.itemCount).toString()
         dialogBinding.wrongAnswerTxt.text = adapter.itemCount.toString()
         dialogBinding.addToNextSetBtn.setOnClickListener {
-            Snackbar.make(dialogBinding.root,
+            Snackbar.make(
+                dialogBinding.root,
                 "Wrong words was added to next set",
-                Snackbar.LENGTH_SHORT).setAction("Undo") {
+                Snackbar.LENGTH_SHORT
+            ).setAction("Undo") {
             }.show()
         }
         dialogBinding.backToMenuFlashCardBtn.setOnClickListener {
@@ -197,5 +222,19 @@ class MultipleChoiceFragment : Fragment() {
             findNavController().popBackStack()
         }
         dialog.show()
+    }
+
+    private val animationListener = object : Animation.AnimationListener {
+        override fun onAnimationStart(p0: Animation?) {
+//            TODO("Not yet implemented")
+        }
+
+        override fun onAnimationEnd(p0: Animation?) {
+//            TODO("Not yet implemented")
+        }
+
+        override fun onAnimationRepeat(p0: Animation?) {
+//            TODO("Not yet implemented")
+        }
     }
 }

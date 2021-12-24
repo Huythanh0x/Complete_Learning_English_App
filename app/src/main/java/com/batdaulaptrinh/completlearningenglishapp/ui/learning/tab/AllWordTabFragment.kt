@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.learning.tab
 
+import android.app.Activity
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Base64
@@ -7,8 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,6 +28,8 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.net.URL
@@ -58,11 +61,15 @@ class AllWordTabFragment : Fragment() {
         }) { word ->
             if (word.is_favourite == 1) {
                 allWordViewModel.insertFavouriteWord(word._id)
-                Toast.makeText(
-                    requireContext(),
-                    "${word.en_word} was added to your word list",
-                    Toast.LENGTH_LONG
-                ).show()
+                MotionToast.createColorToast(
+                    context as Activity,
+                    word.en_word.uppercase(),
+                    "was added to your wordlist",
+                    MotionToastStyle.INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    Utils.SUPER_SHORT_DURATION,
+                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+                )
             } else {
                 allWordViewModel.deleteFavouriteWord(word._id)
             }

@@ -1,12 +1,13 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +23,9 @@ import com.batdaulaptrinh.completlearningenglishapp.model.WordSet
 import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.FlashCardAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.ChoosingModeFragment
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class FlashCardFragment : Fragment() {
     lateinit var binding: FragmentFlashCardBinding
@@ -111,7 +115,15 @@ class FlashCardFragment : Fragment() {
         }
         dialogBinding.saveBtn.setOnClickListener {
             flashCardViewModel.saveSettings()
-            Toast.makeText(requireContext(), "save successfully", Toast.LENGTH_SHORT).show()
+            MotionToast.createColorToast(
+                context as Activity,
+                "save settings",
+                "save settings successfully",
+                MotionToastStyle.SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                Utils.SUPER_SHORT_DURATION,
+                ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+            )
             dialog.dismiss()
         }
         dialog.show()

@@ -26,6 +26,7 @@ class Utils {
         const val LOCATION = "LOCATION"
         const val JOINED_DATE = "JOINED_DATE"
         const val CURRENT_LEVEL = "CURRENT_LEVEL"
+        const val SUPER_SHORT_DURATION = 1000L
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,

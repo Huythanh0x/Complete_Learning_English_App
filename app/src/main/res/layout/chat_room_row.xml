@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/clicked_item_bg"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_ripple_effect">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"

@@ -25,7 +25,9 @@
                 android:id="@+id/backward_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -42,7 +44,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="10dp"
                 android:src="@drawable/ic_baseline_settings_24" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -93,6 +97,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="2dp"
             android:src="@drawable/ic_microphone_svgrepo_com"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -102,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:background="?selectableItemBackgroundBorderless"
             android:src="@drawable/ic_baseline_image_24"
             app:layout_constraintBottom_toBottomOf="@+id/send_audio_img"
             app:layout_constraintStart_toEndOf="@+id/send_audio_img"
@@ -112,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:background="?selectableItemBackgroundBorderless"
             android:src="@drawable/send_message_ic"
             app:layout_constraintBottom_toBottomOf="@+id/text_input_layout_write_message"
             app:layout_constraintEnd_toEndOf="parent"

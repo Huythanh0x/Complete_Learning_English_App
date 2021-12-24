@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -34,22 +35,32 @@ class ChoosingModeFragment : Fragment() {
             }
 
             binding.testCv.setOnClickListener {
-                findNavController().navigate(R.id.action_choosingModeFragment_to_multipleChoiceFragment,
-                    bundleOf(KEY_ARGS_SET to setWord))
+                findNavController().navigate(
+                    R.id.action_choosingModeFragment_to_multipleChoiceFragment,
+                    bundleOf(KEY_ARGS_SET to setWord)
+                )
             }
             binding.wordListCv.setOnClickListener {
-                findNavController().navigate(R.id.action_choosingModeFragment_to_wordListFragment,
-                    bundleOf(KEY_ARGS_SET to setWord))
+                findNavController().navigate(
+                    R.id.action_choosingModeFragment_to_wordListFragment,
+                    bundleOf(KEY_ARGS_SET to setWord)
+                )
             }
             binding.gameCv.setOnClickListener {
-                findNavController().navigate(R.id.action_choosingModeFragment_to_connectWordFragment,
-                    bundleOf(KEY_ARGS_SET to setWord))
+                findNavController().navigate(
+                    R.id.action_choosingModeFragment_to_connectWordFragment,
+                    bundleOf(KEY_ARGS_SET to setWord)
+                )
             }
             binding.flashCardCv.setOnClickListener {
-                findNavController().navigate(R.id.action_choosingModeFragment_to_flashCardFragment,
-                    bundleOf(KEY_ARGS_SET to setWord))
+                findNavController().navigate(
+                    R.id.action_choosingModeFragment_to_flashCardFragment,
+                    bundleOf(KEY_ARGS_SET to setWord)
+                )
             }
-            binding.backwardImg.setOnClickListener{
+            binding.backwardImg.setOnClickListener { backBtn ->
+                val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+                backBtn.startAnimation(animation)
                 findNavController().popBackStack()
             }
 

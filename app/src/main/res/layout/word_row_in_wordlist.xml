@@ -17,19 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:background="@drawable/clicked_item_bg">
-
-
-        <!--        <androidx.appcompat.widget.AppCompatImageView-->
-        <!--            android:id="@+id/is_favourite_star_img"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/api_txt"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/en_word_text"-->
-        <!--            app:setStarMinimal="@{minimalWord}"-->
-        <!--            tools:src="@drawable/ic_baseline_star_24" />-->
+        android:background="@drawable/white_ripple_effect"
+        android:paddingHorizontal="10dp">
 
         <com.varunest.sparkbutton.SparkButton
             android:id="@+id/is_favourite_star_img"
@@ -75,6 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
+            android:background="?selectableItemBackgroundBorderless"
             android:padding="5dp"
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/api_txt"

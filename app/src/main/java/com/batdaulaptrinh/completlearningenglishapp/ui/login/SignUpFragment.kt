@@ -12,6 +12,8 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -99,9 +101,19 @@ class SignUpFragment : Fragment() {
 
         }
         binding.avatarCv.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, CHOOSEIMAGECODE)
+            val animation = AnimationUtils.loadAnimation(context,R.anim.press_view_alpla)
+            animation.setAnimationListener(object:Animation.AnimationListener{
+                override fun onAnimationStart(p0: Animation?) {}
+
+                override fun onAnimationEnd(p0: Animation?) {
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+                    startActivityForResult(intent, CHOOSEIMAGECODE)
+                }
+
+                override fun onAnimationRepeat(p0: Animation?) {}
+            })
+            it.startAnimation(animation)
         }
         return binding.root
     }

@@ -29,14 +29,16 @@
                 android:id="@+id/backward_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
                 android:src="@drawable/backward_ic" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_tool_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:autoSizeMaxTextSize="20dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -47,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="30dp"
+                android:background="?selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_baseline_search_24" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -99,6 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="?selectableItemBackgroundBorderless"
             android:padding="5dp"
             android:src="@drawable/uk_speaker_ic"
             app:layout_constraintBottom_toTopOf="@id/us_speaker_img"
@@ -112,6 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:background="?selectableItemBackgroundBorderless"
             android:padding="5dp"
             android:src="@drawable/us_speaker_ic"
             app:layout_constraintBottom_toBottomOf="@+id/thumbnail_example_cv"

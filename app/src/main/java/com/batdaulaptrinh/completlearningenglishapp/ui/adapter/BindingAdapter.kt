@@ -4,10 +4,10 @@ import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.util.Base64
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
@@ -53,6 +53,8 @@ fun playSoundFromXML(imageView: ImageView, word: Word?, preferAccent: String) {
             else
                 playSound(word.mp3_uk)
         }
+        val animation = AnimationUtils.loadAnimation(imageView.context, R.anim.press_view_alpla)
+        imageView.startAnimation(animation)
     }
 }
 
@@ -73,6 +75,8 @@ fun playSoundMinimalWordFromXML(
                 playSound(minimalWord.mp3_us)
             else
                 playSound(minimalWord.mp3_uk)
+            val animation = AnimationUtils.loadAnimation(imageView.context, R.anim.press_view_alpla)
+            imageView.startAnimation(animation)
         }
     }
 }

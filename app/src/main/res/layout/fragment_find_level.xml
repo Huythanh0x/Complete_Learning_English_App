@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/solid_button_bg"
+            android:background="@drawable/gradient_ripple_effect"
             android:text="TAKE A TEST"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/i_am_beginner_btn"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/outline_button_bg"
+            android:background="@drawable/outline_ripple_effect"
             android:text="I AM BEGINNER"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

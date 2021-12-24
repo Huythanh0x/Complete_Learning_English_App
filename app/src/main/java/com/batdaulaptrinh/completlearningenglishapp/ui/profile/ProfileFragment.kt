@@ -1,12 +1,14 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.profile
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
@@ -20,9 +22,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.databinding.ChangePasswordDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.LogoutDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -30,6 +33,7 @@ class ProfileFragment : Fragment() {
     companion object {
         val KEY_AVATAR = "KEY_AVATAR"
     }
+
     private val CHOOSEIMAGECODE = 11123
     lateinit var binding: FragmentProfileBinding
     lateinit var profileViewModel: ProfileViewModel
@@ -45,7 +49,7 @@ class ProfileFragment : Fragment() {
         binding.dailyGoalSp.onItemSelectedListener = personalGoalSpinnerClickListener
         binding.darkModeSw.setOnCheckedChangeListener { switch, isCheck ->
             profileViewModel.putDarMode(isCheck)
-            Log.d("tesst", isCheck.toString());
+            Log.d("tesst", isCheck.toString())
             if (isCheck) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
@@ -101,9 +105,7 @@ class ProfileFragment : Fragment() {
 
 
         binding.logoutImg.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(context, MainLoginActivity::class.java))
-            activity?.finish()
+            createLogoutDialog()
         }
         binding.editNameBtn.setOnClickListener {
             startEditText(binding.nameInfoTxt)
@@ -118,15 +120,37 @@ class ProfileFragment : Fragment() {
             finishEditText(binding.emailInfoTxt)
         }
         binding.editProfileCv.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, CHOOSEIMAGECODE)
+            val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+            animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(p0: Animation?) {}
+
+                override fun onAnimationEnd(p0: Animation?) {
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+                    startActivityForResult(intent, CHOOSEIMAGECODE)
+                }
+
+                override fun onAnimationRepeat(p0: Animation?) {}
+            })
+            it.startAnimation(animation)
         }
 
         binding.avatarCv.setOnClickListener {
             val bitmap = binding.avatarImg.drawable.toBitmap()
-            findNavController().navigate(R.id.action_navigation_profile_to_showFullSizeAvatar,
-                bundleOf(KEY_AVATAR to bitmap))
+            val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+            animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(p0: Animation?) {}
+
+                override fun onAnimationEnd(p0: Animation?) {
+                    findNavController().navigate(
+                        R.id.action_navigation_profile_to_showFullSizeAvatar,
+                        bundleOf(KEY_AVATAR to bitmap)
+                    )
+                }
+
+                override fun onAnimationRepeat(p0: Animation?) {}
+            })
+            it.startAnimation(animation)
         }
         binding.personalInfoArrowImg.setOnClickListener {
             if (binding.personalInfoExpandableLayout.isExpanded) {
@@ -143,8 +167,27 @@ class ProfileFragment : Fragment() {
                 profileViewModel.expandSetting()
             }
         }
+        binding.changePasswordTxt.setOnClickListener {
+            val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
+            animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(p0: Animation?) {
+//                    TODO("Not yet implemented")
+                }
 
+                override fun onAnimationEnd(p0: Animation?) {
+                    createChangePasswordDialog()
+//                    TODO("Not yet implemented")
+                }
+
+                override fun onAnimationRepeat(p0: Animation?) {
+//                    TODO("Not yet implemented")
+                }
+            })
+            it.startAnimation(animation)
+            createChangePasswordDialog()
+        }
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
         return binding.root
     }
 
@@ -183,12 +226,14 @@ class ProfileFragment : Fragment() {
             fromDegree = 180f
             toDegree = 0f
         }
-        val rotate = RotateAnimation(fromDegree,
+        val rotate = RotateAnimation(
+            fromDegree,
             toDegree,
             Animation.RELATIVE_TO_SELF,
             0.5f,
             Animation.RELATIVE_TO_SELF,
-            0.5f)
+            0.5f
+        )
         rotate.duration = 300
         rotate.fillAfter = true
         rotate.interpolator = LinearInterpolator()
@@ -201,6 +246,52 @@ class ProfileFragment : Fragment() {
                 binding.avatarImg.setImageURI(data.data)
             }
         }
+    }
+
+    fun createChangePasswordDialog() {
+
+        val dialogBinding = DataBindingUtil.inflate<ChangePasswordDialogBinding>(
+            LayoutInflater.from(context),
+            R.layout.change_password_dialog,
+            null,
+            false
+        )
+        val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
+        dialogBinding.saveBtn.setOnClickListener {
+            if (dialogBinding.oldPasswordEdt.text.toString()
+                    .isEmpty() || dialogBinding.confirmNewPasswordEdt.text.toString()
+                    .isEmpty() || dialogBinding.newPasswordEdt.text.toString().isEmpty()
+            ) {
+                return@setOnClickListener
+            }
+            //TODO implement change password here
+        }
+        dialogBinding.discardBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun createLogoutDialog() {
+        val dialogBinding = DataBindingUtil.inflate<LogoutDialogBinding>(
+            LayoutInflater.from(context),
+            R.layout.logout_dialog,
+            null,
+            false
+        )
+        val dialog = AlertDialog.Builder(context).setView(dialogBinding.root).create()
+        dialogBinding.answerYesBtn.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(context, MainLoginActivity::class.java))
+            dialog.dismiss()
+            activity?.finish()
+        }
+        dialogBinding.answerNoBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private val preferAccentSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
