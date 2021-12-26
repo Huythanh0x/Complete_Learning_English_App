@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CompletLearningEnglishApp">
         <activity
+            android:name=".ui.Login.MainLoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.introduction.IntroductionActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
