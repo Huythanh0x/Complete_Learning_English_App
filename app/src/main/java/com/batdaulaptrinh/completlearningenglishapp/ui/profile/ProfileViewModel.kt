@@ -15,6 +15,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     val preferAccentLiveData = MutableLiveData(sharedPreferencesProvider.getPreferAccent())
     val isDarkModeLiveData = MutableLiveData(sharedPreferencesProvider.getIsDarkMode())
     val personalGoalLiveData = MutableLiveData(sharedPreferencesProvider.getPersonalGoal())
+    val preferLearningTimeLiveData =
+        MutableLiveData(sharedPreferencesProvider.getPreferLearningTime())
+    val loopNotificationLiveData = MutableLiveData(sharedPreferencesProvider.getLoopNotification())
+    val rangeNotificationTimeLiveData =
+        MutableLiveData(sharedPreferencesProvider.getRangeNotificationTime())
     val isPersonalExpanded = MutableLiveData<Boolean>(false)
     val isSettingsExpanded = MutableLiveData<Boolean>(false)
 
@@ -100,24 +105,57 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun collapsePersonalInfo(){
+    fun collapsePersonalInfo() {
         isPersonalExpanded.postValue(false)
     }
 
-    fun expandPersonalInfo(){
+    fun expandPersonalInfo() {
         isPersonalExpanded.postValue(true)
-        if(isSettingsExpanded.value!!){
+        if (isSettingsExpanded.value!!) {
             collapseSetting()
         }
     }
-    fun collapseSetting(){
+
+    fun collapseSetting() {
         isSettingsExpanded.postValue(false)
     }
 
-    fun expandSetting(){
+    fun expandSetting() {
         isSettingsExpanded.postValue(true)
-        if(isPersonalExpanded.value!!){
+        if (isPersonalExpanded.value!!) {
             collapsePersonalInfo()
         }
     }
+
+    fun putPreferLearningTime(preferLearningTime: String) {
+        var hourOfDay = preferLearningTime.split(":")[0]
+        var minute = preferLearningTime.split(":")[1]
+        if (minute.toInt() < 10) {
+            minute = "0$minute"
+        }
+        if(hourOfDay.toInt() < 10){
+            hourOfDay = "0$hourOfDay"
+        }
+        preferLearningTimeLiveData.postValue("$hourOfDay:$minute")
+        sharedPreferencesProvider.putPreferLearningTime("$hourOfDay:$minute")
+    }
+
+    fun putRangeNotification(rangeNotificationTime: String) {
+        sharedPreferencesProvider.putRangeNotificationTime(rangeNotificationTime)
+        rangeNotificationTimeLiveData.postValue(rangeNotificationTime)
+    }
+
+    fun putLoopNotification(position: Int) {
+        val loopNotificationTime = when (position) {
+            0 -> 15
+            1 -> 30
+            2 -> 45
+            3 -> 60
+            4 -> 90
+            5 -> 120
+            else -> 30
+        }
+        sharedPreferencesProvider.putLoopNotificationTime(loopNotificationTime)
+    }
+
 }

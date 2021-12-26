@@ -21,8 +21,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import timber.log.Timber
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationView.visibility = View.GONE
             }
         }
+        Timber.plant(Timber.DebugTree())
     }
 
     override fun onSupportNavigateUp(): Boolean {

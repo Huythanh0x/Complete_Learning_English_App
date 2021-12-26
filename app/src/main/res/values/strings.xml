@@ -48,10 +48,21 @@
     <string name="_20s">20s</string>
     <string name="delay_before_moving_to_next_word">Delay before moving to next word</string>
     <string name="signing_up">SIGNING UP</string>
+    <string name="notification_title">This is time to complet your today task</string>
+    <string name="notification_subtitle">subtitle here ................................................</string>
 
     <string-array name="prefer_accent_spinner">
         <item name="us">US</item>
         <item name="uk">UK</item>
+    </string-array>
+
+    <string-array name="remind_word_after">
+        <item name="15">15 minutes</item>
+        <item name="30">30 minutes</item>
+        <item name="45">45 minutes</item>
+        <item name="60">60 minutes</item>
+        <item name="90">90 minutes</item>
+        <item name="120">120 minutes</item>
     </string-array>
 
     <string-array name="daily_goal">

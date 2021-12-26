@@ -118,12 +118,86 @@ class SharePreferencesProvider(val context: Context) {
         return sharePreferencesProvider.getString(Utils.CURRENT_LEVEL, "BEGINNER")!!
     }
 
+    fun putLearnedWord(learnedWord: Int) {
+        sharePreferencesProvider.edit().putInt(Utils.LEARNED_WORD, learnedWord).apply()
+    }
+
+    fun getLearnedWord(): Int {
+        return sharePreferencesProvider.getInt(Utils.LEARNED_WORD, 0)
+    }
+
+    fun putLearnDate(learnedWord: Int) {
+        sharePreferencesProvider.edit().putInt(Utils.LEARNED_DATE, learnedWord).apply()
+    }
+
+    fun getLearnedDate(): Int {
+        return sharePreferencesProvider.getInt(Utils.LEARNED_DATE, 0)
+    }
+
+    fun putCurrentStreak(currentStreak: Int) {
+        sharePreferencesProvider.edit().putInt(Utils.CURRENT_STREAK, currentStreak).apply()
+    }
+
+    fun getCurrentStreak(): Int {
+        return sharePreferencesProvider.getInt(Utils.CURRENT_STREAK, 0)
+    }
+
+    fun putLongestStreak(longestStreak: String) {
+        sharePreferencesProvider.edit().putString(Utils.LONGEST_STREAK, longestStreak).apply()
+    }
+
+    fun getLongestStreak(): String {
+        return sharePreferencesProvider.getString(Utils.LONGEST_STREAK, "0")!!
+    }
+
     fun putPersonalGoal(myGoal: Int) {
         sharePreferencesProvider.edit().putInt(Utils.MY_GOAL, myGoal).apply()
     }
 
     fun getPersonalGoal(): Int {
         return sharePreferencesProvider.getInt(Utils.MY_GOAL, 20)
+    }
+
+    fun putCurrentSetNth(currentSetNth: Int) {
+        sharePreferencesProvider.edit().putInt(Utils.CURRENT_LEVEL, currentSetNth).apply()
+    }
+
+    fun getCurrentSetNth(): Int {
+        return sharePreferencesProvider.getInt(Utils.CURRENT_SET_NTH, 1)
+    }
+
+    fun putLoopNotificationTime(minuteTimeCycle: Int) {
+        sharePreferencesProvider.edit().putInt(Utils.MINUTE_TIME_CYCLE, minuteTimeCycle).apply()
+    }
+
+    fun getLoopNotification(): Int {
+        return sharePreferencesProvider.getInt(Utils.MINUTE_TIME_CYCLE, 1)
+    }
+
+    fun putReminderTime(reminderTime: Int) {
+        sharePreferencesProvider.edit().putInt(Utils.REMINDER_TIME, reminderTime).apply()
+    }
+
+    fun getReminderTime(): Int {
+        return sharePreferencesProvider.getInt(Utils.REMINDER_TIME, 1)
+    }
+
+    fun getPreferLearningTime(): String {
+        return sharePreferencesProvider.getString(Utils.PREFER_LEARNING_TIME, "20:00")!!
+    }
+
+    fun putPreferLearningTime(preferLearningTime: String) {
+        sharePreferencesProvider.edit().putString(Utils.PREFER_LEARNING_TIME, preferLearningTime)
+            .apply()
+    }
+
+    fun getRangeNotificationTime(): String {
+        return sharePreferencesProvider.getString(Utils.PREFER_LEARNING_TIME, "7:00,22:00")!!
+    }
+
+    fun putRangeNotificationTime(rangeNotification: String) {
+        sharePreferencesProvider.edit().putString(Utils.PREFER_LEARNING_TIME, rangeNotification)
+            .apply()
     }
 
 }

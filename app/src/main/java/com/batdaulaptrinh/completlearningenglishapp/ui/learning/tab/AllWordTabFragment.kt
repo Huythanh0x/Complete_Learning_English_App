@@ -61,15 +61,15 @@ class AllWordTabFragment : Fragment() {
         }) { word ->
             if (word.is_favourite == 1) {
                 allWordViewModel.insertFavouriteWord(word._id)
-                MotionToast.createColorToast(
-                    context as Activity,
-                    word.en_word.uppercase(),
-                    "was added to your wordlist",
-                    MotionToastStyle.INFO,
-                    MotionToast.GRAVITY_BOTTOM,
-                    Utils.SUPER_SHORT_DURATION,
-                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
-                )
+//                MotionToast.createColorToast(
+//                    context as Activity,
+//                    word.en_word.uppercase(),
+//                    "was added to your wordlist",
+//                    MotionToastStyle.INFO,
+//                    MotionToast.GRAVITY_BOTTOM,
+//                    Utils.SUPER_SHORT_DURATION,
+//                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+//                )
             } else {
                 allWordViewModel.deleteFavouriteWord(word._id)
             }

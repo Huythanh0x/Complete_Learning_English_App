@@ -58,15 +58,15 @@ class WordListFragment : Fragment() {
         }) { word ->
             if (word.is_favourite == 1) {
                 wordListViewModel.insertFavouriteWord(word._id)
-                MotionToast.createColorToast(
-                    context as Activity,
-                    "${word.en_word}",
-                    "was added to your wordlist",
-                    MotionToastStyle.INFO,
-                    MotionToast.GRAVITY_BOTTOM,
-                    Utils.SUPER_SHORT_DURATION,
-                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
-                )
+//                MotionToast.createColorToast(
+//                    context as Activity,
+//                    "${word.en_word}",
+//                    "was added to your wordlist",
+//                    MotionToastStyle.INFO,
+//                    MotionToast.GRAVITY_BOTTOM,
+//                    Utils.SUPER_SHORT_DURATION,
+//                    ResourcesCompat.getFont(context as Activity, R.font.helvetica_regular)
+//                )
             } else {
                 wordListViewModel.deleteFavouriteWord(word._id)
             }

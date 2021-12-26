@@ -26,8 +26,7 @@
                 android:id="@+id/backward_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="10dp"
-                android:paddingEnd="10dp"
+                android:padding="5dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:src="@drawable/backward_ic" />
 

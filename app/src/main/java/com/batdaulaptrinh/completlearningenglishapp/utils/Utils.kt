@@ -26,7 +26,25 @@ class Utils {
         const val LOCATION = "LOCATION"
         const val JOINED_DATE = "JOINED_DATE"
         const val CURRENT_LEVEL = "CURRENT_LEVEL"
+        const val LEARNED_WORD = "LEARNED_WORD"
+        const val CURRENT_STREAK = "CURRENT_STREAK"
+        const val LEARNED_DATE = "LEARNED_DATE"
+        const val LONGEST_STREAK = "LONGEST_STREAK"
+        const val CURRENT_SET_NTH = "CURRENT_SET_NTH"
+        const val MINUTE_TIME_CYCLE = "MINUTE_TIME_CYCLE"
+        const val REMINDER_TIME = "REMINDER_TIME"
+        const val UNIQUE_NOTIFY_LEARNING_WORD_WORKER = "NOTIFY_LEARNING_WORD_WORKER"
+        const val UNIQUE_REMINDER_WORKER = "REMINDER_WORKER"
+        const val PREFER_LEARNING_TIME = "PREFER_LEARNING_TIME"
+        const val RANGE_NOTIFICATION = "RANGE_NOTIFICATION"
         const val SUPER_SHORT_DURATION = 1000L
+        const val ID_NOTIFY_LEARNING_WORD_WORKER = "ID_NOTIFY_LEARNING_WORD_WORKER"
+        const val ID_REMINDER_WORKER = "ID_REMINDER_WORKER"
+        const val DATA_KEY_LEARNING_NOTIFICATION = "DATA_KEY_FOR_LEARNING_NOTIFY"
+        const val DATA_KEY_REMINDER_NOTIFICATION = "DATA_KEY_REMINDER_NOTIFICATION"
+        const val NOTIFICATION_NAME = "appName"
+        const val NOTIFICATION_CHANNEL = "appName_channel_01"
+        const val NOTIFICATION_WORK = "appName_notification_work"
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,
@@ -220,7 +238,8 @@ class Utils {
         )
 
         fun getListMessage(): ArrayList<Message> = arrayListOf(
-            Message(UUID.randomUUID().toString(),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -232,8 +251,10 @@ class Utils {
                 "well well, hello you",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -245,8 +266,10 @@ class Utils {
                 "I had a boy friend",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -258,8 +281,10 @@ class Utils {
                 "I am just asking for your help",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -271,8 +296,10 @@ class Utils {
                 "SORRY!!! I HAD A BOY FRIEND",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -284,8 +311,10 @@ class Utils {
                 "TEST",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -297,8 +326,10 @@ class Utils {
                 "TEST XXXX",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -310,8 +341,10 @@ class Utils {
                 "TEST YYYY",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -323,8 +356,10 @@ class Utils {
                 "TEST ZZZZ",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -336,8 +371,10 @@ class Utils {
                 "TEST VVVVVVVVVV",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -349,8 +386,10 @@ class Utils {
                 "TEST TTTTTTTTTTs",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -362,8 +401,10 @@ class Utils {
                 "TEST UUUUUUUUUUUUUUUUUUUU",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -375,8 +416,10 @@ class Utils {
                 "TEST WWWWWWWW",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -388,8 +431,10 @@ class Utils {
                 "TEST HHHHHHHHHHHHHHHHH",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -401,8 +446,10 @@ class Utils {
                 "TEST MMMMMMMMMMMMMMMMMMMMM",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -414,8 +461,10 @@ class Utils {
                 "TEST IIIIIIIIIIIIIIIIIIII",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -427,8 +476,10 @@ class Utils {
                 "TEXT OOOOOOOOOOOOOOO",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -440,8 +491,10 @@ class Utils {
                 "TEXT PPPPPPPPPPPP",
                 null,
                 null,
-                false),
-            Message(UUID.randomUUID().toString(),
+                false
+            ),
+            Message(
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 Random.nextBoolean(),
@@ -453,7 +506,8 @@ class Utils {
                 "TEXT BBBBBBBBBBB",
                 null,
                 null,
-                false)
+                false
+            )
         )
 
         fun getRandomString(length: Int): String {

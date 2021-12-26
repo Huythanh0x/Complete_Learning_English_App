@@ -2,6 +2,7 @@ package com.batdaulaptrinh.completlearningenglishapp.ui.profile
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -27,6 +28,7 @@ import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileB
 import com.batdaulaptrinh.completlearningenglishapp.databinding.LogoutDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import timber.log.Timber
 
 
 class ProfileFragment : Fragment() {
@@ -100,6 +102,21 @@ class ProfileFragment : Fragment() {
                 } else {
                     binding.personalInfoExpandableLayout.collapse()
                 }
+            }
+            preferLearningTimeLiveData.observe(viewLifecycleOwner){
+                binding.preferLearningTimeTxt.text = it
+            }
+            loopNotificationLiveData.observe(viewLifecycleOwner){
+                binding.loopNotificationSp.setSelection(when(it) {
+                    15 -> 0
+                    30 -> 1
+                    45 -> 2
+                    60 -> 3
+                    90 -> 4
+                    120 -> 5
+                    else -> 3
+                })
+                Timber.d("$it")
             }
         }
 
@@ -186,6 +203,14 @@ class ProfileFragment : Fragment() {
             it.startAnimation(animation)
             createChangePasswordDialog()
         }
+        binding.preferLearningTimeTxt.setOnClickListener {
+            val timePickerDialogListener =
+                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                    profileViewModel.putPreferLearningTime("$hourOfDay:$minute")
+                }
+            TimePickerDialog(context, timePickerDialogListener, 20, 0, true).show()
+        }
+        binding.loopNotificationSp.onItemSelectedListener = loopNotificationSpinnerClickListener
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         return binding.root
@@ -273,7 +298,7 @@ class ProfileFragment : Fragment() {
         dialog.show()
     }
 
-    fun createLogoutDialog() {
+    private fun createLogoutDialog() {
         val dialogBinding = DataBindingUtil.inflate<LogoutDialogBinding>(
             LayoutInflater.from(context),
             R.layout.logout_dialog,
@@ -310,5 +335,12 @@ class ProfileFragment : Fragment() {
 
         override fun onNothingSelected(p0: AdapterView<*>?) {
         }
+    }
+    private val  loopNotificationSpinnerClickListener = object : AdapterView.OnItemSelectedListener{
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+            profileViewModel.putLoopNotification(position)
+        }
+
+        override fun onNothingSelected(p0: AdapterView<*>?) {}
     }
 }

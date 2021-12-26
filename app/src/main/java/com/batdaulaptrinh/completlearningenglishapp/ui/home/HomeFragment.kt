@@ -1,26 +1,32 @@
 package com.batdaulaptrinh.completlearningenglishapp.ui.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.text.format.DateUtils
+import android.text.format.Time
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.work.*
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentHomeBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.StatisticStreakDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.others.EventDecorator
+import com.batdaulaptrinh.completlearningenglishapp.others.NotifyLearningWordWorker
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.HomePagerAdapter
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.android.material.tabs.TabLayoutMediator
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
+import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
@@ -28,7 +34,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val adapter = HomePagerAdapter(childFragmentManager, lifecycle)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, null, false)
@@ -44,18 +50,58 @@ class HomeFragment : Fragment() {
         binding.includedLayout.root.visibility = View.GONE
 
         //faking here
+        binding.titleToolBar.setOnClickListener {
+            Timber.d("${LocalTime.now()}")
+            val data = Data.Builder().putInt(Utils.ID_NOTIFY_LEARNING_WORD_WORKER, 0).build()
+            scheduleNotification(1000, data)
+        }
+        notifyLearningWord(15)
 
         return binding.root
     }
 
+    private fun createConstraints() = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.NOT_REQUIRED)  // if connected to WIFI
+        .setRequiresCharging(false)
+        .setRequiresBatteryNotLow(true)                 // if the battery is not low
+        .build()
+
+    private fun createWorkRequest(minuteTimeCycle: Long) =
+        PeriodicWorkRequestBuilder<NotifyLearningWordWorker>(minuteTimeCycle, TimeUnit.MINUTES)
+            .setConstraints(createConstraints())
+            .build()
+
+    private fun notifyLearningWord(minuteTimeCycle: Long) {
+
+        /* enqueue a work, ExistingPeriodicWorkPolicy.KEEP means that if this work already exists, it will be kept
+        if the value is ExistingPeriodicWorkPolicy.REPLACE, then the work will be replaced */
+        WorkManager.getInstance(requireContext())
+            .enqueueUniquePeriodicWork(
+                Utils.UNIQUE_NOTIFY_LEARNING_WORD_WORKER, ExistingPeriodicWorkPolicy.REPLACE,
+                createWorkRequest(minuteTimeCycle)
+            )
+    }
+
+    private fun scheduleNotification(delay: Long, data: Data) {
+        val notificationWork = OneTimeWorkRequest.Builder(NotifyLearningWordWorker::class.java)
+            .setInitialDelay(delay, TimeUnit.MILLISECONDS).setInputData(data).build()
+
+        val instanceWorkManager = WorkManager.getInstance(requireContext())
+        instanceWorkManager.beginUniqueWork(
+            Utils.UNIQUE_REMINDER_WORKER,
+            ExistingWorkPolicy.REPLACE,
+            notificationWork
+        ).enqueue()
+    }
+
     private val onlineDateList: MutableList<String> = mutableListOf(
         "2019-01-01",
-        "2021-12-8","2021-12-9","2021-12-10","2021-12-15","2021-12-16","2021-12-19",
+        "2021-12-8", "2021-12-9", "2021-12-10", "2021-12-15", "2021-12-16", "2021-12-19",
         "2019-01-03", "2019-01-04", "2019-01-05", "2019-01-06"
     )
     private val grayDateList: MutableList<String> = mutableListOf(
         "2019-01-09", "2019-01-10", "2019-01-11",
-        "2021-12-8","2021-12-9","2021-12-10","2021-12-15","2021-12-16","2021-12-19",
+        "2021-12-8", "2021-12-9", "2021-12-10", "2021-12-15", "2021-12-16", "2021-12-19",
         "2019-01-24", "2019-01-25", "2019-01-26", "2019-01-27", "2019-01-28", "2019-01-29"
     )
     private val DATE_FORMAT = "yyyy-MM-dd"
