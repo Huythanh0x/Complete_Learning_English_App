@@ -1,5 +1,7 @@
 package com.batdaulaptrinh.completlearningenglishapp.utils
 
+import android.app.ActivityManager
+import android.content.Context
 import com.batdaulaptrinh.completlearningenglishapp.model.ChatRoom
 import com.batdaulaptrinh.completlearningenglishapp.model.Message
 import com.batdaulaptrinh.completlearningenglishapp.model.User
@@ -47,6 +49,18 @@ class Utils {
         const val LEARNING_WORD_NOTIFICATION_NAME = "LEARNING_WORD_NOTIFICATION_NAME"
         const val ID_REMINDER_CHANNEL = "ID_REMINDER_CHANNEL"
         const val ID_NOTIFY_LEARNING_WORD_CHANNEL = "ID_NOTIFY_LEARNING_WORD"
+        private const val packageName = "com.batdaulaptrinh.completlearningenglishapp"
+        fun isAppRunning(context: Context): Boolean {
+            val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            activityManager.runningAppProcesses?.apply {
+                for (processInfo in this) {
+                    if (processInfo.processName == packageName) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,

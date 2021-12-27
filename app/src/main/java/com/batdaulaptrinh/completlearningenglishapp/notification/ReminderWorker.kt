@@ -29,9 +29,8 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
         val id = inputData.getInt(Utils.ID_REMINDER_WORKER, 1)
-        Timber.d("doWork=$id")
+        if (Utils.isAppRunning(applicationContext)) return Result.failure()
         sendNotification(id)
-        Timber.d("sendNotification successfully")
         scheduleForNextDay()
         return Result.success()
     }

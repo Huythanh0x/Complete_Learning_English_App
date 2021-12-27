@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             intent.extras?.getParcelable<Word>(Utils.ID_NOTIFY_LEARNING_WORD_WORKER)
         if (notificationWord != null) {
             Timber.d("GET WORD FROM NOTIFICATION")
+            intent.extras?.putParcelable(Utils.ID_NOTIFY_LEARNING_WORD_WORKER,null)
             findNavController(R.id.nav_host_fragment_container).navigate(
                 R.id.action_navigation_home_to_wordDetailFragment,
                 bundleOf(WordDetailFragment.DETAIL_WORK_KEY to notificationWord)

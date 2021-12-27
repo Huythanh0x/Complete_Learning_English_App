@@ -20,13 +20,12 @@ import android.util.Base64
 import androidx.core.app.NotificationCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.work.*
+import androidx.work.ListenableWorker.Result.failure
 import androidx.work.ListenableWorker.Result.success
 import com.batdaulaptrinh.completlearningenglishapp.MainActivity
-import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
 import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
-import com.bumptech.glide.Glide
 import java.util.concurrent.TimeUnit
 
 class NotifyLearningWordWorker(context: Context, params: WorkerParameters) :
@@ -34,13 +33,12 @@ class NotifyLearningWordWorker(context: Context, params: WorkerParameters) :
     override fun doWork(): Result {
 
         val id = inputData.getLong(Utils.ID_NOTIFY_LEARNING_WORD_WORKER, 0).toInt()
+        if (Utils.isAppRunning(applicationContext)) return failure()
         sendNotification(id)
-
         return success()
     }
 
     private fun sendNotification(id: Int) {
-
         val notificationManager =
             applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
@@ -49,7 +47,8 @@ class NotifyLearningWordWorker(context: Context, params: WorkerParameters) :
             LearningAppDatabase.getInstance(applicationContext).wordDao.getRandomWordFromLearningSet(
                 SharePreferencesProvider(applicationContext).getCurrentSetNth()
             )
-        val decodedString: ByteArray = Base64.decode(randomWordFromLearningSet.thumbnail, Base64.DEFAULT)
+        val decodedString: ByteArray =
+            Base64.decode(randomWordFromLearningSet.thumbnail, Base64.DEFAULT)
         val bitmap =
             BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
 
@@ -58,7 +57,12 @@ class NotifyLearningWordWorker(context: Context, params: WorkerParameters) :
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra(Utils.ID_NOTIFY_LEARNING_WORD_WORKER, randomWordFromLearningSet)
-        val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val notificationBuilder =
             NotificationCompat.Builder(applicationContext, Utils.ID_NOTIFY_LEARNING_WORD_CHANNEL)
                 .setLargeIcon(bitmap).setSmallIcon(IconCompat.createWithBitmap(bitmap))
