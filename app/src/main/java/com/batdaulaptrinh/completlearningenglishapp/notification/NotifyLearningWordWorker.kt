@@ -40,9 +40,6 @@ class NotifyLearningWordWorker(context: Context, params: WorkerParameters) :
     }
 
     private fun sendNotification(id: Int) {
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra(Utils.ID_NOTIFY_LEARNING_WORD_WORKER, id)
 
         val notificationManager =
             applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -58,7 +55,10 @@ class NotifyLearningWordWorker(context: Context, params: WorkerParameters) :
 
         val titleNotification = randomWordFromLearningSet.en_word
         val subtitleNotification = randomWordFromLearningSet.definition
-        val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, 0)
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.putExtra(Utils.ID_NOTIFY_LEARNING_WORD_WORKER, randomWordFromLearningSet)
+        val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         val notificationBuilder =
             NotificationCompat.Builder(applicationContext, Utils.ID_NOTIFY_LEARNING_WORD_CHANNEL)
                 .setLargeIcon(bitmap).setSmallIcon(IconCompat.createWithBitmap(bitmap))

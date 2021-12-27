@@ -8,6 +8,7 @@ import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -16,16 +17,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.*
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainBinding
+import com.batdaulaptrinh.completlearningenglishapp.model.Word
 import com.batdaulaptrinh.completlearningenglishapp.notification.NotifyLearningWordWorker
+import com.batdaulaptrinh.completlearningenglishapp.ui.home.WordDetailFragment
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
 import timber.log.Timber
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 
@@ -44,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, MainLoginActivity::class.java))
             finish()
         }
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment_container)
         val appBarConfiguration = AppBarConfiguration(
@@ -57,12 +64,19 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigationView.setupWithNavController(navController)
         supportActionBar?.hide()
+        val notificationWord =
+            intent.extras?.getParcelable<Word>(Utils.ID_NOTIFY_LEARNING_WORD_WORKER)
+        if (notificationWord != null) {
+            Timber.d("GET WORD FROM NOTIFICATION")
+            findNavController(R.id.nav_host_fragment_container).navigate(
+                R.id.action_navigation_home_to_wordDetailFragment,
+                bundleOf(WordDetailFragment.DETAIL_WORK_KEY to notificationWord)
+            )
+        }
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.navigation_home || destination.id == R.id.navigation_learning || destination.id == R.id.navigation_chat || destination.id == R.id.navigation_profile) {
-
                 binding.bottomNavigationView.visibility = View.VISIBLE
             } else {
-
                 binding.bottomNavigationView.visibility = View.GONE
             }
         }
@@ -75,6 +89,7 @@ class MainActivity : AppCompatActivity() {
             SharePreferencesProvider(applicationContext).getLoopNotification().toLong()
         val notificationWork =
             PeriodicWorkRequestBuilder<NotifyLearningWordWorker>(minuteTimeCycle, TimeUnit.MINUTES)
+                .setInitialDelay(Duration.ofMinutes(minuteTimeCycle))
                 .build()
         WorkManager.getInstance(applicationContext)
             .enqueueUniquePeriodicWork(

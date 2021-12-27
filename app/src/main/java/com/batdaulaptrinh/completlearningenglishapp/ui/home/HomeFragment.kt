@@ -13,7 +13,7 @@ import androidx.work.WorkManager
 import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentHomeBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.StatisticStreakDialogBinding
-import com.batdaulaptrinh.completlearningenglishapp.notification.ReminderWorker
+import com.batdaulaptrinh.completlearningenglishapp.notification.NotifyLearningWordWorker
 import com.batdaulaptrinh.completlearningenglishapp.others.EventDecorator
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.HomePagerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
@@ -53,15 +53,15 @@ class HomeFragment : Fragment() {
         binding.titleToolBar.setOnClickListener {
             Timber.d("${LocalTime.now()}")
             val data = Data.Builder().putInt(Utils.ID_NOTIFY_LEARNING_WORD_WORKER, 0).build()
-            notifyReminder()
+            fakeNotifyLearningWord()
         }
 
         return binding.root
     }
 
-    private fun notifyReminder() {
-        val delay = 1000000L
-        val notificationWork = OneTimeWorkRequest.Builder(ReminderWorker::class.java)
+    private fun fakeNotifyLearningWord() {
+        val delay = 1000L
+        val notificationWork = OneTimeWorkRequest.Builder(NotifyLearningWordWorker::class.java)
             .setInitialDelay(delay, TimeUnit.MILLISECONDS).build()
 
         WorkManager.getInstance(requireContext()).beginUniqueWork(
