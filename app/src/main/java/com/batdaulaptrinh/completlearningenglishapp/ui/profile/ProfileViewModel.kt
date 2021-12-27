@@ -133,7 +133,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         if (minute.toInt() < 10) {
             minute = "0$minute"
         }
-        if(hourOfDay.toInt() < 10){
+        if (hourOfDay.toInt() < 10) {
             hourOfDay = "0$hourOfDay"
         }
         preferLearningTimeLiveData.postValue("$hourOfDay:$minute")
@@ -156,6 +156,19 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             else -> 30
         }
         sharedPreferencesProvider.putLoopNotificationTime(loopNotificationTime)
+    }
+
+    fun isTheSameAsStoredPosition(spinnerPosition: Int): Boolean {
+        val storedPosition = when (sharedPreferencesProvider.getLoopNotification()) {
+            15 -> 0
+            30 -> 1
+            45 -> 2
+            60 -> 3
+            90 -> 4
+            120 -> 5
+            else -> 3
+        }
+        return spinnerPosition == storedPosition
     }
 
 }

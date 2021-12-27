@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
@@ -18,21 +16,23 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
+import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ActivityMainBinding
+import com.batdaulaptrinh.completlearningenglishapp.notification.NotifyLearningWordWorker
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
 import timber.log.Timber
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
-
-
-
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
     private var doubleBackToExitPressedOnce = false
     lateinit var binding: ActivityMainBinding
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
 //        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
 //            setTheme(R.style.DarkTheme)
@@ -66,7 +66,21 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationView.visibility = View.GONE
             }
         }
+        updateNotificationLearningWord()
         Timber.plant(Timber.DebugTree())
+    }
+
+    private fun updateNotificationLearningWord() {
+        val minuteTimeCycle =
+            SharePreferencesProvider(applicationContext).getLoopNotification().toLong()
+        val notificationWork =
+            PeriodicWorkRequestBuilder<NotifyLearningWordWorker>(minuteTimeCycle, TimeUnit.MINUTES)
+                .build()
+        WorkManager.getInstance(applicationContext)
+            .enqueueUniquePeriodicWork(
+                Utils.UNIQUE_NOTIFY_LEARNING_WORD_WORKER, ExistingPeriodicWorkPolicy.REPLACE,
+                notificationWork
+            )
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -77,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        Log.d("FIRST TAG", "\n${navHostFragment.childFragmentManager.backStackEntryCount}")
+        Timber.d("\n" + navHostFragment.childFragmentManager.backStackEntryCount)
         if (binding.bottomNavigationView.selectedItemId == R.id.navigation_home && navHostFragment.childFragmentManager.backStackEntryCount == 0) {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed()
@@ -100,6 +114,5 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
-
     }
 }

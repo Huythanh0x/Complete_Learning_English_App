@@ -5,6 +5,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.batdaulaptrinh.completlearningenglishapp.model.MinimalWord
 import com.batdaulaptrinh.completlearningenglishapp.model.Word
+
 const val MAX_LETTER_OF_WORD = 9
 const val GET_WORD_PER_LEVEL = 20
 
@@ -62,10 +63,15 @@ interface WordDAO {
     @Query("SELECT * FROM word_table WHERE set_nth != :nTh LIMIT 20")
     fun getFakeSetWord(nTh: Int): List<Word>
 
-    @Query("SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'A1' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) UNION " +
-            "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'A2' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM()  LIMIT $GET_WORD_PER_LEVEL) UNION " +
-            "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'B1' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) UNION " +
-            "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'B2' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) UNION " +
-            "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'C1' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) ")
+    @Query(
+        "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'A1' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) UNION " +
+                "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'A2' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM()  LIMIT $GET_WORD_PER_LEVEL) UNION " +
+                "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'B1' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) UNION " +
+                "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'B2' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) UNION " +
+                "SELECT * FROM (SELECT _id,en_word,type,cefr,api_uk,api_us,mp3_uk,mp3_us,is_favourite,add_date FROM word_table where cefr = 'C1' and LENGTH(en_word) < $MAX_LETTER_OF_WORD ORDER BY RANDOM() LIMIT $GET_WORD_PER_LEVEL) "
+    )
     fun getEntranceListWord(): List<MinimalWord>?
+
+    @Query("SELECT * FROM word_table WHERE set_nth != :nTh ORDER BY RANDOM() LIMIT 1")
+    fun getRandomWordFromLearningSet(nTh: Int): Word
 }

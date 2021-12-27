@@ -37,14 +37,16 @@ class Utils {
         const val UNIQUE_REMINDER_WORKER = "REMINDER_WORKER"
         const val PREFER_LEARNING_TIME = "PREFER_LEARNING_TIME"
         const val RANGE_NOTIFICATION = "RANGE_NOTIFICATION"
+        const val RANDOM_WORD_KEY = "RANDOM_WORD_KEY"
         const val SUPER_SHORT_DURATION = 1000L
         const val ID_NOTIFY_LEARNING_WORD_WORKER = "ID_NOTIFY_LEARNING_WORD_WORKER"
         const val ID_REMINDER_WORKER = "ID_REMINDER_WORKER"
         const val DATA_KEY_LEARNING_NOTIFICATION = "DATA_KEY_FOR_LEARNING_NOTIFY"
         const val DATA_KEY_REMINDER_NOTIFICATION = "DATA_KEY_REMINDER_NOTIFICATION"
-        const val NOTIFICATION_NAME = "appName"
-        const val NOTIFICATION_CHANNEL = "appName_channel_01"
-        const val NOTIFICATION_WORK = "appName_notification_work"
+        const val REMIND_NOTIFICATION_NAME = "REMIND_NOTIFICATION_NAME"
+        const val LEARNING_WORD_NOTIFICATION_NAME = "LEARNING_WORD_NOTIFICATION_NAME"
+        const val ID_REMINDER_CHANNEL = "ID_REMINDER_CHANNEL"
+        const val ID_NOTIFY_LEARNING_WORD_CHANNEL = "ID_NOTIFY_LEARNING_WORD"
         fun getWordSet() = arrayListOf(
             WordSet(
                 1,

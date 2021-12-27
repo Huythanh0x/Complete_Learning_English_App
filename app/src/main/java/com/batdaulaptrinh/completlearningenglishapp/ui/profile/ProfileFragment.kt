@@ -22,13 +22,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.work.*
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.databinding.ChangePasswordDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentProfileBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.LogoutDialogBinding
+import com.batdaulaptrinh.completlearningenglishapp.notification.NotifyLearningWordWorker
+import com.batdaulaptrinh.completlearningenglishapp.notification.ReminderWorker
 import com.batdaulaptrinh.completlearningenglishapp.ui.login.MainLoginActivity
+import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
+import org.threeten.bp.DateTimeUtils
 import timber.log.Timber
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalUnit
+import java.util.concurrent.TimeUnit
 
 
 class ProfileFragment : Fragment() {
@@ -103,19 +115,21 @@ class ProfileFragment : Fragment() {
                     binding.personalInfoExpandableLayout.collapse()
                 }
             }
-            preferLearningTimeLiveData.observe(viewLifecycleOwner){
+            preferLearningTimeLiveData.observe(viewLifecycleOwner) {
                 binding.preferLearningTimeTxt.text = it
             }
-            loopNotificationLiveData.observe(viewLifecycleOwner){
-                binding.loopNotificationSp.setSelection(when(it) {
-                    15 -> 0
-                    30 -> 1
-                    45 -> 2
-                    60 -> 3
-                    90 -> 4
-                    120 -> 5
-                    else -> 3
-                })
+            loopNotificationLiveData.observe(viewLifecycleOwner) {
+                binding.loopNotificationSp.setSelection(
+                    when (it) {
+                        15 -> 0
+                        30 -> 1
+                        45 -> 2
+                        60 -> 3
+                        90 -> 4
+                        120 -> 5
+                        else -> 3
+                    }
+                )
                 Timber.d("$it")
             }
         }
@@ -207,8 +221,17 @@ class ProfileFragment : Fragment() {
             val timePickerDialogListener =
                 TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                     profileViewModel.putPreferLearningTime("$hourOfDay:$minute")
+                    updateReminderNotification()
                 }
-            TimePickerDialog(context, timePickerDialogListener, 20, 0, true).show()
+            val olderPreferTime = SharePreferencesProvider(requireContext()).getPreferLearningTime()
+
+            TimePickerDialog(
+                context,
+                timePickerDialogListener,
+                olderPreferTime.split(":")[0].toInt(),
+                olderPreferTime.split(":")[1].toInt(),
+                true
+            ).show()
         }
         binding.loopNotificationSp.onItemSelectedListener = loopNotificationSpinnerClickListener
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
@@ -319,6 +342,46 @@ class ProfileFragment : Fragment() {
         dialog.show()
     }
 
+    private fun updateNotificationLearningWord() {
+        val minuteTimeCycle =
+            SharePreferencesProvider(requireContext()).getLoopNotification().toLong()
+        val notificationWork =
+            PeriodicWorkRequestBuilder<NotifyLearningWordWorker>(minuteTimeCycle, TimeUnit.MINUTES)
+                .setInitialDelay(Duration.ofMinutes(minuteTimeCycle))
+                .build()
+        WorkManager.getInstance(requireContext())
+            .enqueueUniquePeriodicWork(
+                Utils.UNIQUE_NOTIFY_LEARNING_WORD_WORKER, ExistingPeriodicWorkPolicy.REPLACE,
+                notificationWork
+            )
+    }
+    private fun updateReminderNotification() {
+        val preferLearningTime =
+            SharePreferencesProvider(requireContext()).getPreferLearningTime()
+        val alarmTime = LocalTime.of(
+            preferLearningTime.split(":")[0].toInt(),
+            preferLearningTime.split(":")[1].toInt()
+        )
+        var now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)
+        val nowTime = now.toLocalTime()
+        if (nowTime == alarmTime || nowTime.isAfter(alarmTime)) {
+            now = now.plusDays(1)
+        }
+        now = now.withHour(alarmTime.hour)
+            .withMinute(alarmTime.minute) // .withSecond(alarmTime.second).withNano(alarmTime.nano)
+        val delay = Duration.between(LocalDateTime.now(), now)
+
+        val notificationWork = OneTimeWorkRequest.Builder(ReminderWorker::class.java)
+            .setInitialDelay(delay).build()
+
+        WorkManager.getInstance(requireContext()).beginUniqueWork(
+            Utils.UNIQUE_REMINDER_WORKER,
+            ExistingWorkPolicy.REPLACE,
+            notificationWork
+        ).enqueue()
+    }
+
+
     private val preferAccentSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
             profileViewModel.putPreferAccent(position)
@@ -336,9 +399,11 @@ class ProfileFragment : Fragment() {
         override fun onNothingSelected(p0: AdapterView<*>?) {
         }
     }
-    private val  loopNotificationSpinnerClickListener = object : AdapterView.OnItemSelectedListener{
+    private val loopNotificationSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+            if(profileViewModel.isTheSameAsStoredPosition(position)) return
             profileViewModel.putLoopNotification(position)
+            updateNotificationLearningWord()
         }
 
         override fun onNothingSelected(p0: AdapterView<*>?) {}

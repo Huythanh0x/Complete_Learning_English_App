@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.batdaulaptrinh.completlearningenglishapp"
-        minSdk 21
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -39,9 +39,9 @@ android {
 }
 
 dependencies {
-
+    def work_version = "2.7.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation("androidx.work:work-runtime-ktx:$work_version")
     def retrofit_version = "2.8.1"
     def lifecycle_version = "2.4.0"
 
