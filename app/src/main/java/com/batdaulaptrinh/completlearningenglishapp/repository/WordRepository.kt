@@ -77,4 +77,8 @@ class WordRepository(private val wordDao: WordDAO) {
     fun getEntranceListWord(): List<MinimalWord>? {
         return wordDao.getEntranceListWord()
     }
+
+    fun getNumberOfWord(): Int = wordDao.getNumberOfWord()
+
+    fun getNumberOfLearnedWord():Int = wordDao.getNumberOfLearnedWord()
 }

@@ -74,4 +74,8 @@ interface WordDAO {
 
     @Query("SELECT * FROM word_table WHERE set_nth != :nTh ORDER BY RANDOM() LIMIT 1")
     fun getRandomWordFromLearningSet(nTh: Int): Word
+    @Query("SELECT COUNT(_id) FROM word_table")
+    fun getNumberOfWord(): Int
+    @Query("SELECT count(_id) FROM word_table WHERE set_nth != 0")
+    abstract fun getNumberOfLearnedWord(): Int
 }

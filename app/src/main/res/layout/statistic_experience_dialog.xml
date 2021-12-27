@@ -34,7 +34,7 @@
             app:layout_constraintVertical_bias=".1" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/result_level_txt"
+            android:id="@+id/result_level_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/level_advanced_img"
@@ -51,7 +51,7 @@
             app:cardCornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/result_level_txt">
+            app:layout_constraintTop_toBottomOf="@+id/result_level_img">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

@@ -9,40 +9,49 @@ import android.view.animation.AnimationUtils
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.batdaulaptrinh.completlearningenglishapp.R
+import com.batdaulaptrinh.completlearningenglishapp.data.database.LearningAppDatabase
+import com.batdaulaptrinh.completlearningenglishapp.data.sharedPreferences.SharePreferencesProvider
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentTestTabBinding
+import com.batdaulaptrinh.completlearningenglishapp.databinding.StatisticExperienceDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.StatisticStreakDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.others.EventDecorator
+import com.batdaulaptrinh.completlearningenglishapp.repository.WordRepository
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.WordTestRecyclerViewAdapter
 import com.batdaulaptrinh.completlearningenglishapp.ui.home.fourmode.MultipleChoiceFragment
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import org.threeten.bp.LocalDate
+import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class TestTabFragment : Fragment() {
     lateinit var binding: FragmentTestTabBinding
+    lateinit var wordSetViewModel: WordSetViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_test_tab, container, false)
+        val wordDao = LearningAppDatabase.getInstance(requireContext()).wordDao
+        val wordRepository = WordRepository(wordDao)
+        val wordSetViewModelFactory = WordSetViewModelFactory(requireActivity().application, wordRepository)
+        wordSetViewModel = ViewModelProvider(this,wordSetViewModelFactory)[WordSetViewModel::class.java]
+        binding.learnedWordTxt.text = wordSetViewModel.getNumberOfLearnedWord().toString()
 
         binding.experiencePointCv.setOnClickListener { cardView ->
-            val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
-            cardView.startAnimation(animation)
-            val dialog =
-                AlertDialog.Builder(requireContext()).setView(R.layout.statistic_experience_dialog)
-                    .create()
-            dialog.show()
+
+            createExperienceDialog()
         }
 
-        binding.learningDayCv.setOnClickListener { cardView ->
+        binding.learnedDayCv.setOnClickListener { cardView ->
             val animation = AnimationUtils.loadAnimation(context, R.anim.press_view_alpla)
             cardView.startAnimation(animation)
             createStreakDialog()
@@ -58,6 +67,33 @@ class TestTabFragment : Fragment() {
         return binding.root
 
     }
+
+    private fun createExperienceDialog() {
+        val dialogBinding = DataBindingUtil.inflate<StatisticExperienceDialogBinding>(
+            LayoutInflater.from(context),
+            R.layout.statistic_experience_dialog,
+            null,
+            false
+        )
+        val dialog =
+            AlertDialog.Builder(requireContext()).setView(dialogBinding.root)
+                .create()
+        when(SharePreferencesProvider(requireContext()).getCurrentLevel()){
+            "BEGINNER" -> dialogBinding.resultLevelImg.setImageResource(R.drawable.level_beginner_img)
+            "INTERMEDIATE" -> dialogBinding.resultLevelImg.setImageResource(R.drawable.level_intermidiate_img)
+            "ADVANCED" -> dialogBinding.resultLevelImg.setImageResource(R.drawable.level_advanced_img)
+            else -> Timber.e(SharePreferencesProvider(requireContext()).getCurrentLevel())
+        }
+        val currentSet = SharePreferencesProvider(requireContext()).getCurrentSetNth()
+        val personalGoal = SharePreferencesProvider(requireContext()).getPersonalGoal()
+        val numberOfWord = wordSetViewModel.getNumberOfWord()
+        val numberOfLearnedWord = wordSetViewModel.getNumberOfLearnedWord()
+        val maxSet = (numberOfWord - numberOfLearnedWord) / personalGoal
+        dialogBinding.setUnlockTxt.text = "$currentSet/$maxSet"
+        dialogBinding.learnedWordTxt.text = numberOfLearnedWord.toString()
+        dialog.show()
+    }
+
 
     private val onlineDateList: MutableList<String> = mutableListOf(
         "2019-01-01",

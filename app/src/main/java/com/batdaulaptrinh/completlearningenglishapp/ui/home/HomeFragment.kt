@@ -14,6 +14,7 @@ import com.batdaulaptrinh.completlearningenglishapp.R
 import com.batdaulaptrinh.completlearningenglishapp.databinding.FragmentHomeBinding
 import com.batdaulaptrinh.completlearningenglishapp.databinding.StatisticStreakDialogBinding
 import com.batdaulaptrinh.completlearningenglishapp.notification.NotifyLearningWordWorker
+import com.batdaulaptrinh.completlearningenglishapp.notification.ReminderWorker
 import com.batdaulaptrinh.completlearningenglishapp.others.EventDecorator
 import com.batdaulaptrinh.completlearningenglishapp.ui.adapter.HomePagerAdapter
 import com.batdaulaptrinh.completlearningenglishapp.utils.Utils
@@ -47,8 +48,6 @@ class HomeFragment : Fragment() {
         }.attach()
 
         initCalendar()
-        binding.includedLayout.root.visibility = View.GONE
-
         //faking here
         binding.titleToolBar.setOnClickListener {
             Timber.d("${LocalTime.now()}")

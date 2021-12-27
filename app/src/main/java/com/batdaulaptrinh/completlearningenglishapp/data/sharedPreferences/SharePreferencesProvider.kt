@@ -159,11 +159,11 @@ class SharePreferencesProvider(val context: Context) {
     }
 
     fun putCurrentSetNth(currentSetNth: Int) {
-        sharePreferencesProvider.edit().putInt(Utils.CURRENT_LEVEL, currentSetNth).apply()
+        sharePreferencesProvider.edit().putInt(Utils.CURRENT_SET_NTH, currentSetNth).apply()
     }
 
     fun getCurrentSetNth(): Int {
-        return sharePreferencesProvider.getInt(Utils.CURRENT_SET_NTH, 1)
+        return sharePreferencesProvider.getInt(Utils.CURRENT_SET_NTH, 3)
     }
 
     fun putLoopNotificationTime(minuteTimeCycle: Int) {

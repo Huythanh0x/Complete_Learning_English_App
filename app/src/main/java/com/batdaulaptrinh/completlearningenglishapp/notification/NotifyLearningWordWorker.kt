@@ -33,7 +33,7 @@ class NotifyLearningWordWorker(context: Context, params: WorkerParameters) :
     override fun doWork(): Result {
 
         val id = inputData.getLong(Utils.ID_NOTIFY_LEARNING_WORD_WORKER, 0).toInt()
-        if (Utils.isAppRunning(applicationContext)) return failure()
+//        if (Utils.isAppRunning(applicationContext)) return failure()
         sendNotification(id)
         return success()
     }

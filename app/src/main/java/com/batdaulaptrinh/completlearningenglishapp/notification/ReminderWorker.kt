@@ -29,7 +29,8 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
         val id = inputData.getInt(Utils.ID_REMINDER_WORKER, 1)
-        if (Utils.isAppRunning(applicationContext)) return Result.failure()
+        //TODO disable notification when the application is running
+//        if (Utils.isAppRunning(applicationContext)) return Result.failure()
         sendNotification(id)
         scheduleForNextDay()
         return Result.success()
